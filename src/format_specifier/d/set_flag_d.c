@@ -37,5 +37,4 @@ bool is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
 	else if (spec->flag_zero && spec->width && !spec->precision)
 		flag_zero_type_d(spec_res, spec->width, spec->dig_amount, is_negative);
-
 }

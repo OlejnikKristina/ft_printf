@@ -84,11 +84,11 @@ int		main()
 
 	printf("   printf:%12.0d type\n", -4242);
 	ft_printf("ft_printf:%12.0d type\n", -4242);
-
-	printf("   printf:%+20.12d type\n", 4242);
+/*
+	printf("   printf:%20.12u type\n", 2147483697);
 	ft_printf("ft_printf:%+20.12d type\n", 4242);
 
 	printf("   printf:%4.8d type\n", -42);
-	ft_printf("ft_printf:%4.8d type\n", -42);
+	ft_printf("ft_printf:%4.8d type\n", -42);*/
 	return (0);
 }
