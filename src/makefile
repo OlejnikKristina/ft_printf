@@ -14,10 +14,13 @@ NAME		= ft_printf
 COMPILER	= clang-6.0
 CHECK_LEAK	= 
 LIB			= libft/libft.a
-SRC			=	ft_printf.c
 INCLUDES	= ../includes/
+SRC			=	ft_printf.c \
+				init_format_specifier.c \
+				format_specifier/type_d.c
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
+				utility/ft_superjoin.c
 
 home:
 	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES)

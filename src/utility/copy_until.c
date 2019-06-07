@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-bool	copy_until(char *src, char **dest, char percent, s_output *out)
+bool	copy_until(char *src, s_output *out, char percent)
 {
 	int		copy_to;
 	char	*temp;
@@ -32,7 +32,6 @@ bool	copy_until(char *src, char **dest, char percent, s_output *out)
 		ft_strdel(&cut_str);
 		out->size += copy_to;
 	}
-	printf("str->out infunctiond=: %s\n", out->str);
 	ft_strdel(&temp);
-	return ((copy_to != -1) ? COMPLITED : FINISHED);
+	return ((copy_to == -1) ? FINISHED : COMPLITED);
 }

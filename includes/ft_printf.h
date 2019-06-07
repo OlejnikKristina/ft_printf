@@ -20,6 +20,9 @@
 # include <stdio.h>
 # define COMPLITED 1
 # define FINISHED 0
+# define MIN_INT -2147483648
+# define MAX_INT 2147483647
+# define STAR -1
 
 typedef struct	t_format_spec
 {
@@ -41,7 +44,7 @@ typedef struct	t_format_spec
 
 typedef	struct	t_placeholder
 {
-	char		*result;
+	char		*str;
 	ssize_t		len;
 }				s_placeholder;
 
@@ -55,7 +58,13 @@ typedef	struct	t_output
 
 
 int				ft_printf(const char *format, ...);
-bool			copy_until(char *src, char **dest, char percent, s_output *out);
+char			*ft_superjoin(char **s1, const char *s2);
+bool			copy_until(char *src, s_output *out, char percent);
 void			move_ptr(char **input, char move_to, s_output *out);
-
+bool			check_type(char **input, s_format_spec *format_specifier);
+bool			check_length_filed(char **input, s_format_spec *format_specifier);
+bool			check_width_filed(char **input, s_format_spec *format_specifier);
+bool			check_precision(char **input, s_format_spec *format_specifier);
+bool			check_flags(char **input, s_format_spec *format_specifier);
+bool			type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
 # endif

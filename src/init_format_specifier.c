@@ -11,4 +11,90 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
+bool	check_flags(char **input, s_format_spec *format_specifier)
+{
+	if (**input == '-')
+		format_specifier->flag_minus = true;
+	else if (**input == '+')
+		format_specifier->flag_plus = true;
+	else if (**input == ' ')
+		format_specifier->flag_space = true;
+	else if (**input == '0')
+		format_specifier->flag_zero = true;
+	else if (**input == '#')
+		format_specifier->flag_hash = true;
+	else
+		return (false);
+	(*input)++;
+	return (true);
+}
+
+bool	check_precision(char **input, s_format_spec *format_specifier)
+{
+	format_specifier->precision = 0;
+	if ((*input)[0] == '.')
+		(*input)++;
+	else
+		return (false);
+	if (**input == '*')
+	{
+		format_specifier->precision = -1;
+		(*input)++;
+	}
+	else if (ft_isdigit(**input))
+	{
+		format_specifier->precision = ft_atoi(*input);
+		(*input) += ft_count_digit(format_specifier->precision);
+	}
+	return (format_specifier->precision);
+}
+
+bool	check_width_filed(char **input, s_format_spec *format_specifier)
+{
+	format_specifier->width = 0;
+	if (**input == '*')
+	{
+		format_specifier->width = -1;
+		(*input)++;
+	}
+	else if (ft_isdigit(**input))
+	{
+		format_specifier->width = ft_atoi(*input);
+		(*input) += ft_count_digit(format_specifier->width);
+	}
+	return (format_specifier->width);
+}
+
+bool	check_length_filed(char **input, s_format_spec *format_specifier)
+{
+	if (**input == 'h' && (*input)[1] == 'h')
+		format_specifier->len_hh = true;
+	else if (**input == 'h')
+		format_specifier->len_h = true;
+	else if (**input == 'l' && (*input)[1] == 'l')
+		format_specifier->len_ll = true;
+	else if (**input == 'l')
+		format_specifier->len_l = true;
+	else if (**input == 'L')
+		format_specifier->len_L = true;
+	else
+		return (false);
+	if (format_specifier->len_hh || format_specifier->len_ll)
+		(*input)++;
+	(*input)++;
+	return (true);
+}
+
+bool	check_type(char **input, s_format_spec *format_specifier)
+{
+	if (ft_strchr("cspdiouxX", **input))
+	{
+		format_specifier->type = **input;
+		(*input)++;
+	}
+	else
+		return (false);
+	return (true);
+}

@@ -13,89 +13,6 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-bool	check_flags(char **input, s_format_spec *format_specifier)
-{
-	if (**input == '-')
-		format_specifier->flag_minus = true;
-	else if (**input == '+')
-		format_specifier->flag_plus = true;
-	else if (**input == ' ')
-		format_specifier->flag_space = true;
-	else if (**input == '0')
-		format_specifier->flag_zero = true;
-	else if (**input == '#')
-		format_specifier->flag_hash = true;
-	else
-		return (false);
-	(*input)++;
-	return (true);
-}
-
-bool	check_precision(char **input, s_format_spec *format_specifier)
-{
-	format_specifier->precision = 0;
-	if ((*input)[0] == '.')
-		(*input)++;
-	else
-		return (false);
-	if (**input == '*')
-	{
-		format_specifier->precision = -1;
-		(*input)++;
-	}
-	else if (ft_isdigit(**input))
-	{
-		format_specifier->precision = ft_atoi(*input);
-		(*input) += ft_count_digit(format_specifier->precision);
-	}
-	return (format_specifier->precision);
-}
-
-bool	check_width_filed(char **input, s_format_spec *format_specifier)
-{
-	format_specifier->width = 0;
-	if (**input == '*')
-	{
-		format_specifier->width = -1;
-		(*input)++;
-	}
-	else if (ft_isdigit(**input))
-	{
-		format_specifier->width = ft_atoi(*input);
-		(*input) += ft_count_digit(format_specifier->width);
-	}
-	return (format_specifier->width);
-}
-
-bool	check_length_filed(char **input, s_format_spec *format_specifier)
-{
-	if (**input == 'h' && (*input)[1] == 'h')
-		format_specifier->len_hh = true;
-	else if (**input == 'h')
-		format_specifier->len_h = true;
-	else if (**input == 'l' && (*input)[1] == 'l')
-		format_specifier->len_ll = true;
-	else if (**input == 'l')
-		format_specifier->len_l = true;
-	else if (**input == 'L')
-		format_specifier->len_L = true;
-	else
-		return (false);
-	if (format_specifier->len_hh || format_specifier->len_ll)
-		(*input)++;
-	(*input)++;
-	return (true);
-}
-
-bool	check_type(char **input, s_format_spec *format_specifier)
-{
-	if (ft_strchr("cspdiouxX", **input))
-		format_specifier->type = **input;
-	else
-		return (false);
-	return (true);
-}
-
 bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 {
 	check_flags(input, specifier);
@@ -105,34 +22,46 @@ bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 	return (check_type(input, specifier));
 }
 
+bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
+ va_list arg_ptr)
+{
+	return (
+		(specifier->type == 'd' && type_d(specifier, spec_res, arg_ptr))
+	);
+}
+
 bool	read_input(char *input, va_list arg_ptr, s_output *out)
 {
 	s_format_spec	specifier;
-	s_placeholder	result;
-	int				percent_pos;
-	char			*temp;
+	s_placeholder	spec_res;
+	char			*holder;
 
-	while (copy_until(input, &out->str, '%', out) == COMPLITED)
+	while (copy_until(input, out, '%') != FINISHED)
 	{
-		percent_pos = findchr(input, '%') + 1;
-		input += percent_pos;
+		input = ft_strchr(input, '%') + 1;
+		holder = input;
 		if (init_specifier(&input, &specifier, out) == false)
 		{
-			input -= percent_pos - 1;
-			temp = out->str;
-			out->str = ft_strjoin(out->str, "%");
-			ft_strdel(&temp);
+			out->str = ft_superjoin(&out->str, "%");
+			input = holder;
 		}
-		printf("input 1: %s\n", input);
-		printf("str->out 1: %s\n", out->str);
+		else
+		{
+			proccesing_specifier(&specifier, &spec_res, arg_ptr);
+			out->str = ft_superjoin(&out->str, spec_res.str);
+		}
 	}
-	printf("type: %c\n", specifier.type);
-	printf("flag_space: %c\n", specifier.flag_space);
-	printf("width: %zd\n", specifier.width);
-	printf("precision: %zu\n", specifier.precision);
-	printf("len_h: %zu\n", specifier.len_h);
+//	printf("input 1: %s\n", input);
+	printf("%s", out->str);
+	ft_strdel(&spec_res.str);
 	return (FINISHED);
 }
+
+/*	printf("type: %c\n", specifier.type);
+	printf("flag_space: %c\n", specifier.flag_space);
+	printf("width: %zd\n", specifier.width);
+	printf("precision: %zu\n", specifier.precision);*/
+//	printf("len_h: %zd\n", specifier.len_h);
 
 int		ft_printf(const char *format, ...)
 {
@@ -146,7 +75,6 @@ int		ft_printf(const char *format, ...)
 	output.str = ft_strnew(0);
 	if (read_input(input, arg_ptr, &output) == FINISHED)
 	{
-		printf("out->str: %s\n", output.str);
 		ft_strdel(&output.str);
 	}
 	ft_strdel(&input);
@@ -155,15 +83,13 @@ int		ft_printf(const char *format, ...)
 
 int		main()
 {
-	int num_fife;
+	printf("   printf:%.12d type\n", -4242);
+	ft_printf("ft_printf:%.12d type\n", -4242);
 
-	num_fife = 5;
-	printf("|%d|\n", num_fife);
-	ft_printf("Hello %010.10 i am persent");
-/*	printf("%.5s = %0*.*f\n", "value trash", 10, 5, 3.1415926535);
-	printf("%.5s = %010.*f\n", "value trash", 5, 3.1415926535);
-	printf("%.5c = %010.*f\n", 'V', 5, 3.1415926535);
-	printf("|%d| = %010.*f\n", num_fife, 5, 3.1415926535);
-	printf("|%d|\n", num_fife);*/
+	printf("   printf:%12.0d type\n", -4242);
+	ft_printf("ft_printf:%12.0d type\n", -4242);
+
+	printf("   printf:%20.12d type\n", -4242);
+	ft_printf("ft_printf:%20.12d type\n", -4242);
 	return (0);
 }
