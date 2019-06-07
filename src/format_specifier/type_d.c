@@ -137,7 +137,6 @@ bool	type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr)
 {
 	long	type;
 	char	*str_type;
-	bool	remove_minus;
 
 	if (specifier->width == STAR)
 		specifier->width = va_arg(arg_ptr, long);
@@ -153,14 +152,8 @@ bool	type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr)
 	if (type < 0)
 		spec_res->str = ft_superjoin(&spec_res->str, "-");;
 	set_precision(specifier, spec_res, type);
-
-//	remove_minus = ((ft_count_digit(type) < specifier->width) ||
-//	!specifier->precision || ft_count_digit(type) < specifier->precision);
 	if (type < 0)
-	{
-	//	spec_res->str = ft_superjoin(&spec_res->str, "-");;
 		spec_res->str = ft_superjoin(&spec_res->str, &str_type[1]);
-	}
 	else
 		spec_res->str = ft_superjoin(&spec_res->str, str_type);
 	ft_strdel(&str_type);
