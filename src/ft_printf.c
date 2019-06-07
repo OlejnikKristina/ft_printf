@@ -36,6 +36,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	s_placeholder	spec_res;
 	char			*holder;
 
+	ft_bzero((void *)&specifier, sizeof(specifier));
 	while (copy_until(input, out, '%') != FINISHED)
 	{
 		input = ft_strchr(input, '%') + 1;
@@ -57,12 +58,6 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	return (FINISHED);
 }
 
-/*	printf("type: %c\n", specifier.type);
-	printf("flag_space: %c\n", specifier.flag_space);
-	printf("width: %zd\n", specifier.width);
-	printf("precision: %zu\n", specifier.precision);*/
-//	printf("len_h: %zd\n", specifier.len_h);
-
 int		ft_printf(const char *format, ...)
 {
 	va_list		arg_ptr;
@@ -83,13 +78,17 @@ int		ft_printf(const char *format, ...)
 
 int		main()
 {
-	printf("   printf:%+8.4d type\n", 42);
-	ft_printf("ft_printf:%+8.4d type\n", 42);
+	long opss = -9223372036854775807;
+	printf("   printf:%8.4d type\n", -42);
+	ft_printf("ft_printf:%8.4d type\n", -42);
 
 	printf("   printf:%12.0d type\n", -4242);
 	ft_printf("ft_printf:%12.0d type\n", -4242);
 
 	printf("   printf:%+20.12d type\n", 4242);
 	ft_printf("ft_printf:%+20.12d type\n", 4242);
+
+	printf("   printf:%4.8d type\n", -42);
+	ft_printf("ft_printf:%4.8d type\n", -42);
 	return (0);
 }

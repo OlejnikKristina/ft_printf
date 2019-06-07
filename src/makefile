@@ -20,7 +20,8 @@ SRC			=	ft_printf.c \
 				format_specifier/type_d.c
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
-				utility/ft_superjoin.c
+				utility/ft_superjoin.c \
+				utility/pf_itoa.c
 
 home:
 	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES)

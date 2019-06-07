@@ -27,6 +27,8 @@
 typedef struct	t_format_spec
 {
 	char		type;
+	unsigned	dig_amount;
+	bool		is_negative;
 	bool		flag_minus;
 	bool		flag_plus;
 	bool		flag_space;
@@ -67,4 +69,6 @@ bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
 bool			type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
+unsigned		pf_count_digit_l(long nbr);
+char			*pf_itoa_l(long nbr);
 # endif
