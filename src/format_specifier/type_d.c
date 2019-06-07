@@ -90,24 +90,6 @@ long type)
 	add_zeros(&spec_res->str, spec->precision, type, '0');
 	return (true);
 }
-/*
-void	set_width(s_format_spec *spec, s_placeholder *spec_res,
-long type)
-{
-	size_t	len;
-	char	*temp;
-	char	*set_width;
-
-	len = ft_strlen(spec_res->str) + ft_count_digit(type);//4
-	if (!spec->width || spec->width <= len)
-		return ;
-	set_width = ft_strnew(spec->width - len);
-	set_width = ft_memset((void *)set_width, ' ', spec->width - len);
-	temp = spec_res->str;//4242
-	spec_res->str = ft_superjoin(&set_width, spec_res->str);
-	ft_strdel(&temp);
-//	ft_strdel(&set_width);
-}*/
 
 void	set_width(s_format_spec *spec, s_placeholder *spec_res,
 long type)
@@ -118,8 +100,8 @@ long type)
 	char	*set_width;
 
 	digit_amount = ft_count_digit(type);
-//	if (type < 0)
-//		digit_amount++;
+	if (spec->flag_plus)
+		spec->width--;
 	if (!spec->width || spec->width < spec->precision ||
 	spec->width < digit_amount)
 		return ;
@@ -132,7 +114,10 @@ long type)
 	spec_res->str = ft_strnew(len);
 	ft_memset((void *)spec_res->str, ' ', len);
 }
-
+/*
+	if (type < MIN_INT || type > MAX_INT)
+		type = 0;
+*/
 bool	type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr)
 {
 	long	type;
@@ -143,14 +128,14 @@ bool	type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr)
 	if (specifier->precision == STAR)
 		specifier->precision = va_arg(arg_ptr, long);
 	type = va_arg(arg_ptr, int);
-	if (type < MIN_INT || type > MAX_INT)
-		type = 0;
 	str_type = ft_itoa(type);
 	spec_res->str = ft_strnew(0);
 	set_flag_d(specifier, spec_res, type);
 	set_width(specifier, spec_res, type);
+	if (specifier->flag_plus)
+		spec_res->str = ft_superjoin(&spec_res->str, "+");
 	if (type < 0)
-		spec_res->str = ft_superjoin(&spec_res->str, "-");;
+		spec_res->str = ft_superjoin(&spec_res->str, "-");
 	set_precision(specifier, spec_res, type);
 	if (type < 0)
 		spec_res->str = ft_superjoin(&spec_res->str, &str_type[1]);

@@ -83,13 +83,13 @@ int		ft_printf(const char *format, ...)
 
 int		main()
 {
-	printf("   printf:%.12d type\n", -4242);
-	ft_printf("ft_printf:%.12d type\n", -4242);
+	printf("   printf:%+8.4d type\n", 42);
+	ft_printf("ft_printf:%+8.4d type\n", 42);
 
 	printf("   printf:%12.0d type\n", -4242);
 	ft_printf("ft_printf:%12.0d type\n", -4242);
 
-	printf("   printf:%20.12d type\n", -4242);
-	ft_printf("ft_printf:%20.12d type\n", -4242);
+	printf("   printf:%+20.12d type\n", 4242);
+	ft_printf("ft_printf:%+20.12d type\n", 4242);
 	return (0);
 }
