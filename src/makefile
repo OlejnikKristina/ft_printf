@@ -17,7 +17,9 @@ LIB			= libft/libft.a
 INCLUDES	= ../includes/
 SRC			=	ft_printf.c \
 				init_format_specifier.c \
-				format_specifier/type_d.c
+				format_specifier/d/integer.c \
+				format_specifier/d/set_flag_d.c \
+				format_specifier/d/set_precision.c
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
 				utility/ft_superjoin.c \

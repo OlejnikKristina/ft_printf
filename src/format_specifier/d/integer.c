@@ -13,62 +13,6 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-void	flag_zero_type_d(s_placeholder *result, ssize_t width,
- unsigned dig_amount, bool is_negative)
-{
-	int			extra_zeros;
-
-	if (width < dig_amount)
-		return ;
-	extra_zeros = width - dig_amount;
-	result->str = ft_strnew(extra_zeros + ft_strlen(result->str));
-	if (is_negative)
-	{
-		result->str[0] = '-';
-		ft_memset(&result->str[1], '0', extra_zeros - 1);
-	}
-	else
-		ft_memset(result->str, '0', extra_zeros);
-}
-
-bool	add_zeros(unsigned dig_amount, char **result, ssize_t width)
-{
-	int			extra_zeros;
-	char		*zeros_str;
-
-	if (width < dig_amount)
-		return (false);
-	extra_zeros = width - dig_amount;
-	zeros_str = ft_strnew(extra_zeros);
-	ft_memset(zeros_str, '0', extra_zeros);
-	*result = ft_superjoin(result, zeros_str);
-	ft_strdel(&zeros_str);
-	return (true);
-}
-
-void	set_flag_d(s_format_spec *spec, s_placeholder *spec_res,
-bool is_negative)
-{
-	if (spec->flag_space && !is_negative)
-		spec_res->str = ft_superjoin(&spec_res->str, " ");
-	else if (spec->flag_zero && spec->width && !spec->precision)
-		flag_zero_type_d(spec_res, spec->width, spec->dig_amount, is_negative);
-
-}
-
-bool	set_precision(s_format_spec *spec, s_placeholder *spec_res)
-{
-	size_t	len;
-
-	len = ft_strlen(spec_res->str);
-	if (!spec->precision)
-		return (false);
-	if (spec->is_negative)
-		spec->precision += 1;
-	add_zeros(spec->dig_amount, &spec_res->str, spec->precision);
-	return (true);
-}
-
 void	set_width(s_format_spec *spec, s_placeholder *spec_res)
 {
 	size_t	len;

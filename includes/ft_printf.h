@@ -69,6 +69,9 @@ bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
 bool			type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
+void			set_flag_d(s_format_spec *spec, s_placeholder *spec_res,
+				bool is_negative);
+void			set_precision(s_format_spec *spec, s_placeholder *spec_res);
 unsigned		pf_count_digit_l(long nbr);
 char			*pf_itoa_l(long nbr);
 # endif
