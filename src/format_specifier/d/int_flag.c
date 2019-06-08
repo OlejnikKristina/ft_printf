@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	flag_zero_type_d(s_placeholder *result, ssize_t width,
+void	int_flag_zero(s_placeholder *result, ssize_t width,
  unsigned dig_amount, bool is_negative)
 {
 	int			extra_zeros;
@@ -30,12 +30,12 @@ void	flag_zero_type_d(s_placeholder *result, ssize_t width,
 		ft_memset(result->str, '0', extra_zeros);
 }
 
-void	set_flag_d(s_format_spec *spec, s_placeholder *spec_res,
+void	int_flag(s_format_spec *spec, s_placeholder *spec_res,
 bool is_negative)
 {
 	if (spec->flag_space && !is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
 	else if (spec->flag_zero && spec->width && !spec->precision)
-		flag_zero_type_d(spec_res, spec->width, spec->dig_amount, is_negative);
+		int_flag_zero(spec_res, spec->width, spec->dig_amount, is_negative);
 
 }

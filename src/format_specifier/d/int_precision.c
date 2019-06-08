@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
+static void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
 {
 	int			extra_zeros;
 	char		*zeros_str;
@@ -27,7 +27,7 @@ void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
 	return ;
 }
 
-void	set_precision(s_format_spec *spec, s_placeholder *spec_res)
+void	int_precision(s_format_spec *spec, s_placeholder *spec_res)
 {
 	if (!spec->precision)
 		return ;

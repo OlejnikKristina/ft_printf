@@ -26,7 +26,8 @@ bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
  va_list arg_ptr)
 {
 	return (
-		(specifier->type == 'd' && type_d(specifier, spec_res, arg_ptr))
+		(specifier->type == 'd' && integer(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'u' && integer(specifier, spec_res, arg_ptr))
 	);
 }
 
@@ -52,7 +53,6 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			out->str = ft_superjoin(&out->str, spec_res.str);
 		}
 	}
-//	printf("input 1: %s\n", input);
 	printf("%s", out->str);
 	ft_strdel(&spec_res.str);
 	return (FINISHED);
@@ -75,32 +75,32 @@ int		ft_printf(const char *format, ...)
 	ft_strdel(&input);
 	return (0);
 }
-/*
-**	Test report integer type
-**	Check length filed
-**	
-**	INPUT	VA_ARG	itoa	work (?)	org_pf
-**	Regular long
-**	
-**	
-*/
+
 int		main()
 {
 	long				REG_L =  -4200083648;
-	long long 			MIN_LL = -9223372036854775808;
-	unsigned long long	MAX_ULL = 18446744073709551615;
+	long long 			REG_LL = -9223372036854775800;
+	long long 			MINIM_LL = -9223372036854775800;
+	long long 			MAX_LL = 9223372036854775807;
+//	unsigned long long	MAX_UNSLL = 18446744073709551610;
 
-		printf("   printf:%8.4d type\n", MIN_INT);
-	ft_printf("ft_printf:%8.4d type\n\n", MIN_INT);
+//		printf("   printf:%8.4hu type\n", -2147483642);
+//	ft_printf("ft_printf:%8.4hu type\n\n", -2147483642);
 
-	printf("   printf:%8.4d type\n", REG_L);
-	ft_printf("ft_printf:%8.4d type\n\n", REG_L);
+	printf("   printf:%8.4u type\n", 65535);
+	ft_printf("ft_printf:%8.4u type\n\n", 65535);
 
-	printf("   printf:%8.4d type\n", MIN_LL);		//doesn't work
-	ft_printf("ft_printf:%8.4d type\n\n", MIN_LL);	//doesn't work
+	printf("   printf:%u type\n", 1294967294);	
+	ft_printf("ft_printf:%u type\n\n", 1294967294);
 
-	printf("   printf:%8.4llu type\n", MAX_ULL);
-//	ft_printf("ft_printf:%8.4d type\n", MAX_ULL);
+//	printf("   printf:%8.4lu type\n", 4294967295);
+//	ft_printf("ft_printf:%8.4lu type\n\n", 4294967295);
+
+//	printf("   printf:%8.4lld type\n", MINIM_LL);		
+//	ft_printf("ft_printf:%8.4lld type\n\n", MINIM_LL);	
+
+//	printf("   printf:%8.4llu type\n", MAX_UNSLL);
+//	ft_printf("ft_printf:%8.4lld type\n", MAX_UNSLL);
 
 /*	printf("   printf:%12.0d type\n", -4242);
 	ft_printf("ft_printf:%12.0d type\n", -4242);

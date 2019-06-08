@@ -20,8 +20,10 @@
 # include <stdio.h>
 # define COMPLITED 1
 # define FINISHED 0
-# define MIN_INT -2147483648
+# define MIN_INT -2147483642
 # define MAX_INT 2147483647
+# define MIN_LL -9223372036854775807
+# define MAX_ULL 18446744073709551615
 # define STAR -1
 
 typedef struct	t_format_spec
@@ -68,12 +70,19 @@ bool			check_length_filed(char **input, s_format_spec *format_specifier);
 bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
-bool			type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
-void			set_flag_d(s_format_spec *spec, s_placeholder *spec_res,
+bool			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
+void			int_flag(s_format_spec *spec, s_placeholder *spec_res,
 				bool is_negative);
-void			set_precision(s_format_spec *spec, s_placeholder *spec_res);
-unsigned		pf_count_digit_l(long nbr);
+void			int_precision(s_format_spec *spec, s_placeholder *spec_res);
 char			*pf_itoa_l(long nbr);
-unsigned		pf_count_digit_ll(long long nbr);
 char			*pf_itoa_ll(long long nbr);
+char			*pf_itoa_ul(unsigned long nbr);
+char			*pf_itoa_ull(unsigned long long nbr);
+unsigned		pf_count_digit_l(long nbr);
+unsigned		pf_count_digit_ll(long long nbr);
+unsigned		pf_count_digit_ul(unsigned long nbr);
+unsigned		pf_count_digit_ull(unsigned long long nbr);
+char			*int_sign_length(s_format_spec *specifier, va_list arg_ptr);
+char			*int_unsign_length(s_format_spec *specifier, va_list arg_ptr);
+char			*orig_int(s_format_spec *specifier, va_list arg_ptr);
 # endif
