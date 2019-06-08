@@ -39,20 +39,33 @@ void	set_sign(s_format_spec *specifier, s_placeholder *spec_res)
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
 }
 
+void	length_ll(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+{
+	long long data;
+
+	data = va_arg(arg_ptr, long long);
+	specifier->is_negative = data < 0;
+/*	if (specifier->is_negative)//Need MAX/MIN ll protection
+	{
+		specifier->dig_amount = pf_count_digit_l(data * -1);
+		specifier->dig_amount += 1;
+	}*/
+}
+
 bool	type_d(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 {
-	long	type;
-	char	*str_type;
+	long 		type;
+	char		*str_type;
 
 	if (specifier->width == STAR)
 		specifier->width = va_arg(arg_ptr, long);
 	if (specifier->precision == STAR)
 		specifier->precision = va_arg(arg_ptr, long);
-	type = va_arg(arg_ptr, int);
+//	if (specifier->len_ll)
+//		length_ll(specifier, result, arg_ptr);
+	type = va_arg(arg_ptr, long);
 	specifier->dig_amount = pf_count_digit_l(type);
 	specifier->is_negative = type < 0;
-//	printf("%u\n", specifier->is_negative);
-//	(type < MIN_INT || type > MAX_INT) ? type = 0 : 1;
 	str_type = pf_itoa_l(type);
 	result->str = ft_strnew(0);
 	set_flag_d(specifier, result, type < 0);

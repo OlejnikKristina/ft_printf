@@ -75,20 +75,40 @@ int		ft_printf(const char *format, ...)
 	ft_strdel(&input);
 	return (0);
 }
-
+/*
+**	Test report integer type
+**	Check length filed
+**	
+**	INPUT	VA_ARG	itoa	work (?)	org_pf
+**	Regular long
+**	
+**	
+*/
 int		main()
 {
-	long opss = -9223372036854775807;
-	printf("   printf:%8.4d type\n", -42);
-	ft_printf("ft_printf:%8.4d type\n", -42);
+	long				REG_L =  -4200083648;
+	long long 			MIN_LL = -9223372036854775808;
+	unsigned long long	MAX_ULL = 18446744073709551615;
 
-	printf("   printf:%12.0d type\n", -4242);
+		printf("   printf:%8.4d type\n", MIN_INT);
+	ft_printf("ft_printf:%8.4d type\n\n", MIN_INT);
+
+	printf("   printf:%8.4d type\n", REG_L);
+	ft_printf("ft_printf:%8.4d type\n\n", REG_L);
+
+	printf("   printf:%8.4d type\n", MIN_LL);		//doesn't work
+	ft_printf("ft_printf:%8.4d type\n\n", MIN_LL);	//doesn't work
+
+	printf("   printf:%8.4llu type\n", MAX_ULL);
+//	ft_printf("ft_printf:%8.4d type\n", MAX_ULL);
+
+/*	printf("   printf:%12.0d type\n", -4242);
 	ft_printf("ft_printf:%12.0d type\n", -4242);
 
 	printf("   printf:%+20.12d type\n", 4242);
 	ft_printf("ft_printf:%+20.12d type\n", 4242);
 
 	printf("   printf:%4.8d type\n", -42);
-	ft_printf("ft_printf:%4.8d type\n", -42);
+	ft_printf("ft_printf:%4.8d type\n", -42);*/
 	return (0);
 }
