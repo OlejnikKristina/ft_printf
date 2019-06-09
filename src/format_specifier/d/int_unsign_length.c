@@ -12,60 +12,57 @@
 
 #include "ft_printf.h"
 
-static char	*length_ull(s_format_spec *specifier, va_list arg_ptr)
+static char	*length_llu(s_format_spec *specifier, va_list arg_ptr)
 {
-	long long	data;
+	unsigned long long	data;
 
-
-	data = va_arg(arg_ptr, long long);
-	specifier->is_negative = data < 0;
-	if (data < MIN_LL)
-	{
-		specifier->dig_amount = 20;
-		return (ft_strdup("-9223372036854775808"));
-	}
-	specifier->dig_amount = pf_count_digit_ll(data);
-	return (pf_itoa_ll(data));
+	data = va_arg(arg_ptr, unsigned long long);
+	specifier->is_negative = 0;
+	specifier->dig_amount = pf_count_digit_llu(data);
+	return (pf_itoa_llu(data));
 }
 
-static char	*length_ul(s_format_spec *specifier, va_list arg_ptr)
+static char	*length_lu(s_format_spec *specifier, va_list arg_ptr)
 {
-	long	data;
+	unsigned long	data;
 
-	data = va_arg(arg_ptr, long);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = pf_count_digit_l(data);
-	return (pf_itoa_l(data));
+	data = va_arg(arg_ptr, unsigned long);
+	specifier->is_negative = 0;
+	specifier->dig_amount = pf_count_digit_lu(data);
+	return (pf_itoa_lu(data));
 }
+
 
 static char	*orig_unsig_int(s_format_spec *specifier, va_list arg_ptr)
 {
 	unsigned	data;
 
 	data = va_arg(arg_ptr, unsigned);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = pf_count_digit_ll((unsigned)data);
-	return (pf_itoa_ll((unsigned)data));
+	specifier->is_negative = 0;
+	specifier->dig_amount = pf_count_digit_ll(data);
+	return (pf_itoa_ll(data));
 }
 
-static char	*length_uh(s_format_spec *specifier, va_list arg_ptr)
+static char	*length_hh(s_format_spec *specifier, va_list arg_ptr)
 {
-	int	data;
+	unsigned char data;
 
-	data = (short)va_arg(arg_ptr, int);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = ft_count_digit(data);
-	return (ft_itoa(data));
+	data = va_arg(arg_ptr, unsigned char);
+	specifier->is_negative = 0;
+	specifier->dig_amount = ft_count_digit((int)data);
+	return (ft_itoa((int)data));
 }
 
 char	*int_unsign_length(s_format_spec *specifier, va_list arg_ptr)
 {
 	if (specifier->len_ll)
-		return (length_ull(specifier, arg_ptr));
+		return (length_llu(specifier, arg_ptr));
 	else if (specifier->len_l)
-		return (length_ul(specifier, arg_ptr));
+		return (length_lu(specifier, arg_ptr));
 	else if (specifier->len_h)
 		return (orig_int(specifier, arg_ptr));
+	else if (specifier->len_hh)
+		return (length_hh(specifier, arg_ptr));
 	else
 		return (orig_unsig_int(specifier, arg_ptr));
 }

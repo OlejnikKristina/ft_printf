@@ -76,12 +76,12 @@ void			int_flag(s_format_spec *spec, s_placeholder *spec_res,
 void			int_precision(s_format_spec *spec, s_placeholder *spec_res);
 char			*pf_itoa_l(long nbr);
 char			*pf_itoa_ll(long long nbr);
-char			*pf_itoa_ul(unsigned long nbr);
-char			*pf_itoa_ull(unsigned long long nbr);
+char			*pf_itoa_lu(unsigned long nbr);
+char			*pf_itoa_llu(unsigned long long nbr);
 unsigned		pf_count_digit_l(long nbr);
 unsigned		pf_count_digit_ll(long long nbr);
-unsigned		pf_count_digit_ul(unsigned long nbr);
-unsigned		pf_count_digit_ull(unsigned long long nbr);
+unsigned		pf_count_digit_lu(unsigned long nbr);
+unsigned		pf_count_digit_llu(unsigned long long nbr);
 char			*int_sign_length(s_format_spec *specifier, va_list arg_ptr);
 char			*int_unsign_length(s_format_spec *specifier, va_list arg_ptr);
 char			*orig_int(s_format_spec *specifier, va_list arg_ptr);

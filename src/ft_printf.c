@@ -82,22 +82,20 @@ int		main()
 	long long 			REG_LL = -9223372036854775800;
 	long long 			MINIM_LL = -9223372036854775800;
 	long long 			MAX_LL = 9223372036854775807;
-//	unsigned long long	MAX_UNSLL = 18446744073709551610;
+	unsigned long		REG_UL = 10446744073709551610;
+	unsigned long long	MAX_UNSLL = 18446744073709551610;
 
-//		printf("   printf:%8.4hu type\n", -2147483642);
-//	ft_printf("ft_printf:%8.4hu type\n\n", -2147483642);
+		printf("   printf:%8.4hhu type\n", 65535);
+	ft_printf("ft_printf:%8.4hhu type\n\n", 65535);
+/*
+	printf("   printf:%u type\n", 4294967299);	
+	ft_printf("ft_printf:%u type\n\n", 4294967299);
 
-	printf("   printf:%8.4u type\n", 65535);
-	ft_printf("ft_printf:%8.4u type\n\n", 65535);
+	printf("   printf:%8.4lu type\n", REG_UL);
+	ft_printf("ft_printf:%8.4lu type\n\n", REG_UL);
 
-	printf("   printf:%u type\n", 1294967294);	
-	ft_printf("ft_printf:%u type\n\n", 1294967294);
-
-//	printf("   printf:%8.4lu type\n", 4294967295);
-//	ft_printf("ft_printf:%8.4lu type\n\n", 4294967295);
-
-//	printf("   printf:%8.4lld type\n", MINIM_LL);		
-//	ft_printf("ft_printf:%8.4lld type\n\n", MINIM_LL);	
+	printf("   printf:%8.4llu type\n", MAX_UNSLL);		
+	ft_printf("ft_printf:%8.4llu type\n\n", MAX_UNSLL);*/
 
 //	printf("   printf:%8.4llu type\n", MAX_UNSLL);
 //	ft_printf("ft_printf:%8.4lld type\n", MAX_UNSLL);
