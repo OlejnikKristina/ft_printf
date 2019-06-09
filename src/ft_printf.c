@@ -87,7 +87,7 @@ int		main()
 
 		printf("   printf:%8.4hhu type\n", 65535);
 	ft_printf("ft_printf:%8.4hhu type\n\n", 65535);
-/*
+
 	printf("   printf:%u type\n", 4294967299);	
 	ft_printf("ft_printf:%u type\n\n", 4294967299);
 
@@ -95,7 +95,7 @@ int		main()
 	ft_printf("ft_printf:%8.4lu type\n\n", REG_UL);
 
 	printf("   printf:%8.4llu type\n", MAX_UNSLL);		
-	ft_printf("ft_printf:%8.4llu type\n\n", MAX_UNSLL);*/
+	ft_printf("ft_printf:%8.4llu type\n\n", MAX_UNSLL);
 
 //	printf("   printf:%8.4llu type\n", MAX_UNSLL);
 //	ft_printf("ft_printf:%8.4lld type\n", MAX_UNSLL);

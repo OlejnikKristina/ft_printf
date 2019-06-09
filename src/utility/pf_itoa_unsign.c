@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-unsigned	pf_count_digit_lu(unsigned long nbr)
+unsigned	count_digitu64(uint64_t nbr)
 {
 	unsigned amount;
 
@@ -30,58 +30,14 @@ unsigned	pf_count_digit_lu(unsigned long nbr)
 	return (amount);
 }
 
-char	*pf_itoa_lu(unsigned long nbr)
+char	*ft_itoau64(uint64_t nbr)
 {
 	int32_t	digit_amount;
 	bool	sign;
 	char	*str;
 
 	sign = 0;
-	digit_amount = pf_count_digit_lu(nbr);
-	str = (char *)malloc(digit_amount + 1);
-	str[digit_amount] = '\0';
-	digit_amount--;
-	if (nbr < 0)
-	{
-		sign = 1;
-		nbr = -nbr;
-	}
-	while (0 <= digit_amount)
-	{
-		str[digit_amount] = nbr % 10 + '0';
-		nbr /= 10;
-		--digit_amount;
-	}
-	(sign) ? str[0] = '-' : 1;
-	return (str);
-}
-
-unsigned	pf_count_digit_llu(unsigned long long nbr)
-{
-	unsigned amount;
-
-	amount = 0;
-	if (nbr <= 0)
-	{
-		nbr *= (-1);
-		amount++;
-	}
-	while (nbr)
-	{
-		nbr /= 10;
-		amount++;
-	}
-	return (amount);
-}
-
-char	*pf_itoa_llu(unsigned long long nbr)
-{
-	int32_t	digit_amount;
-	bool	sign;
-	char	*str;
-
-	sign = 0;
-	digit_amount = pf_count_digit_llu(nbr);
+	digit_amount = count_digit64(nbr);
 	str = (char *)malloc(digit_amount + 1);
 	str[digit_amount] = '\0';
 	digit_amount--;

@@ -74,14 +74,13 @@ bool			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_pt
 void			int_flag(s_format_spec *spec, s_placeholder *spec_res,
 				bool is_negative);
 void			int_precision(s_format_spec *spec, s_placeholder *spec_res);
+unsigned		count_digit64u(uint64_t nbr);
+char			*ft_itoa64u(uint64_t nbr);
+
 char			*pf_itoa_l(long nbr);
 char			*pf_itoa_ll(long long nbr);
-char			*pf_itoa_lu(unsigned long nbr);
-char			*pf_itoa_llu(unsigned long long nbr);
 unsigned		pf_count_digit_l(long nbr);
 unsigned		pf_count_digit_ll(long long nbr);
-unsigned		pf_count_digit_lu(unsigned long nbr);
-unsigned		pf_count_digit_llu(unsigned long long nbr);
 char			*int_sign_length(s_format_spec *specifier, va_list arg_ptr);
 char			*int_unsign_length(s_format_spec *specifier, va_list arg_ptr);
 char			*orig_int(s_format_spec *specifier, va_list arg_ptr);

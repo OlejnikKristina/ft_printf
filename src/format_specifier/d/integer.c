@@ -65,3 +65,15 @@ bool	integer(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 	ft_strdel(&str_type);
 	return (true);
 }
+
+/*
+if (specifier->len_ll)
+		return (length_llu(specifier, arg_ptr));
+	else if (specifier->len_l)
+		return (length_lu(specifier, arg_ptr));
+	else if (specifier->len_h)
+		return (orig_int(specifier, arg_ptr));
+	else if (specifier->len_hh)
+		return (length_hh(specifier, arg_ptr));
+	else
+		return (orig_unsig_int(specifier, arg_ptr));*/
