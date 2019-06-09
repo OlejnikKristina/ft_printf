@@ -12,20 +12,19 @@
 
 #include "ft_printf.h"
 
-char	*int_unsign_length(s_format_spec *specifier, va_list arg_ptr)
+char	*int_unsign_length(s_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
 
-	if (specifier->len_ll)
-		data = va_arg(arg_ptr, unsigned long long);
-	else if (specifier->len_l)
-		data = va_arg(arg_ptr, unsigned long);
-	else if (specifier->len_h)
-		data = (unsigned short)va_arg(arg_ptr, int);
-	else if (specifier->len_hh)
-		data = (unsigned char)va_arg(arg_ptr, int);
+	if (
+		(spec->len_ll && (data = va_arg(arg_ptr, unsigned long long))) ||
+		(spec->len_l && (data = va_arg(arg_ptr, unsigned long))) ||
+		(spec->len_h && (data = (unsigned short)va_arg(arg_ptr, int))) ||
+		(spec->len_hh && (data = (unsigned char)va_arg(arg_ptr, int))) ||
+		(data = va_arg(arg_ptr, unsigned int)))
+		;
 	else
-		data = va_arg(arg_ptr, unsigned int);
-	specifier->dig_amount = count_digit64u(data);
+		data = 0;
+	spec->dig_amount = count_digit64u(data);
 	return (ft_itoa64u(data));
 }

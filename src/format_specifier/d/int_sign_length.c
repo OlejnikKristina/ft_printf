@@ -12,59 +12,20 @@
 
 #include "ft_printf.h"
 
-static char	*length_ll(s_format_spec *specifier, va_list arg_ptr)
+char	*int_sign_length(s_format_spec *spec, va_list arg_ptr)
 {
-	long long	data;
+	int64_t		data;
 
-	data = va_arg(arg_ptr, long long);
-	specifier->is_negative = data < 0;
-	if (data < MIN_LL)
-	{
-		specifier->dig_amount = 20;
-		return (ft_strdup("-9223372036854775808"));
-	}
-	specifier->dig_amount = pf_count_digit_ll(data);
-	return (pf_itoa_ll(data));
-}
-
-static char	*length_l(s_format_spec *specifier, va_list arg_ptr)
-{
-	long	data;
-
-	data = va_arg(arg_ptr, long);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = pf_count_digit_l(data);
-	return (pf_itoa_l(data));
-}
-
-char	*orig_int(s_format_spec *specifier, va_list arg_ptr)
-{
-	int	data;
-
-	data = va_arg(arg_ptr, int);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = ft_count_digit(data);
-	return (ft_itoa(data));
-}
-
-static char	*length_h(s_format_spec *specifier, va_list arg_ptr)
-{
-	short	data;
-
-	data = (short)va_arg(arg_ptr, int);
-	specifier->is_negative = data < 0;
-	specifier->dig_amount = ft_count_digit((int)data);
-	return (ft_itoa(data));
-}
-
-char	*int_sign_length(s_format_spec *specifier, va_list arg_ptr)
-{
-	if (specifier->len_ll)
-		return (length_ll(specifier, arg_ptr));
-	else if (specifier->len_l)
-		return (length_l(specifier, arg_ptr));
-	else if (specifier->len_h)
-		return (length_h(specifier, arg_ptr));
+	if (
+		(spec->len_ll && (data = va_arg(arg_ptr, long long))) ||
+		(spec->len_l && (data = va_arg(arg_ptr, long))) ||
+		(spec->len_h && (data = (short)va_arg(arg_ptr, int))) ||
+		(spec->len_hh && (data = (char)va_arg(arg_ptr, int))) ||
+		(data = va_arg(arg_ptr, int)))
+		;
 	else
-		return (orig_int(specifier, arg_ptr));
+		data = 0;
+	spec->is_negative = data < 0;
+	spec->dig_amount = count_digit64(data);
+	return (ft_itoa64(data));
 }

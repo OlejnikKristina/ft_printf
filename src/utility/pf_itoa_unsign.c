@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-unsigned	count_digitu64(uint64_t nbr)
+unsigned	count_digit64u(uint64_t nbr)
 {
 	unsigned amount;
 
@@ -30,14 +30,14 @@ unsigned	count_digitu64(uint64_t nbr)
 	return (amount);
 }
 
-char	*ft_itoau64(uint64_t nbr)
+char	*ft_itoa64u(uint64_t nbr)
 {
 	int32_t	digit_amount;
 	bool	sign;
 	char	*str;
 
 	sign = 0;
-	digit_amount = count_digit64(nbr);
+	digit_amount = count_digit64u(nbr);
 	str = (char *)malloc(digit_amount + 1);
 	str[digit_amount] = '\0';
 	digit_amount--;
