@@ -12,6 +12,24 @@
 
 #include "ft_printf.h"
 
+void	int_sign(s_format_spec *specifier, s_placeholder *spec_res)
+{
+	if (specifier->is_negative)
+		spec_res->str = ft_superjoin(&spec_res->str, "-");
+	else if (specifier->flag_plus)
+		spec_res->str = ft_superjoin(&spec_res->str, "+");
+}
+
+void	int_flag_minus(s_format_spec *spec, s_placeholder *result)
+{
+	char *set_width;
+
+	set_width = ft_strnew(spec->width + 1);
+	set_width = ft_memset((void *)set_width, ' ', spec->width);
+	result->str = ft_superjoin(&result->str, set_width);
+	
+}
+
 void	int_flag_zero(s_placeholder *result, ssize_t width,
  unsigned dig_amount, bool is_negative)
 {
@@ -37,5 +55,4 @@ bool is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
 	else if (spec->flag_zero && spec->width && !spec->precision)
 		int_flag_zero(spec_res, spec->width, spec->dig_amount, is_negative);
-
 }

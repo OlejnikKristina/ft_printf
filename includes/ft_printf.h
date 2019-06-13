@@ -73,18 +73,13 @@ bool			check_flags(char **input, s_format_spec *format_specifier);
 bool			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
 void			int_flag(s_format_spec *spec, s_placeholder *spec_res,
 				bool is_negative);
-void			int_precision(s_format_spec *spec, s_placeholder *spec_res);
+
 unsigned		count_digit64u(uint64_t nbr);
 char			*ft_itoa64u(uint64_t nbr);
 
 unsigned		count_digit64(int64_t nbr);
 char			*ft_itoa64(int64_t nbr);
-
-char			*pf_itoa_l(long nbr);
-char			*pf_itoa_ll(long long nbr);
-unsigned		pf_count_digit_l(long nbr);
-unsigned		pf_count_digit_ll(long long nbr);
-char			*int_sign_length(s_format_spec *specifier, va_list arg_ptr);
-char			*int_unsign_length(s_format_spec *specifier, va_list arg_ptr);
-char			*orig_int(s_format_spec *specifier, va_list arg_ptr);
+void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
+void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
+void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
 # endif
