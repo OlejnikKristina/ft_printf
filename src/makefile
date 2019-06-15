@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME		= ft_printf
-COMPILER	= clang-6.0
+COMPILER	= clang
 CHECK_LEAK	= 
 LIB			= libft/libft.a
 INCLUDES	= ../includes/
