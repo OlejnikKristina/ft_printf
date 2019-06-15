@@ -32,12 +32,12 @@ unsigned	count_digit64(int64_t nbr)
 
 char	*ft_itoa64(int64_t nbr)
 {
-	unsigned	digit_amount;
+	short		digit_amount;
 	bool		sign;
 	char		*str;
 
 	sign = 0;
-	digit_amount = pf_count_digit_l(nbr);
+	digit_amount = count_digit64(nbr);
 	str = (char *)malloc(digit_amount + 1);
 	str[digit_amount] = '\0';
 	digit_amount--;
@@ -58,7 +58,7 @@ char	*ft_itoa64(int64_t nbr)
 
 char	*pf_itoa_ll(long long nbr)
 {
-	unsigned	digit_amount;
+	short		digit_amount;
 	bool		sign;
 	char		*str;
 
@@ -103,25 +103,17 @@ unsigned	count_digit64u(uint64_t nbr)
 char	*ft_itoa64u(uint64_t nbr)
 {
 	int32_t	digit_amount;
-	bool	sign;
 	char	*str;
 
-	sign = 0;
 	digit_amount = count_digit64u(nbr);
 	str = (char *)malloc(digit_amount + 1);
 	str[digit_amount] = '\0';
 	digit_amount--;
-	if (nbr < 0)
-	{
-		sign = 1;
-		nbr = -nbr;
-	}
 	while (0 <= digit_amount)
 	{
 		str[digit_amount] = nbr % 10 + '0';
 		nbr /= 10;
 		--digit_amount;
 	}
-	(sign) ? str[0] = '-' : 1;
 	return (str);
 }

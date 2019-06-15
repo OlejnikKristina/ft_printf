@@ -16,7 +16,7 @@
 # include <stdbool.h>
 # include <stdarg.h>
 # include <unistd.h>
-# include "libft.h"
+# include "../includes/libft.h"
 # include <stdio.h>
 # define COMPLITED 1
 # define FINISHED 0
@@ -82,6 +82,4 @@ char			*ft_itoa64(int64_t nbr);
 void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
 void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
-
-void	test_u();
 # endif

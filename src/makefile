@@ -19,13 +19,14 @@ SRC			=	ft_printf.c \
 				init_format_specifier.c \
 				format_specifier/d/integer.c \
 				format_specifier/d/int_flag.c \
-				format_specifier/d/int_precision.c
+				format_specifier/d/int_precision.c \
+				format_specifier/d/pf_test.c
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
 				utility/ft_superjoin.c \
 				utility/itoa64.c
 
 home:
-	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES)
+	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES) -g
 cheak_leaks:
 	$(COMPILER) -fsanitize=address -g -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES)

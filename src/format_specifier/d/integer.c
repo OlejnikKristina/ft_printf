@@ -17,11 +17,11 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 	size_t	len;
 	char	*temp;
 
+	if (!spec->width || spec->flag_minus ||
+	spec->width <= (spec->dig_amount + spec->precision))
+		return ;
 	if (spec->flag_plus || spec->is_negative)
 		spec->width--;
-	if (!spec->width || spec->width < spec->precision ||
-	spec->width < spec->dig_amount)
-		return ;
 	if (
 		(spec->precision <= spec->width && (len = spec->width - spec->precision)) ||
 		(spec->precision <= spec->dig_amount && (len = spec->width - spec->dig_amount)))

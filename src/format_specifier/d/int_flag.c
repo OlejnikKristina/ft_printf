@@ -22,10 +22,14 @@ void	int_sign(s_format_spec *specifier, s_placeholder *spec_res)
 
 void	int_flag_minus(s_format_spec *spec, s_placeholder *result)
 {
-	char *set_width;
+	int		width;
+	char	*set_width;
 
-	set_width = ft_strnew(spec->width + 1);
-	set_width = ft_memset((void *)set_width, ' ', spec->width);
+	width = spec->width - spec->precision - spec->dig_amount;
+	if (!spec->flag_minus || width <= 0)
+		return ;
+	set_width = ft_strnew(width+ 1);
+	set_width = ft_memset((void *)set_width, ' ', width);
 	result->str = ft_superjoin(&result->str, set_width);
 	
 }
