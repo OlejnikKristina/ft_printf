@@ -26,13 +26,3 @@ void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
 	ft_strdel(&zeros_str);
 	return ;
 }
-
-void	set_precision(s_format_spec *spec, s_placeholder *spec_res)
-{
-	if (!spec->precision)
-		return ;
-	if (spec->is_negative)
-		spec->precision += 1;
-	add_zeros(spec->dig_amount, &spec_res->str, spec->precision);
-	return ;
-}

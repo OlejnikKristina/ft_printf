@@ -18,12 +18,12 @@ INCLUDES	= ../includes/
 SRC			=	ft_printf.c \
 				init_format_specifier.c \
 				format_specifier/d/integer.c \
-				format_specifier/d/set_flag_d.c \
-				format_specifier/d/set_precision.c
+				format_specifier/d/int_flag.c \
+				format_specifier/d/int_precision.c
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
 				utility/ft_superjoin.c \
-				utility/pf_itoa.c
+				utility/itoa64.c
 
 home:
 	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES)

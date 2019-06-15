@@ -20,8 +20,10 @@
 # include <stdio.h>
 # define COMPLITED 1
 # define FINISHED 0
-# define MIN_INT -2147483648
+# define MIN_INT -2147483642
 # define MAX_INT 2147483647
+# define MIN_LL -9223372036854775807
+# define MAX_ULL 18446744073709551615
 # define STAR -1
 
 typedef struct	t_format_spec
@@ -68,11 +70,16 @@ bool			check_length_filed(char **input, s_format_spec *format_specifier);
 bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
-bool			type_d(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
-void			set_flag_d(s_format_spec *spec, s_placeholder *spec_res,
+bool			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
+void			int_flag(s_format_spec *spec, s_placeholder *spec_res,
 				bool is_negative);
-void			set_precision(s_format_spec *spec, s_placeholder *spec_res);
-char			*pf_itoa_l(long nbr);
-char			*pf_itoa_ll(long long nbr);
-unsigned		pf_count_digit_l(long nbr);
+
+unsigned		count_digit64u(uint64_t nbr);
+char			*ft_itoa64u(uint64_t nbr);
+
+unsigned		count_digit64(int64_t nbr);
+char			*ft_itoa64(int64_t nbr);
+void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
+void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
+void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
 # endif
