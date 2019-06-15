@@ -101,22 +101,15 @@ char *ft_strrev(char str_rev[])
 	return (NULL);
 }
 
-char	*ft_itoa_base(long value, unsigned short base, bool uppercase)
+char	*change_base(long value, unsigned short base, char letters[])
 {
-	char		num[21];
-	char		*letters;
-	char		*num_return;
 	unsigned	i;
 	unsigned	mod;
+	char		num[21];
 
 	i = 0;
-	if (value == 0)
-		return (ft_strdup("0"));
 	ft_memset((void *)num, '\0', 21);
-
-	letters = (uppercase) ? ft_strdup("ABCDEFGHIJKLMNOPQRSTUVWXYZ") :
-	ft_strdup("abcdefghijklmnopqrstuvwxyz");
-	while(i < 20)//42 / 11 | 9;  33 / 11 = 3;
+	while(i < 20)
 	{
 		if (value <= 1)
 		{
@@ -136,12 +129,26 @@ char	*ft_itoa_base(long value, unsigned short base, bool uppercase)
 		value /= base;
 		i++;
 	}
-	ft_strdel(&letters);
 	ft_strrev(num);
-	num_return = ft_strdup(num);
-	printf("value: %s\n", num_return);
-	ft_strdel(&num_return);
-	return (NULL);
+	return (ft_strdup(num));
+}
+
+char	*ft_itoa_base(long value, unsigned short base, bool uppercase)
+{
+	char		num[21];
+	char		letters[27];
+	unsigned	i;
+	unsigned	mod;
+
+	i = 0;
+	if (value == 0)
+		return (ft_strdup("0"));
+	if (base == 10)
+		return(ft_itoa64(value));
+	ft_memset((void *)num, '\0', 21);
+	(uppercase) ? ft_strcpy(letters, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") :
+	ft_strcpy(letters, "abcdefghijklmnopqrstuvwxyz");
+	return (change_base(value, base, letters));
 }
 
 int		main()
@@ -150,6 +157,7 @@ int		main()
 	long long			REG_LL = -9223372036854775800;
 	long long			MINIM_LL = -9223372036854775800;
 	long long			MAX_LL = 9223372036854775807;
+	char				*str;
 
 //	test_u();
 /*
@@ -169,15 +177,41 @@ int		main()
 	printf("   printf:%#10.o type\n", 9);
 	printf("   printf:%#10.5X type\n", 42);
 	ft_printf("ft_printf:%#10.5i type\n", -42);*/
-	ft_itoa_base(42, 8, 1);
-	ft_itoa_base(42, 2, 1);
-	ft_itoa_base(142, 11, 1);
-	ft_itoa_base(142, 11, 1);
-	ft_itoa_base(142, 12, 1);
-	ft_itoa_base(142, 13, 1);
-	ft_itoa_base(142, 14, 1);
-	ft_itoa_base(142, 15, 1);
-	ft_itoa_base(142, 16, 1);
-	ft_itoa_base(142, 17, 1);
+	str = ft_itoa_base(42, 8, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(42, 2, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 11, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 12, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 13, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 14, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 15, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 16, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
+	str = ft_itoa_base(142, 17, 1);
+	printf("str: %s\n", str);
+	ft_strdel(&str);
+
 	return (0);
 }
