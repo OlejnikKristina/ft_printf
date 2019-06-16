@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+# include "../includes/libft.h"	
+#include <limits.h>
 
 unsigned	count_digit64(int64_t nbr)
 {
@@ -30,7 +32,7 @@ unsigned	count_digit64(int64_t nbr)
 	return (amount);
 }
 
-char	*ft_itoa64(int64_t nbr)
+char	*itoa64(int64_t nbr)
 {
 	short		digit_amount;
 	bool		sign;
@@ -38,6 +40,8 @@ char	*ft_itoa64(int64_t nbr)
 
 	sign = 0;
 	digit_amount = count_digit64(nbr);
+	if (nbr == LONG_MIN)
+		return (ft_strdup("-9223372036854775808"));
 	str = (char *)malloc(digit_amount + 1);
 	str[digit_amount] = '\0';
 	digit_amount--;
@@ -100,7 +104,7 @@ unsigned	count_digit64u(uint64_t nbr)
 	return (amount);
 }
 
-char	*ft_itoa64u(uint64_t nbr)
+char	*itoa64u(uint64_t nbr)
 {
 	int32_t	digit_amount;
 	char	*str;

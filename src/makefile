@@ -20,11 +20,15 @@ SRC			=	ft_printf.c \
 				format_specifier/d/integer.c \
 				format_specifier/d/int_flag.c \
 				format_specifier/d/int_precision.c \
-				format_specifier/d/pf_test.c
+				format_specifier/d/pf_test.c \
+				format_specifier/type_c.c \
+				format_specifier/type_s.c
+
 UTILITY		=	utility/copy_until.c \
 				utility/move_ptr.c \
 				utility/ft_superjoin.c \
-				utility/itoa64.c
+				utility/itoa64.c \
+				utility/ft_itoa_base.c
 
 home:
 	$(COMPILER) -o $(NAME) $(SRC) $(UTILITY) $(LIB) -I$(INCLUDES) -g

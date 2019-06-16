@@ -22,18 +22,17 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 		return ;
 	if (spec->flag_plus || spec->is_negative)
 		spec->width--;
-	if (
-		(spec->precision <= spec->width && (len = spec->width - spec->precision)) ||
-		(spec->precision <= spec->dig_amount && (len = spec->width - spec->dig_amount)))
-	{
-		if (!spec->flag_minus)
-		{
-			spec_res->str = ft_strnew(len);
-			ft_memset((void *)spec_res->str, ' ', len);
-		}
-		else
-			spec->width = len;
-	}
+	if (spec->flag_hash && ft_strchr("xX", spec->type))
+		spec->width -= 2;
+	if (spec->precision <= spec->dig_amount)
+		len = spec->width - spec->dig_amount;
+	else
+		len = spec->width - spec->precision;
+	spec_res->str = ft_strnew(len);
+	if (spec->flag_zero && !spec->precision)
+		ft_memset((void *)spec_res->str, '0', len);
+	else
+		ft_memset((void *)spec_res->str, ' ', len);
 }
 
 void	int_precision(s_format_spec *spec, s_placeholder *spec_res)
@@ -60,7 +59,7 @@ char	*int_sign_length(s_format_spec *spec, va_list arg_ptr)
 		data = 0;
 	spec->is_negative = data < 0;
 	spec->dig_amount = count_digit64(data);
-	return (ft_itoa64(data));
+	return (itoa64(data));
 }
 
 char	*int_unsign_length(s_format_spec *spec, va_list arg_ptr)
@@ -77,7 +76,14 @@ char	*int_unsign_length(s_format_spec *spec, va_list arg_ptr)
 	else
 		data = 0;
 	spec->dig_amount = count_digit64u(data);
-	return (ft_itoa64u(data));
+	if (spec->type == 'o')
+		return (itoa_base64u(data, 8, 0));
+	if (spec->type == 'x')
+		return (itoa_base64u(data, 16, 0));
+	if (spec->type == 'X')
+		return (itoa_base64u(data, 16, 1));
+	else
+		return (itoa64u(data));
 }
 
 bool	integer(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
@@ -89,12 +95,18 @@ bool	integer(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 		(specifier->precision == STAR && (specifier->precision = va_arg(arg_ptr, long))) ||
 		(specifier->type == 'd' && (str_type = int_sign_length(specifier, arg_ptr))) ||
 		(specifier->type == 'i' && (str_type = int_sign_length(specifier, arg_ptr))) ||
-		(specifier->type == 'u' && (str_type = int_unsign_length(specifier, arg_ptr))))
+		(ft_strchr("uoxX", specifier->type) && (str_type = int_unsign_length(specifier, arg_ptr)))
+		)
 	;
+	if (ft_strchr("oxX", specifier->type))
+	{
+		specifier->dig_amount = ft_strlen(str_type);
+		specifier->flag_space = 0;
+		specifier->flag_plus = 0;
+	}
 	result->str = ft_strnew(0);
-	int_flag(specifier, result, specifier->is_negative);
 	int_width(specifier, result);
-	int_sign(specifier, result);
+	int_flag(specifier, result);
 	int_precision(specifier, result);
 	if (specifier->is_negative)
 		result->str = ft_superjoin(&result->str, &str_type[1]);

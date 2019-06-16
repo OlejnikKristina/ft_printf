@@ -28,10 +28,12 @@ bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 	return (
 		(specifier->type == 'd' && integer(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'i' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'u' && integer(specifier, spec_res, arg_ptr))
-	//	(specifier->type == 'o' && type_oxX(specifier, spec_res, arg_ptr)) ||
-	//	(specifier->type == 'x' && type_oxX(specifier, spec_res, arg_ptr)) ||
-	//	(specifier->type == 'X' && type_oxX(specifier, spec_res, arg_ptr))
+		(specifier->type == 'u' && integer(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'o' && integer(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'x' && integer(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'X' && integer(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 's' && type_s(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr))
 	);
 }
 
@@ -80,138 +82,9 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 
-char *ft_strrev(char str_rev[])
-{
-	unsigned	i;
-	unsigned	end_str;
-	char		temp;
-
-	i = 0;
-	end_str = ft_strlen(str_rev);
-	end_str--;
-	while (i <= (end_str + 1) / 2)
-	{
-		temp = str_rev[i];
-		str_rev[i] = str_rev[end_str];
-		str_rev[end_str] = temp;
-		end_str--;
-		i++;
-	}
-	str_rev[ft_strlen(str_rev)] = '\0';
-	return (NULL);
-}
-
-char	*change_base(long value, unsigned short base, char letters[])
-{
-	unsigned	i;
-	unsigned	mod;
-	char		num[21];
-
-	i = 0;
-	ft_memset((void *)num, '\0', 21);
-	while(i < 20)
-	{
-		if (value <= 1)
-		{
-			mod = value % base;
-			if (0 < mod)
-				num[i] = '1';
-			break ;
-		}
-		else
-		{
-			mod = value % base;
-			if (9 < mod)
-				num[i] = letters[mod - 10];
-			else
-				num[i] = mod + '0';
-		}
-		value /= base;
-		i++;
-	}
-	ft_strrev(num);
-	return (ft_strdup(num));
-}
-
-char	*ft_itoa_base(long value, unsigned short base, bool uppercase)
-{
-	char		num[21];
-	char		letters[27];
-	unsigned	i;
-	unsigned	mod;
-
-	i = 0;
-	if (value == 0)
-		return (ft_strdup("0"));
-	if (base == 10)
-		return(ft_itoa64(value));
-	ft_memset((void *)num, '\0', 21);
-	(uppercase) ? ft_strcpy(letters, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") :
-	ft_strcpy(letters, "abcdefghijklmnopqrstuvwxyz");
-	return (change_base(value, base, letters));
-}
-
 int		main()
 {
-	long				REG_L =  -4200083648;
-	long long			REG_LL = -9223372036854775800;
-	long long			MINIM_LL = -9223372036854775800;
-	long long			MAX_LL = 9223372036854775807;
-	char				*str;
-
-//	test_u();
-/*
-	printf("   printf:%42.20ld type\n", REG_L);
-	ft_printf("ft_printf:%42.20ld type\n", REG_L);
-
-	printf("   printf:%+20.12lld type\n", REG_LL);
-	ft_printf("ft_printf:%+20.12lld type\n\n", REG_LL);
-
-	printf("   printf:%+20.20lld type\n", MINIM_LL);
-	ft_printf("ft_printf:%+20.20lld type\n\n", MINIM_LL);*/
-
-//	printf("   printf:%20.20lld type\n", MAX_LL);
-//	ft_printf("ft_printf:%20.20lld type\n\n", MAX_LL);
-
-/*	printf("   printf:%#10.o type\n", 9);
-	printf("   printf:%#10.o type\n", 9);
-	printf("   printf:%#10.5X type\n", 42);
-	ft_printf("ft_printf:%#10.5i type\n", -42);*/
-	str = ft_itoa_base(42, 8, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(42, 2, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 11, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 12, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 13, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 14, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 15, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 16, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
-	str = ft_itoa_base(142, 17, 1);
-	printf("str: %s\n", str);
-	ft_strdel(&str);
-
+	   printf("%s\n", "Hello Kristi");
+	ft_printf("%s\n", "Hello Kristi");
 	return (0);
 }
