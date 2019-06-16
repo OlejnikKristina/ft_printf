@@ -48,7 +48,7 @@ bool	check_precision(char **input, s_format_spec *format_specifier)
 		format_specifier->precision = ft_atoi(*input);
 		(*input) += ft_count_digit(format_specifier->precision);
 	}
-	return (format_specifier->precision);
+	return (true);
 }
 
 bool	check_width_filed(char **input, s_format_spec *format_specifier)
@@ -87,12 +87,15 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 	return (true);
 }
 
-bool	check_type(char **input, s_format_spec *format_specifier)
+bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
 {
 	if (ft_strchr("cspdiouxX", **input))
 	{
 		format_specifier->type = **input;
 		(*input)++;
+		if (feature && format_specifier->type == 's' &&
+		format_specifier->precision == 0)
+			format_specifier->precision = -42;
 	}
 	else
 		return (false);

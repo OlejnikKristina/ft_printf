@@ -74,7 +74,7 @@ int				ft_printf(const char *format, ...);
 char			*ft_superjoin(char **s1, const char *s2);
 bool			copy_until(char *src, s_output *out, char percent);
 void			move_ptr(char **input, char move_to, s_output *out);
-bool			check_type(char **input, s_format_spec *format_specifier);
+bool			check_type(char **input, s_format_spec *format_specifier, bool feature);
 bool			check_length_filed(char **input, s_format_spec *format_specifier);
 bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);

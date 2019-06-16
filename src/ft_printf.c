@@ -13,13 +13,18 @@
 #include "ft_printf.h"
 #include "libft.h"
 
+bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+
 bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 {
+	bool	feature;
+
+	feature = 0;
 	check_flags(input, specifier);
 	check_width_filed(input, specifier);
-	check_precision(input, specifier);
+	feature = check_precision(input, specifier);
 	check_length_filed(input, specifier);
-	return (check_type(input, specifier));
+	return (check_type(input, specifier, feature));
 }
 
 bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
@@ -33,6 +38,7 @@ bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 		(specifier->type == 'x' && integer(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'X' && integer(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 's' && type_s(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'p' && type_p(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr))
 	);
 }
@@ -82,9 +88,28 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 
+bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+{
+	int64_t	address;
+
+	address = va_arg(arg_ptr, long long);
+	result->str = ft_strdup("0x");
+	result->str = ft_superjoin(&result->str, itoa_base64(address, 16, 0));
+	return (true);
+}
+
 int		main()
 {
-	   printf("%s\n", "Hello Kristi");
-	ft_printf("%s\n", "Hello Kristi");
+	char	**pp;
+	char	*p = "hello";
+	int		*pi;
+	int		num = 31;
+
+	pi = &num;
+	printf("%10p\n", p);
+	ft_printf("%10p\n", p);
+//	printf("%p\n", pi);
+//	printf("address(?): %s\n", itoa_base64((int64_t)p, 16, 0));
+	printf(" \n");
 	return (0);
 }
