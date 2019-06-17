@@ -95,7 +95,7 @@ int		main()
 	printf("%010.6d\n", 42);
 	ft_printf("%010.6d\n", 42);
 
-	printf("\n%010.6s\n", "I belive everuthing gonna be fine\n");
+	printf("%010.6s\n", "I belive everuthing gonna be fine\n");
 	ft_printf("%010.6s\n", "I belive everuthing gonna be fine\n");
 	return (0);
 }
