@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
-
-bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 
 bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 {
@@ -30,13 +27,9 @@ bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
  va_list arg_ptr)
 {
+	if (ft_strchr("diouxX", specifier->type))
+		integer(specifier, spec_res, arg_ptr);
 	return (
-		(specifier->type == 'd' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'i' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'u' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'o' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'x' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'X' && integer(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 's' && type_s(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'p' && type_p(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr))
@@ -88,16 +81,6 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 
-bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
-{
-	int64_t	address;
-
-	address = va_arg(arg_ptr, long long);
-	result->str = ft_strdup("0x");
-	result->str = ft_superjoin(&result->str, itoa_base64(address, 16, 0));
-	return (true);
-}
-
 int		main()
 {
 	char	**pp;
@@ -106,10 +89,13 @@ int		main()
 	int		num = 31;
 
 	pi = &num;
-	printf("%10p\n", p);
-	ft_printf("%10p\n", p);
-//	printf("%p\n", pi);
-//	printf("address(?): %s\n", itoa_base64((int64_t)p, 16, 0));
-	printf(" \n");
+	printf("%25p\n", pi);
+	ft_printf("%25p\n", pi);
+
+	printf("%010.6d\n", 42);
+	ft_printf("%010.6d\n", 42);
+
+	printf("\n%010.6s\n", "I belive everuthing gonna be fine\n");
+	ft_printf("%010.6s\n", "I belive everuthing gonna be fine\n");
 	return (0);
 }

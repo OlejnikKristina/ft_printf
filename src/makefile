@@ -17,11 +17,13 @@ LIB			= libft/libft.a
 INCLUDES	= ../includes/
 SRC			=	ft_printf.c \
 				init_format_specifier.c \
-				format_specifier/d/integer.c \
-				format_specifier/d/int_flag.c \
-				format_specifier/d/int_precision.c \
-				format_specifier/d/pf_test.c \
+				format_specifier/integer.c \
+				format_specifier/int_flag.c \
+				format_specifier/int_precision.c \
+				format_specifier/pf_test.c \
 				format_specifier/type_c.c \
+				format_specifier/type_p.c \
+				format_specifier/type_f.c \
 				format_specifier/type_s.c
 
 UTILITY		=	utility/copy_until.c \

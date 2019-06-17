@@ -87,4 +87,6 @@ void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
 bool			type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_s(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+bool			type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+
 # endif
