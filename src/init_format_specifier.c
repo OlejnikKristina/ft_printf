@@ -89,7 +89,7 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 
 bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
 {
-	if (ft_strchr("cspdiouxX", **input))
+	if (ft_strchr("cspdiouxXf", **input))
 	{
 		format_specifier->type = **input;
 		(*input)++;
