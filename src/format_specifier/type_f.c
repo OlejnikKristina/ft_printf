@@ -6,13 +6,11 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/18 20:48:58 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/18 21:47:30 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
-void	int_width(s_format_spec *spec, s_placeholder *spec_res);
 
 void	f_rounding(char **float_str)
 {
@@ -71,9 +69,41 @@ void	f_flags(s_format_spec *specifier, s_placeholder *spec_res)
 	
 }
 
-void	f_width(s_format_spec *specifier, s_placeholder *result)
+void	float_width(s_format_spec *spec, s_placeholder *result)
 {
-	specifier->dig_amount = ft_strlen(result->str);
+	char		*holder;
+	char		*fill_width;
+	unsigned	len;
+
+	holder = result->str;
+	spec->dig_amount = ft_strlen(result->str);
+	if (spec->width <= spec->dig_amount)
+		return ;
+	len = spec->width - spec->dig_amount;
+//	fill_width = ft_strnew(len + 1);
+	if (spec->flag_zero)
+	{
+		if (spec->is_negative)
+		{
+			fill_width = ft_strnew(len + 1);
+			fill_width[0] = '-';
+			ft_memset((void *)&fill_width[1], '0', len);
+		}
+		fill_width = ft_strnew(len);
+		ft_memset((void *)fill_width, '0', len);
+	}
+	else
+	{
+		fill_width = ft_strnew(len);
+		ft_memset((void *)fill_width, ' ', len);
+	}
+	if (spec->flag_minus)
+	{
+		result->str = ft_superjoin(&result->str, fill_width);
+		return ;
+	}
+	result->str = ft_superjoin(&fill_width, result->str);
+	ft_strdel(&holder);
 }
 
 bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
@@ -90,16 +120,17 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 		value = (long double)va_arg(arg_ptr, long double);
 	else
 		value = (long double)va_arg(arg_ptr, double);
+	specifier->is_negative = value < 0;
 	if (19 < specifier->precision)
 	{
 		fill_precision = ft_strnew(specifier->precision - 19);
 		ft_memset(fill_precision, '0', specifier->precision - 19);
 		specifier->precision = 19;
 	}
-//	specifier->dig_amount = ft_strlen(result->str);
+	result->str = ft_ftoa(value, result->str, specifier->precision);
 	if (fill_precision)
 		result->str = ft_superjoin(&result->str, fill_precision);
-//	int_width(specifier, result);
+	float_width(specifier, result);
 	f_flags(specifier, result);
 	return (true);
 }
