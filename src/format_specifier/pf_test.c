@@ -70,6 +70,14 @@ static void	test_o()
 	ft_printf("%-12.6hx|\n\n", UCHAR_MAX);*/
 
 }
+/*	printf("%25p\n", pi);
+	ft_printf("%25p\n", pi);
+
+	printf("%010.6d  || %d ||%s\n", 42, -42, "You can make it!");
+	ft_printf("%010.6d  || %d ||%s\n", 42, -42, "You can make it!");
+
+	printf("%010.6s\n", "I belive everuthing gonna be fine\n");
+	ft_printf("%010.6s\n", "I belive everuthing gonna be fine\n");*/
 
 int		pf_test()
 {

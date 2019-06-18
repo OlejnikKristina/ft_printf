@@ -88,24 +88,76 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 
+void	test_float()
+{
+	float	fnum = 3.14199265359;
+	float	flnum = 3.99999999999;
+	float	f42num = 4242.14199060359;
+	float	f32num = 4242.99999999999;
+
+	printf("Number :4242.14199060359\n");
+	printf("Origin :%.30f|\n", f42num);
+	ft_printf("Mine pf:%.30f|\n\n", f42num);
+
+	printf("Origin :%.25f|\n", f42num);
+	ft_printf("Mine pf:%.25f|\n\n", f42num);
+
+	
+	printf("Origin :%.20f|\n", f42num);
+	ft_printf("Mine pf:%.20f|\n\n", f42num);
+	
+	printf("Origin :%.19f|\n", f42num);
+	ft_printf("Mine pf:%.19f|\n\n", f42num);
+
+/*
+
+	printf("Number :3.14199265359\n");
+	printf("Origin :%f|\n", fnum);
+	ft_printf("Mine pf:%f|\n\n", fnum);
+
+		printf("Number :3.99999999999\n");
+	printf("Origin :%.19f|\n", flnum);
+	ft_printf("Mine pf:%.19f|\n\n", flnum);*/
+}
+
 int		main()
 {
 	char	**pp;
 	char	*p = "hello";
 	int		*pi;
 	int		num = 31;
-	float	fnum = 3.14159265359;
+	float	nbr = 3.14199265359;
+	float	flnum = 3.99999999999;
+	float	f42num = 4242.14199060359;
+	float	f32num = 4242.99999999999;
 
-	pi = &num;
-/*	printf("%25p\n", pi);
-	ft_printf("%25p\n", pi);
+/*	printf("Org1:%014f|\n", f42num);
+	printf("Org2:%-14f|\n", f42num);
+	printf("Org3:% 12f|\n", f42num);
+	printf("Org4:%12f|\n", f42num);
+	printf("Number :3.99999999999\n");
+	printf("Origin :%.19f|\n", flnum);
+	ft_printf("Mine pf:%.19f|\n\n", flnum);*/
 
-	printf("%010.6d  || %d ||%s\n", 42, -42, "You can make it!");
-	ft_printf("%010.6d  || %d ||%s\n", 42, -42, "You can make it!");
+	printf("Number :4242.14199060359\n");
+	printf("Origin :%+15.1f|\n", f42num);
+	ft_printf("Mine pf:%.1f|\n\n", f42num);
+/*
+	printf("Origin :%020.3f|\n", f42num);
+	ft_printf("Mine pf:%020.3f|\n\n", f42num);
 
-	printf("%010.6s\n", "I belive everuthing gonna be fine\n");
-	ft_printf("%010.6s\n", "I belive everuthing gonna be fine\n");*/
-	printf("%.40f\n", fnum);
-	ft_printf("  %f\n", fnum);
+	printf("Origin :%-10.1f|\n", f42num);
+	ft_printf("Mine pf:%-10.1f|\n\n", f42num);*/
+
+//	printf("Origin :%.2f|\n", f42num);
+//	ft_printf("Mine pf:%.2f|\n\n", f42num);
+	
+//	printf("Origin :%.1f|\n", f42num);
+//	ft_printf("Mine pf:%.1f|\n\n", f42num);
+/*
+	printf("Number :3.14199265359\n");
+	printf("Origin :%f|\n", fnum);
+	ft_printf("Mine pf:%f|\n\n", fnum);*/
+
 	return (0);
 }

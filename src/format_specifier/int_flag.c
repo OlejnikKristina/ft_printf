@@ -40,5 +40,4 @@ void	int_flag_minus(s_format_spec *spec, s_placeholder *result)
 	set_width = ft_strnew(width + 1);
 	set_width = ft_memset((void *)set_width, ' ', width);
 	result->str = ft_superjoin(&result->str, set_width);
-	
 }

@@ -93,9 +93,12 @@ bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
 	{
 		format_specifier->type = **input;
 		(*input)++;
-		if (feature && format_specifier->type == 's' &&
-		format_specifier->precision == 0)
+		if (feature && format_specifier->type == 's'
+		&& format_specifier->precision == 0)
 			format_specifier->precision = -42;
+		if (!feature && format_specifier->type == 'f'
+		&& format_specifier->precision == 0)
+			format_specifier->precision = 6;
 	}
 	else
 		return (false);
