@@ -20,7 +20,7 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 	if (!spec->width || spec->flag_minus ||
 	spec->width <= (spec->dig_amount + spec->precision))
 		return ;
-	if (spec->flag_plus || spec->is_negative)
+	if (spec->flag_plus && !spec->is_negative && (!spec->flag_zero || spec->precision))
 		spec->width--;
 	if (spec->flag_hash && ft_strchr("xX", spec->type))
 		spec->width -= 2;
@@ -28,11 +28,20 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 		len = spec->width - spec->dig_amount;
 	else
 		len = spec->width - spec->precision;
-	spec_res->str = ft_strnew(len);
-	if (spec->flag_zero && !spec->precision)
-		ft_memset((void *)spec_res->str, '0', len);
+	if (spec->flag_zero && !spec->precision && !spec->flag_minus)
+	{
+		spec_res->str = ft_strnew(len + spec->is_negative);
+		ft_memset((void *)spec_res->str, '0', len + spec->is_negative);
+		if (spec->flag_plus)
+			spec_res->str[0] = '+';
+		if (spec->is_negative)
+			spec_res->str[0] = '-';
+	}
 	else
+	{
+		spec_res->str = ft_strnew(len);
 		ft_memset((void *)spec_res->str, ' ', len);
+	}
 }
 
 void	int_precision(s_format_spec *spec, s_placeholder *spec_res)

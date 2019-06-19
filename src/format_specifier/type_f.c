@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 15:07:46 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 15:48:15 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,22 @@ void	f_rounding(char **float_str)
 	}
 }
 
+void	f_add_exponent(char **exponent_str, char **float_str, unsigned precision)
+{
+	*float_str = ft_superjoin(float_str, ".");
+	if (*exponent_str[0] == '0')
+		add_zeros(0, exponent_str, precision);
+	*float_str = ft_superjoin(float_str, *exponent_str);
+	f_rounding(float_str);
+	ft_strdel(exponent_str);
+}
+
 char	*ft_ftoa(long double num, char *float_str, unsigned precision)
 {
 	long double			real_pres;
 	unsigned long long	exponent;
+	unsigned			i;
 	int					value;
-	unsigned 			i;
 	char				*exponent_str;
 
 	i = 0;
@@ -53,13 +63,8 @@ char	*ft_ftoa(long double num, char *float_str, unsigned precision)
 		}
 		exponent = (num - value) * real_pres;
 		exponent_str = itoa64u(exponent);
-		float_str = ft_superjoin(&float_str, ".");
-		if (exponent_str[0] == '0')
-			add_zeros(0, &exponent_str, precision);
-		float_str = ft_superjoin(&float_str, exponent_str);
-		f_rounding(&float_str);
+		f_add_exponent(&exponent_str, &float_str, precision);
 		float_str[ft_strlen(float_str) - 1] = '\0';
-		ft_strdel(&exponent_str);
 	}
 	return (float_str);
 }
@@ -75,8 +80,8 @@ void	f_flag_zero(bool negative, bool flag_plus, s_placeholder *result, unsigned 
 	ft_memset((void *)zero_str, '0', len);
 	if (negative || flag_plus)
 	{
-		(flag_plus) ? zero_str[0] = '+' : 1 ;
-		(negative) ? zero_str[0] = '-' : 1 ;
+		(flag_plus) ? zero_str[0] = '+' : 1;
+		(negative) ? zero_str[0] = '-' : 1;
 		result->str = ft_superjoin(&zero_str, &result->str[1]);
 	}
 	else
@@ -87,9 +92,9 @@ void	f_flag_zero(bool negative, bool flag_plus, s_placeholder *result, unsigned 
 
 void	f_width(s_format_spec *spec, s_placeholder *result)
 {
-	char		*holder;
-	char		*fill_width;
-	int			len;
+	char	*holder;
+	char	*fill_width;
+	int		len;
 
 	holder = result->str;
 	len = spec->width - ft_strlen(result->str);

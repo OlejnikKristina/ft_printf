@@ -27,15 +27,9 @@ bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
  va_list arg_ptr)
 {
-//	if (ft_strchr("diouxX", specifier->type))
-//		integer(specifier, spec_res, arg_ptr);
+	if (ft_strchr("diouxX", specifier->type))
+		integer(specifier, spec_res, arg_ptr);
 	return (
-		(specifier->type == 'd' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'i' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'u' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'o' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'x' && integer(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'X' && integer(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 's' && type_s(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'p' && type_p(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'f' && type_f(specifier, spec_res, arg_ptr)) ||
@@ -66,7 +60,8 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 		}
 	}
 	printf("%s", out->str);
-	ft_strdel(&spec_res.str);
+	if (spec_res.str)
+		ft_strdel(&spec_res.str);
 	return (FINISHED);
 }
 
@@ -120,48 +115,38 @@ void	test_float()
 	ft_printf("Mine pf:%.19f|\n\n", flnum);*/
 }
 
+void	test_int()
+{
+	printf("Orig pf:%015.1d|\n", -42);
+	ft_printf("Mine pf:%015.1d|\n\n", -42);
+
+	printf("Orig pf:%+015.1d|\n", 42);
+	ft_printf("Mine pf:%+015.1d|\n\n", 42);
+
+	printf("Orig pf:%+d|\n", 42);
+	ft_printf("Mine pf:%+d|\n\n", 42);
+
+	printf("Orig pf:%+15d|\n", -42);
+	ft_printf("Mine pf:%+15d|\n", -42);
+
+	printf("Orig pf:%+015d|\n", 42);
+	ft_printf("Mine pf:%+015d|\n\n", 42);
+
+	printf("Orig pf:%+015d|\n", -42);
+	ft_printf("Mine pf:%+015d|\n\n", -42);
+
+	printf("Orig pf:%015d|\n", 42);
+	ft_printf("Mine pf:%015d|\n", 42);
+
+	printf("Orig pf:%d|\n", 42);
+	ft_printf("Mine pf:%d|\n", 42);
+
+	printf("Orig pf:%d|\n", -42);
+	ft_printf("Mine pf:%d|\n",-42);
+}
+
 int		main()
 {
-	char	**pp;
-	char	*p = "hello";
-	int		*pi;
-	int		num = 31;
-	float	nbr = 3.14199265359;
-	float	flnum = 3.99999999999;
-	float	f42num = -4242.14199060359;
-	float	f32num = 4242.99999999999;
-
-/*	printf("Org1:%014f|\n", f42num);
-	printf("Org2:%-14f|\n", f42num);
-	printf("Org3:% 12f|\n", f42num);
-	printf("Org4:%12f|\n", f42num);
-	printf("Number :3.99999999999\n");
-	printf("Origin :%.19f|\n", flnum);
-	ft_printf("Mine pf:%.19f|\n\n", flnum);*/
-
-	printf("Number :4242.14199060359\n");
-//	ft_printf("Mine pf:%+015.1f|\n\n", f42num); seg fault
-	printf("Origin :% lf|\n", f42num);
-	ft_printf("Mine pf:% lf|\n\n", f42num);
-
-	printf("Origin :% 20lf|\n", f42num);
-	ft_printf("Mine pf:% 20lf|\n\n", f42num);
-/*
-	printf("Origin :%020.3f|\n", f42num);
-	ft_printf("Mine pf:%020.3f|\n\n", f42num);
-
-	printf("Origin :%-10.1f|\n", f42num);
-	ft_printf("Mine pf:%-10.1f|\n\n", f42num);*/
-
-//	printf("Origin :%.2f|\n", f42num);
-//	ft_printf("Mine pf:%.2f|\n\n", f42num);
-	
-//	printf("Origin :%.1f|\n", f42num);
-//	ft_printf("Mine pf:%.1f|\n\n", f42num);
-/*
-	printf("Number :3.14199265359\n");
-	printf("Origin :%f|\n", fnum);
-	ft_printf("Mine pf:%f|\n\n", fnum);*/
-
+	test_float();
 	return (0);
 }

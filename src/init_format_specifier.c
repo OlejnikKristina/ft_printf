@@ -13,21 +13,22 @@
 #include "ft_printf.h"
 #include "libft.h"
 
-bool	check_flags(char **input, s_format_spec *format_specifier)
+bool	check_flags(char **input, s_format_spec *specifier)
 {
-	if (**input == '-')
-		format_specifier->flag_minus = true;
-	else if (**input == '+')
-		format_specifier->flag_plus = true;
-	else if (**input == ' ')
-		format_specifier->flag_space = true;
-	else if (**input == '0')
-		format_specifier->flag_zero = true;
-	else if (**input == '#')
-		format_specifier->flag_hash = true;
-	else
-		return (false);
-	(*input)++;
+	while (ft_strchr("-+ 0#", **input))
+	{
+		if (**input == '-')
+			(specifier->flag_minus = true);
+		if (**input == '+')
+			(specifier->flag_plus = true);
+		if (**input == ' ')
+			(specifier->flag_space = true);
+		if (**input == '0')
+			(specifier->flag_zero = true);
+		if (**input == '#')
+			(specifier->flag_hash = true);
+		(*input)++;
+	}
 	return (true);
 }
 

@@ -12,17 +12,18 @@
 
 #include "ft_printf.h"
 
-void	int_flag(s_format_spec *specifier, s_placeholder *spec_res)
+void	int_flag(s_format_spec *spec, s_placeholder *spec_res)
 {
-	if (specifier->is_negative)
+	if (spec->is_negative && (!spec->flag_zero || spec->precision))
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
-	if (specifier->flag_plus)
+	if (spec->flag_plus && (!spec->flag_zero || spec->precision)
+	 && !spec->is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, "+");
-	if (specifier->flag_space)
+	if (spec->flag_space)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
-	if (specifier->flag_hash && specifier->type == 'x')
+	if (spec->flag_hash && spec->type == 'x')
 		spec_res->str = ft_superjoin(&spec_res->str, "0x");
-	if (specifier->flag_hash && specifier->type == 'X')
+	if (spec->flag_hash && spec->type == 'X')
 		spec_res->str = ft_superjoin(&spec_res->str, "0X");
 }
 
