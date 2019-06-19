@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 18:57:26 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 19:11:00 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,19 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 	if (!spec->width || spec->flag_minus ||
 	spec->width <= (spec->dig_amount + spec->precision))
 		return ;
-	if (spec->flag_plus && !spec->is_negative && (!spec->flag_zero || spec->precision))
+	if (spec->flag_plus && !spec->is_negative
+	&& (!spec->flag_zero || spec->precision))
 		spec->width--;
-	if (spec->flag_hash && ft_strchr("xX", spec->type))
-		spec->width -= 2;
-	if (spec->precision <= spec->dig_amount)
-		len = spec->width - spec->dig_amount;
-	else
-		len = spec->width - spec->precision;
+	(spec->flag_hash && ft_strchr("xX", spec->type)) ? (spec->width -= 2) : 1;
+	(spec->precision <= spec->dig_amount) ?
+	(len = spec->width - spec->dig_amount) :
+	(len = spec->width - spec->precision);
 	if (spec->flag_zero && !spec->precision && !spec->flag_minus)
 	{
 		spec_res->str = ft_strnew(len + spec->is_negative);
 		ft_memset((void *)spec_res->str, '0', len + spec->is_negative);
-		if (spec->flag_plus)
-			spec_res->str[0] = '+';
-		if (spec->is_negative)
-			spec_res->str[0] = '-';
+		(spec->flag_plus) ? spec_res->str[0] = '+' : 1;
+		(spec->is_negative) ? spec_res->str[0] = '-' : 1;
 	}
 	else
 	{
@@ -95,32 +92,31 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		return (itoa64u(data));
 }
 
-bool	integer(s_format_spec *spec, s_placeholder *result, va_list arg_ptr)
+bool	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 {
 	char	*type;
 
 	if (
-		(spec->width == STAR && (spec->width = va_arg(arg_ptr, long))) ||
-		(spec->precision == STAR && (spec->precision = va_arg(arg_ptr, long))) ||
-		(spec->type == 'd' && (type = int_sign_len(spec, arg_ptr))) ||
-		(spec->type == 'i' && (type = int_sign_len(spec, arg_ptr))) ||
-		(ft_strchr("uoxX", spec->type) && (type = int_unsign_len(spec, arg_ptr))))
-	;
-	if (ft_strchr("oxX", spec->type))
+		(s->width == STAR && (s->width = va_arg(arg_ptr, long))) ||
+		(s->precision == STAR && (s->precision = va_arg(arg_ptr, long))) ||
+		(s->type == 'd' && (type = int_sign_len(s, arg_ptr))) ||
+		(s->type == 'i' && (type = int_sign_len(s, arg_ptr))) ||
+		(ft_strchr("uoxX", s->type) && (type = int_unsign_len(s, arg_ptr))))
+		;
+	if (ft_strchr("oxX", s->type))
 	{
-		spec->dig_amount = ft_strlen(type);
-		spec->flag_space = 0;
-		spec->flag_plus = 0;
+		s->dig_amount = ft_strlen(type);
+		s->flag_space = 0;
+		s->flag_plus = 0;
 	}
 	result->str = ft_strnew(0);
-	int_width(spec, result);
-	int_flag(spec, result);
-	int_precision(spec, result);
-	if (spec->is_negative)
-		result->str = ft_superjoin(&result->str, &type[1]);
-	else
-		result->str = ft_superjoin(&result->str, type);
-	int_flag_minus(spec, result);
+	int_width(s, result);
+	int_flag(s, result);
+	int_precision(s, result);
+	(s->is_negative) ?
+	(result->str = ft_superjoin(&result->str, &type[1])) :
+	(result->str = ft_superjoin(&result->str, type));
+	int_flag_minus(s, result);
 	ft_strdel(&type);
 	return (true);
 }

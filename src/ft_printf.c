@@ -82,7 +82,7 @@ int		ft_printf(const char *format, ...)
 	ft_strdel(&input);
 	return (0);
 }
-
+//integer.c Norme
 void	test_float()
 {
 	float	fnum = 3.14199265359;
