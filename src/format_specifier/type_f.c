@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/18 21:47:30 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 13:48:57 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,46 +64,55 @@ char	*ft_ftoa(long double num, char *float_str, unsigned precision)
 	return (float_str);
 }
 
-void	f_flags(s_format_spec *specifier, s_placeholder *spec_res)
+void	f_flags(s_format_spec *s, s_placeholder *result)
 {
-	
+}
+
+void	f_flag_zero(bool is_negative, s_placeholder *result, unsigned len)
+{
+	char		*zero_str;
+	char		*holder;
+
+	(is_negative) ? len++ : 1;
+	holder = result->str;
+	zero_str = ft_strnew(len);
+	ft_memset((void *)zero_str, '0', len);
+	if (is_negative)
+	{
+		zero_str[0] = '-';
+		result->str = ft_superjoin(&zero_str, &result->str[1]);
+	}
+	else
+		result->str = ft_superjoin(&zero_str, result->str);
+	ft_strdel(&zero_str);
+	ft_strdel(&holder);
 }
 
 void	float_width(s_format_spec *spec, s_placeholder *result)
 {
 	char		*holder;
 	char		*fill_width;
-	unsigned	len;
+	int			len;
 
 	holder = result->str;
-	spec->dig_amount = ft_strlen(result->str);
-	if (spec->width <= spec->dig_amount)
+	len = spec->width - ft_strlen(result->str);
+	if (len <= 0)
 		return ;
-	len = spec->width - spec->dig_amount;
-//	fill_width = ft_strnew(len + 1);
 	if (spec->flag_zero)
 	{
-		if (spec->is_negative)
-		{
-			fill_width = ft_strnew(len + 1);
-			fill_width[0] = '-';
-			ft_memset((void *)&fill_width[1], '0', len);
-		}
-		fill_width = ft_strnew(len);
-		ft_memset((void *)fill_width, '0', len);
-	}
-	else
-	{
-		fill_width = ft_strnew(len);
-		ft_memset((void *)fill_width, ' ', len);
-	}
-	if (spec->flag_minus)
-	{
-		result->str = ft_superjoin(&result->str, fill_width);
+		f_flag_zero(spec->is_negative, result, len);
 		return ;
 	}
-	result->str = ft_superjoin(&fill_width, result->str);
-	ft_strdel(&holder);
+	fill_width = ft_strnew(len + 1);
+	ft_memset((void *)fill_width, ' ', len);
+	if (spec->flag_minus)
+		result->str = ft_superjoin(&result->str, fill_width);
+	else
+	{
+		result->str = ft_superjoin(&fill_width, result->str);
+		ft_strdel(&holder);
+	}
+	ft_strdel(&fill_width);
 }
 
 bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)

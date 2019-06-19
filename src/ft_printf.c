@@ -128,7 +128,7 @@ int		main()
 	int		num = 31;
 	float	nbr = 3.14199265359;
 	float	flnum = 3.99999999999;
-	float	f42num = -4242.14199060359;
+	float	f42num = 4242.14199060359;
 	float	f32num = 4242.99999999999;
 
 /*	printf("Org1:%014f|\n", f42num);
@@ -143,6 +143,8 @@ int		main()
 	printf("Origin :%+15.1f|\n", f42num);
 	printf("Origin :%-15.1f|\n", f42num);
 	ft_printf("Mine pf:%-15.1f|\n\n", f42num);
+	printf("Origin :%015.1f|\n", f42num);
+	ft_printf("Mine pf:%015.1f|\n\n", f42num);
 /*
 	printf("Origin :%020.3f|\n", f42num);
 	ft_printf("Mine pf:%020.3f|\n\n", f42num);
