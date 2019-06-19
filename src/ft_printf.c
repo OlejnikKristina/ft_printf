@@ -153,6 +153,7 @@ int		main()
 {
 		printf("Origin :%010c|\n", 42);
 	ft_printf("Mine pf:%010c|\n\n", 42);
+	test_float();
 //	test_int();
 	return (0);
 }

@@ -24,6 +24,7 @@ SRC			=	ft_printf.c \
 				format_specifier/type_c.c \
 				format_specifier/type_p.c \
 				format_specifier/type_f.c \
+				format_specifier/ft_ftoa.c \
 				format_specifier/type_s.c
 
 UTILITY		=	utility/copy_until.c \
