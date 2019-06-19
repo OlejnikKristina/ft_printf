@@ -83,6 +83,8 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 //integer.c Norme
+//type_s.c Norme
+
 void	test_float()
 {
 	float	fnum = 3.14199265359;
@@ -149,6 +151,8 @@ void	test_int()
 
 int		main()
 {
-	test_int();
+		printf("Origin :%010c|\n", 42);
+	ft_printf("Mine pf:%010c|\n\n", 42);
+//	test_int();
 	return (0);
 }
