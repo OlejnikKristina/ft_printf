@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   type_d.c                                           :+:    :+:            */
+/*   integer.c                                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/02 12:36:11 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 18:57:26 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	int_precision(s_format_spec *spec, s_placeholder *spec_res)
 	add_zeros(spec->dig_amount, &spec_res->str, spec->precision);
 }
 
-char	*int_sign_length(s_format_spec *spec, va_list arg_ptr)
+char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	int64_t		data;
 
@@ -71,7 +71,7 @@ char	*int_sign_length(s_format_spec *spec, va_list arg_ptr)
 	return (itoa64(data));
 }
 
-char	*int_unsign_length(s_format_spec *spec, va_list arg_ptr)
+char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
 
@@ -95,33 +95,32 @@ char	*int_unsign_length(s_format_spec *spec, va_list arg_ptr)
 		return (itoa64u(data));
 }
 
-bool	integer(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+bool	integer(s_format_spec *spec, s_placeholder *result, va_list arg_ptr)
 {
-	char	*str_type;
+	char	*type;
 
 	if (
-		(specifier->width == STAR && (specifier->width = va_arg(arg_ptr, long))) ||
-		(specifier->precision == STAR && (specifier->precision = va_arg(arg_ptr, long))) ||
-		(specifier->type == 'd' && (str_type = int_sign_length(specifier, arg_ptr))) ||
-		(specifier->type == 'i' && (str_type = int_sign_length(specifier, arg_ptr))) ||
-		(ft_strchr("uoxX", specifier->type) && (str_type = int_unsign_length(specifier, arg_ptr)))
-		)
+		(spec->width == STAR && (spec->width = va_arg(arg_ptr, long))) ||
+		(spec->precision == STAR && (spec->precision = va_arg(arg_ptr, long))) ||
+		(spec->type == 'd' && (type = int_sign_len(spec, arg_ptr))) ||
+		(spec->type == 'i' && (type = int_sign_len(spec, arg_ptr))) ||
+		(ft_strchr("uoxX", spec->type) && (type = int_unsign_len(spec, arg_ptr))))
 	;
-	if (ft_strchr("oxX", specifier->type))
+	if (ft_strchr("oxX", spec->type))
 	{
-		specifier->dig_amount = ft_strlen(str_type);
-		specifier->flag_space = 0;
-		specifier->flag_plus = 0;
+		spec->dig_amount = ft_strlen(type);
+		spec->flag_space = 0;
+		spec->flag_plus = 0;
 	}
 	result->str = ft_strnew(0);
-	int_width(specifier, result);
-	int_flag(specifier, result);
-	int_precision(specifier, result);
-	if (specifier->is_negative)
-		result->str = ft_superjoin(&result->str, &str_type[1]);
+	int_width(spec, result);
+	int_flag(spec, result);
+	int_precision(spec, result);
+	if (spec->is_negative)
+		result->str = ft_superjoin(&result->str, &type[1]);
 	else
-		result->str = ft_superjoin(&result->str, str_type);
-	int_flag_minus(specifier, result);
-	ft_strdel(&str_type);
+		result->str = ft_superjoin(&result->str, type);
+	int_flag_minus(spec, result);
+	ft_strdel(&type);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 15:48:15 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 18:49:21 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,10 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 		specifier->precision = 19;
 	}
 	if (specifier->flag_plus && !specifier->is_negative)
+	{
 		result->str = ft_strdup("+");
+		specifier->width += 1;
+	}
 	else if (specifier->flag_space && !specifier->is_negative)
 		result->str = ft_strdup(" ");
 	else

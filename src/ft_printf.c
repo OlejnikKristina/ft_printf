@@ -59,7 +59,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			out->str = ft_superjoin(&out->str, spec_res.str);
 		}
 	}
-	printf("%s", out->str);
+	ft_putstr(out->str);
 	if (spec_res.str)
 		ft_strdel(&spec_res.str);
 	return (FINISHED);
@@ -89,20 +89,22 @@ void	test_float()
 	float	flnum = 3.99999999999;
 	float	f42num = 4242.14199060359;
 	float	f32num = 4242.99999999999;
-
+//0/width/precidion
+//0/width/prec=0
+//
 	printf("Number :4242.14199060359\n");
-	printf("Origin :%.30f|\n", f42num);
-	ft_printf("Mine pf:%.30f|\n\n", f42num);
+	printf("Origin :%010.3f|\n", f42num);
+	ft_printf("Mine pf:%010.3f|\n\n", f42num);
 
-	printf("Origin :%.25f|\n", f42num);
-	ft_printf("Mine pf:%.25f|\n\n", f42num);
+	printf("Origin :%010.f|\n", f42num);
+	ft_printf("Mine pf:%010.f|\n\n", f42num);
 
 	
-	printf("Origin :%.20f|\n", f42num);
-	ft_printf("Mine pf:%.20f|\n\n", f42num);
+	printf("Origin :%010.0f|\n", f42num);
+	ft_printf("Mine pf:%010.0f|\n\n", f42num);
 	
-	printf("Origin :%.19f|\n", f42num);
-	ft_printf("Mine pf:%.19f|\n\n", f42num);
+	printf("Origin :%+02.1f|\n", 4);
+	ft_printf("Mine pf:%+02.1f|\n\n", 4);
 
 /*
 
@@ -147,6 +149,6 @@ void	test_int()
 
 int		main()
 {
-	test_float();
+	test_int();
 	return (0);
 }
