@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 13:48:57 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 15:07:46 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,19 @@ char	*ft_ftoa(long double num, char *float_str, unsigned precision)
 	return (float_str);
 }
 
-void	f_flags(s_format_spec *s, s_placeholder *result)
-{
-}
-
-void	f_flag_zero(bool is_negative, s_placeholder *result, unsigned len)
+void	f_flag_zero(bool negative, bool flag_plus, s_placeholder *result, unsigned len)
 {
 	char		*zero_str;
 	char		*holder;
 
-	(is_negative) ? len++ : 1;
+	(negative) ? len++ : 1;
 	holder = result->str;
 	zero_str = ft_strnew(len);
 	ft_memset((void *)zero_str, '0', len);
-	if (is_negative)
+	if (negative || flag_plus)
 	{
-		zero_str[0] = '-';
+		(flag_plus) ? zero_str[0] = '+' : 1 ;
+		(negative) ? zero_str[0] = '-' : 1 ;
 		result->str = ft_superjoin(&zero_str, &result->str[1]);
 	}
 	else
@@ -88,7 +85,7 @@ void	f_flag_zero(bool is_negative, s_placeholder *result, unsigned len)
 	ft_strdel(&holder);
 }
 
-void	float_width(s_format_spec *spec, s_placeholder *result)
+void	f_width(s_format_spec *spec, s_placeholder *result)
 {
 	char		*holder;
 	char		*fill_width;
@@ -100,7 +97,7 @@ void	float_width(s_format_spec *spec, s_placeholder *result)
 		return ;
 	if (spec->flag_zero)
 	{
-		f_flag_zero(spec->is_negative, result, len);
+		f_flag_zero(spec->is_negative, spec->flag_plus, result, len);
 		return ;
 	}
 	fill_width = ft_strnew(len + 1);
@@ -118,6 +115,7 @@ void	float_width(s_format_spec *spec, s_placeholder *result)
 bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 {
 	long double		value;
+	char			*holder;
 	char			*fill_precision;
 
 	fill_precision = NULL;
@@ -136,10 +134,17 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 		ft_memset(fill_precision, '0', specifier->precision - 19);
 		specifier->precision = 19;
 	}
-	result->str = ft_ftoa(value, result->str, specifier->precision);
+	if (specifier->flag_plus && !specifier->is_negative)
+		result->str = ft_strdup("+");
+	else if (specifier->flag_space && !specifier->is_negative)
+		result->str = ft_strdup(" ");
+	else
+		result->str = ft_strnew(0);
+	holder = ft_ftoa(value, result->str, specifier->precision);
+	result->str = ft_superjoin(&result->str, holder);
 	if (fill_precision)
 		result->str = ft_superjoin(&result->str, fill_precision);
-	float_width(specifier, result);
-	f_flags(specifier, result);
+	f_width(specifier, result);
+	ft_strdel(&holder);
 	return (true);
 }
