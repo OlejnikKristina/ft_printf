@@ -82,8 +82,6 @@ int		ft_printf(const char *format, ...)
 	ft_strdel(&input);
 	return (0);
 }
-//integer.c Norme
-//type_s.c Norme
 
 void	test_float()
 {
@@ -93,7 +91,7 @@ void	test_float()
 	float	f32num = 4242.99999999999;
 //0/width/precidion
 //0/width/prec=0
-//
+/*
 	printf("Number :4242.14199060359\n");
 	printf("Origin :%010.3f|\n", f42num);
 	ft_printf("Mine pf:%010.3f|\n\n", f42num);
@@ -108,7 +106,7 @@ void	test_float()
 	printf("Origin :%+02.1f|\n", 4);
 	ft_printf("Mine pf:%+02.1f|\n\n", 4);
 
-/*
+
 
 	printf("Number :3.14199265359\n");
 	printf("Origin :%f|\n", fnum);
@@ -151,9 +149,30 @@ void	test_int()
 
 int		main()
 {
-		printf("Origin :%010c|\n", 42);
-	ft_printf("Mine pf:%010c|\n\n", 42);
-	test_float();
+	float	f42num = 4242.14199060359;
+//space width 
+//-+
+//	printf("Number :4242.14199060359\n");
+	printf("Origin :%10f|\n", (float)-0.0/0.0);
+//	printf("Origin :%-+10d|\n", 42);
+	ft_printf("Mine pf:%-+10.4d|\n", 42);
+
+		printf("Origin :%+10.4d|\n", 42);
+	ft_printf("Mine pf:%+10.4d|\n", 42);
+
+		printf("Origin :% -10.4d|\n", 42);
+	ft_printf("Mine pf:% -10.4d|\n", 42);
+
+		printf("Origin :% 010.4d|\n", 42);
+	ft_printf("Mine pf:% 010.4d|\n", 42);
+
+	printf("Origin :%+-10.4d|\n", -42);
+	ft_printf("Mine pf:%+-10.4d|\n", -42);
+
+
+	printf("Origin :%-10.4d|\n", -42);
+	ft_printf("Mine pf:%-10.4d|\n", -42);
+//	test_float();
 //	test_int();
 	return (0);
 }

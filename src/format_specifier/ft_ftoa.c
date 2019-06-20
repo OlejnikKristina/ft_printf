@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 20:32:55 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/20 19:01:36 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static void	f_rounding(char **float_str)
 {
-	int len;
+	int		len;
 
 	len = ft_strlen(*float_str) - 1;
 	if ('5' <= (*float_str)[len] && (*float_str)[len] != '0')
@@ -31,7 +31,8 @@ static void	f_rounding(char **float_str)
 	}
 }
 
-static void	f_add_exponent(char **exponent_str, char **float_str, unsigned precision)
+static void	f_add_exponent(char **exponent_str,
+char **float_str, unsigned precision)
 {
 	*float_str = ft_superjoin(float_str, ".");
 	if (*exponent_str[0] == '0')
@@ -41,17 +42,19 @@ static void	f_add_exponent(char **exponent_str, char **float_str, unsigned preci
 	ft_strdel(exponent_str);
 }
 
-char	*ft_ftoa(long double num, char *float_str, unsigned precision)
+char		*ft_ftoa(long double num, char *float_str, unsigned precision)
 {
-	long double			real_pres;
 	unsigned long long	exponent;
+	long double			real_pres;
 	unsigned			i;
-	int					value;
+	long long			value;
 	char				*exponent_str;
 
 	i = 0;
 	real_pres = 10;
-	value = (int)num;
+	if (num == 0)
+		write(1, "test", 4);
+	value = (long long)num;
 	float_str = itoa64(value);
 	(value < 0) ? value *= -1 : 1;
 	(num < 0) ? num *= -1 : 1;

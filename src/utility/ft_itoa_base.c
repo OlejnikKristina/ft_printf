@@ -6,15 +6,15 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 23:52:32 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/16 15:47:22 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/19 21:06:18 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdbool.h>
 #include <stdlib.h>
 #include <limits.h>
-#include "../../includes/libft.h"
-#include "../../includes/ft_printf.h"
+#include "libft.h"
+#include "ft_printf.h"
 
 char	*ft_strrev(char str_rev[])
 {
@@ -57,10 +57,8 @@ static char	*change_base64(int64_t value, short base, char letters[])
 		else
 		{
 			mod = value % base;
-			if (9 < mod)
-				num[i] = letters[mod - 10];
-			else
-				num[i] = mod + '0';
+			(9 < mod) ? (num[i] = letters[mod - 10]) :
+			(num[i] = mod + '0');
 		}
 		value /= base;
 		i++;
@@ -104,10 +102,8 @@ static char	*change_base64u(uint64_t value, short base, char letters[])
 		else
 		{
 			mod = value % base;
-			if (9 < mod)
-				num[i] = letters[mod - 10];
-			else
-				num[i] = mod + '0';
+			(9 < mod) ? (num[i] = letters[mod - 10]) :
+			(num[i] = mod + '0');
 		}
 		value /= base;
 		i++;

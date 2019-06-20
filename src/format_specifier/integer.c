@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 19:11:00 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/20 20:45:05 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	int_width(s_format_spec *spec, s_placeholder *spec_res)
 		ft_memset((void *)spec_res->str, '0', len + spec->is_negative);
 		(spec->flag_plus) ? spec_res->str[0] = '+' : 1;
 		(spec->is_negative) ? spec_res->str[0] = '-' : 1;
+		(spec->flag_space) ? spec_res->str[0] = ' ' : 1;
 	}
 	else
 	{

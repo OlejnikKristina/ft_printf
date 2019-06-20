@@ -20,7 +20,6 @@ SRC			=	ft_printf.c \
 				format_specifier/integer.c \
 				format_specifier/int_flag.c \
 				format_specifier/int_precision.c \
-				format_specifier/pf_test.c \
 				format_specifier/type_c.c \
 				format_specifier/type_p.c \
 				format_specifier/type_f.c \
