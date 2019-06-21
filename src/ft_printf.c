@@ -89,47 +89,46 @@ void	test_float_flags()
 	ft_printf("Test  float flags\n");
 
 	  printf("Origin 1:%+10.4f|\n", 42.42);
-ft_printf("Mine pf1:%+10.4f|\n\n", 42.42);
+	ft_printf("Mine pf1:%+10.4f|\n\n", 42.42);
 
       printf("Origin 5:% 10.4f|\n", 42.42);
- ft_printf("Mine pf5:% 10.4f|\n\n", 42.42);
+ 	ft_printf("Mine pf5:% 10.4f|\n\n", 42.42);
 
      printf("Origin 2:%+10.4f|\n", -42.42);
-ft_printf("Mine pf2:%+10.4f|\n\n", -42.42);
+	ft_printf("Mine pf2:%+10.4f|\n\n", -42.42);
 
      printf("Origin 3:%+10.4f|\n", -42.42);
 	ft_printf("Mine pf3:%+10.4f|\n\n", -42.42);
 
-	 printf("Origin 4:% -010.4f|\n", 42.42);
-ft_printf("Mine pf4:% -010.4f|\n\n", 42.42);
-ft_printf("Mine pf4:% -10.4f|\n\n", 42.42);
+	 printf("Origin 4:% -10.4f|\n", 42.42);
+	ft_printf("Mine pf4:% -10.4f|\n\n", 42.42);
 }
 
 void	test_float_high_precition()
 {
-	float	fnum = 3.14199265359;
-	float	flnum = 3.99999999999;
-	float	f42num = 4242.1231231234242424242424242424210101010;
 	float	f32num = 4242.99999999999;
+	float	f42num = 4242.123;
+	float	flnum = 3.99999999999;
+	float	fnum = 3.14199265359;
 
-	printf("Number :4242.14199060359\n");
-	printf("Origin :%010.30f|\n", f42num);
-	ft_printf("Mine pf:%010.30f|\n\n", f42num);
+	printf("Number :4242424242.123\n");
+	printf("Origin :%10.40f|\n", fnum);
+	ft_printf("Mine pf:%10.40f|\n\n", fnum);
 
-	printf("Origin :%010.20f|\n", f42num);
-	ft_printf("Mine pf:%010.20f|\n\n", f42num);
+	printf("Origin :%20.10f|\n", f42num);
+	ft_printf("Mine pf:%20.10f|\n\n", f42num);
 
-	printf("Number :4242.14199060359\n");
-	printf("Origin :%010.18f|\n", f42num);
-	ft_printf("Mine pf:%010.18f|\n\n", f42num);
+	printf("Number :4242424242.10424\n");
+	printf("Origin :%10.16f|\n", f42num);
+	ft_printf("Mine pf:%10.16f|\n\n", f42num);
 }
 
 void	test_float_mult_flags()
 {
 	ft_printf("Test multiple float flags\n\n");
 
-		  printf("Origin 1:%+010.4f|\n", 42.42);
-	ft_printf("Mine pf1:%+010.4f|\n\n|", 42.42);
+		  printf("Origin 1:%+010.40f|\n", 42.42);
+	ft_printf("Mine pf1:%+010.40f|\n\n", 42.42);
 
 	      printf("Origin 5:% 010.4f|\n", 42.42);
 	 ft_printf("Mine pf5:% 010.4f|\n\n", 42.42);
@@ -140,8 +139,8 @@ void	test_float_mult_flags()
 	     printf("Origin 3:%+010.4f|\n", -42.42);
 	ft_printf("Mine pf3:%+010.4f|\n\n", -42.42);
 
-		 printf("Origin 4:% -010.4f|\n", 42.42);
-	ft_printf("Mine pf4:% -010.4f|\n\n", 42.42);
+		 printf("Origin 4:% 010.4f|\n", 42.42);
+	ft_printf("Mine pf4:% 010.4f|\n\n", 42.42);
 }
 
 void	test_float()
@@ -151,10 +150,15 @@ void	test_float()
 	float	f42num = 4242.4242424242424242;
 	float	f32num = 4242.99999999999;
 
+//	test_float_flags();
+//	test_float_mult_flags();
 	test_float_high_precition();
 
-//	printf("Origin :%010.f|\n", f42num);
-//	ft_printf("Mine pf:%010.f|\n\n", f42num);
+	printf("Origin :%15f.1|\n", -0.0);
+	ft_printf("Mine pf:%15f.1|\n\n", -0.0);
+
+//	printf("Origin :%15f.1|\n", 1.0);
+//	ft_printf("Mine pf:%15f.1|\n\n", 0.0);
 	
 //	printf("Origin :%+02.1f|\n", (float)4);
 //	ft_printf("Mine pf:%+02.1f|\n\n", (float)4);
@@ -166,8 +170,6 @@ void	test_float()
 //	printf("Number :3.99999999999\n");
 //	printf("Origin :%.19f|\n", flnum);
 //	ft_printf("Mine pf:%.19f|\n\n", flnum);
-//	test_float_flags();
-//	test_float_mult_flags();
 }
 
 void	test_int()
@@ -209,7 +211,7 @@ int		main()
 //	ft_printf("Mine pf:%-+10.4d|\n", );
 
 
-/*	printf("Origin :%+-10.4f|\n", -42.42);
+/*	printf("Origin :%+-10.40f|\n", -42.42);
 	ft_printf("Mine pf:%+-10.4f|\n", -42.42);
 
 

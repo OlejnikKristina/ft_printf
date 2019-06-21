@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 13:49:32 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 15:26:55 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,22 +64,15 @@ void	f_width(s_format_spec *spec, s_placeholder *result)
 	ft_strdel(&fill_width);
 }
 
-char	*f_precision(s_format_spec *specifier, s_placeholder *result)
+void	f_precision(s_format_spec *specifier, s_placeholder *result, char **fill_precision)
 {
-	char	*fill_precision;
-
-	fill_precision = NULL;
+	*fill_precision = NULL;
 	if (18 < specifier->precision)
 	{
-		fill_precision = ft_strnew(specifier->precision - 18);
-		ft_memset(fill_precision, '0', specifier->precision - 18);
+		*fill_precision = ft_strnew(specifier->precision - 18);
+		ft_memset(*fill_precision, '0', specifier->precision - 18);
 		specifier->precision = 18;
 	}
-/*	else if (specifier->flag_space && !specifier->is_negative)
-		result->str = ft_strdup(" ");
-	else
-		result->str = ft_strnew(0);*/
-	return (fill_precision);
 }
 
 void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
@@ -90,8 +83,23 @@ void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
 	}
 	else if (spec->flag_space && (!spec->flag_zero || spec->flag_minus))
 		result->str = ft_strjoin(" ", holder);
-	else
-		result->str = ft_strjoin("", holder);
+	else if (!result->str)
+		result->str = ft_strdup(holder);
+}
+
+void	f_check_exeption(s_format_spec *specifier, s_placeholder *result, long double *value)
+{
+	long double num;
+
+	if (*value == 0.0)
+	{
+		num = 1 / *value;
+		if (num < 0)
+		{
+			ft_strdel(&result->str);
+			result->str = ft_strdup("-0.0");
+		}
+	}
 }
 
 bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
@@ -109,9 +117,9 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 	else
 		value = (long double)va_arg(arg_ptr, double);
 	specifier->is_negative = value < 0;
-//	f_precision(specifier, result);
-	fill_precision = f_precision(specifier, result);
+	f_precision(specifier, result, &fill_precision);
 	ft_ftoa(value, &holder, specifier->precision);
+//	f_check_exeption(specifier, result, &value);
 	f_flags(specifier, result, holder);
 	if (specifier->flag_plus && !specifier->is_negative)
 	{
