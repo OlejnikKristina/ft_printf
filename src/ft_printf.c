@@ -153,25 +153,32 @@ int		main()
 //space width 
 //-+
 //	printf("Number :4242.14199060359\n");
-	printf("Origin :%10f|\n", (float)-0.0/0.0);
-//	printf("Origin :%-+10d|\n", 42);
-	ft_printf("Mine pf:%-+10.4d|\n", 42);
+//	printf("Origin :%10f|\n", (float)-0.0/0.0);
+//	printf("Origin :%-+10f|\n",  -0.0);
+//	ft_printf("Mine pf:%-+10.4d|\n", );
 
-		printf("Origin :%+10.4d|\n", 42);
-	ft_printf("Mine pf:%+10.4d|\n", 42);
+		printf("Origin :%+10.4f|\n", 42.42);
+	ft_printf("Mine pf:%+10.4f|\n\n|", 42.42);
+	printf("\n");
 
-		printf("Origin :% -10.4d|\n", 42);
-	ft_printf("Mine pf:% -10.4d|\n", 42);
+		printf("Origin :%+10.4f|\n", -42.42);
+	ft_printf("Mine pf:%+10.4f|\n", -42.42);
 
-		printf("Origin :% 010.4d|\n", 42);
-	ft_printf("Mine pf:% 010.4d|\n", 42);
+		printf("Origin :%+10.4f|\n", -42.42);
+	ft_printf("Mine pf:%+10.4f|\n", -42.42);
 
-	printf("Origin :%+-10.4d|\n", -42);
-	ft_printf("Mine pf:%+-10.4d|\n", -42);
+//		printf("Origin :% -10.4f|\n", 42.42);
+//	ft_printf("Mine pf:% -10.4f|\n", 42.42);
+
+		printf("Origin :% 010.4f|\n", 42.42);
+	ft_printf("Mine pf:% 010.4f|\n", 42.42);
+
+/*	printf("Origin :%+-10.4f|\n", -42.42);
+	ft_printf("Mine pf:%+-10.4f|\n", -42.42);
 
 
-	printf("Origin :%-10.4d|\n", -42);
-	ft_printf("Mine pf:%-10.4d|\n", -42);
+	printf("Origin :%-10.4f|\n", -42.42);
+	ft_printf("Mine pf:%-10.4f|\n", -42.42);*/
 //	test_float();
 //	test_int();
 	return (0);

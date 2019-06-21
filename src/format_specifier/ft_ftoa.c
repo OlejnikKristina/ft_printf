@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/20 19:01:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 11:29:19 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char **float_str, unsigned precision)
 	ft_strdel(exponent_str);
 }
 
-char		*ft_ftoa(long double num, char *float_str, unsigned precision)
+void	ft_ftoa(long double num, char **float_str, unsigned precision)
 {
 	unsigned long long	exponent;
 	long double			real_pres;
@@ -52,10 +52,8 @@ char		*ft_ftoa(long double num, char *float_str, unsigned precision)
 
 	i = 0;
 	real_pres = 10;
-	if (num == 0)
-		write(1, "test", 4);
 	value = (long long)num;
-	float_str = itoa64(value);
+	*float_str = itoa64(value);
 	(value < 0) ? value *= -1 : 1;
 	(num < 0) ? num *= -1 : 1;
 	if (precision)
@@ -67,8 +65,8 @@ char		*ft_ftoa(long double num, char *float_str, unsigned precision)
 		}
 		exponent = (num - value) * real_pres;
 		exponent_str = itoa64u(exponent);
-		f_add_exponent(&exponent_str, &float_str, precision);
-		float_str[ft_strlen(float_str) - 1] = '\0';
+		f_add_exponent(&exponent_str, float_str, precision);
+		(*float_str)[ft_strlen(*float_str) - 1] = '\0';
 	}
-	return (float_str);
+	return ;
 }
