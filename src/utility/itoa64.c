@@ -6,12 +6,12 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/08 18:06:13 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 20:55:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 16:15:32 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-# include "libft.h"	
+#include "libft.h"
 #include <limits.h>
 
 unsigned	count_digit64(int64_t nbr)
@@ -32,11 +32,11 @@ unsigned	count_digit64(int64_t nbr)
 	return (amount);
 }
 
-char	*itoa64(int64_t nbr)
+char		*itoa64(int64_t nbr)
 {
-	short		digit_amount;
-	bool		sign;
-	char		*str;
+	short	digit_amount;
+	bool	sign;
+	char	*str;
 
 	sign = 0;
 	digit_amount = count_digit64(nbr);
@@ -60,11 +60,11 @@ char	*itoa64(int64_t nbr)
 	return (str);
 }
 
-char	*pf_itoa_ll(long long nbr)
+char		*pf_itoa_ll(long long nbr)
 {
-	short		digit_amount;
-	bool		sign;
-	char		*str;
+	short	digit_amount;
+	bool	sign;
+	char	*str;
 
 	sign = 0;
 	digit_amount = count_digit64(nbr);
@@ -104,7 +104,7 @@ unsigned	count_digit64u(uint64_t nbr)
 	return (amount);
 }
 
-char	*itoa64u(uint64_t nbr)
+char		*itoa64u(uint64_t nbr)
 {
 	int32_t	digit_amount;
 	char	*str;

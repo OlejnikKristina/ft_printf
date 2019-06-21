@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 23:52:32 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 21:06:18 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 16:18:21 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include "libft.h"
 #include "ft_printf.h"
 
-char	*ft_strrev(char str_rev[])
+char		*ft_strrev(char str_rev[])
 {
 	unsigned	i;
 	unsigned	end_str;
@@ -50,8 +50,7 @@ static char	*change_base64(int64_t value, short base, char letters[])
 		if (value <= 1)
 		{
 			mod = value % base;
-			if (0 < mod)
-				num[i] = '1';
+			(0 < mod) ? (num[i] = '1') : 1;
 			break ;
 		}
 		else
@@ -67,14 +66,14 @@ static char	*change_base64(int64_t value, short base, char letters[])
 	return (ft_strdup(num));
 }
 
-char	*itoa_base64(int64_t value, short base, bool uppercase)
+char		*itoa_base64(int64_t value, short base, bool uppercase)
 {
 	char		letters[27];
 
 	if (value == 0)
 		return (ft_strdup("0"));
 	if (base == 10)
-		return(itoa64(value));
+		return (itoa64(value));
 	if (base < 2 || base > 26)
 		return (NULL);
 	(uppercase) ? ft_strcpy(letters, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") :
@@ -95,8 +94,7 @@ static char	*change_base64u(uint64_t value, short base, char letters[])
 		if (value <= 1)
 		{
 			mod = value % base;
-			if (0 < mod)
-				num[i] = '1';
+			(0 < mod) ? (num[i] = '1') : 1;
 			break ;
 		}
 		else
@@ -112,14 +110,14 @@ static char	*change_base64u(uint64_t value, short base, char letters[])
 	return (ft_strdup(num));
 }
 
-char	*itoa_base64u(uint64_t value, short base, bool uppercase)
+char		*itoa_base64u(uint64_t value, short base, bool uppercase)
 {
 	char		letters[27];
 
 	if (value == 0)
 		return (ft_strdup("0"));
 	if (base == 10)
-		return(itoa64u(value));
+		return (itoa64u(value));
 	if (base < 2 || base > 26)
 		return (NULL);
 	(uppercase) ? ft_strcpy(letters, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") :
