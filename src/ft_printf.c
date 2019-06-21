@@ -43,6 +43,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	s_placeholder	spec_res;
 	char			*holder;
 
+	spec_res.str = NULL;
 	ft_bzero((void *)&specifier, sizeof(specifier));
 	while (copy_until(input, out, '%') != FINISHED)
 	{
@@ -83,38 +84,90 @@ int		ft_printf(const char *format, ...)
 	return (0);
 }
 
+void	test_float_flags()
+{
+	ft_printf("Test  float flags\n");
+
+	  printf("Origin 1:%+10.4f|\n", 42.42);
+ft_printf("Mine pf1:%+10.4f|\n\n", 42.42);
+
+      printf("Origin 5:% 10.4f|\n", 42.42);
+ ft_printf("Mine pf5:% 10.4f|\n\n", 42.42);
+
+     printf("Origin 2:%+10.4f|\n", -42.42);
+ft_printf("Mine pf2:%+10.4f|\n\n", -42.42);
+
+     printf("Origin 3:%+10.4f|\n", -42.42);
+	ft_printf("Mine pf3:%+10.4f|\n\n", -42.42);
+
+	 printf("Origin 4:% -010.4f|\n", 42.42);
+ft_printf("Mine pf4:% -010.4f|\n\n", 42.42);
+ft_printf("Mine pf4:% -10.4f|\n\n", 42.42);
+}
+
+void	test_float_high_precition()
+{
+	float	fnum = 3.14199265359;
+	float	flnum = 3.99999999999;
+	float	f42num = 4242.1231231234242424242424242424210101010;
+	float	f32num = 4242.99999999999;
+
+	printf("Number :4242.14199060359\n");
+	printf("Origin :%010.30f|\n", f42num);
+	ft_printf("Mine pf:%010.30f|\n\n", f42num);
+
+	printf("Origin :%010.20f|\n", f42num);
+	ft_printf("Mine pf:%010.20f|\n\n", f42num);
+
+	printf("Number :4242.14199060359\n");
+	printf("Origin :%010.18f|\n", f42num);
+	ft_printf("Mine pf:%010.18f|\n\n", f42num);
+}
+
+void	test_float_mult_flags()
+{
+	ft_printf("Test multiple float flags\n\n");
+
+		  printf("Origin 1:%+010.4f|\n", 42.42);
+	ft_printf("Mine pf1:%+010.4f|\n\n|", 42.42);
+
+	      printf("Origin 5:% 010.4f|\n", 42.42);
+	 ft_printf("Mine pf5:% 010.4f|\n\n", 42.42);
+
+	     printf("Origin 2:%+010.4f|\n", -42.42);
+	ft_printf("Mine pf2:%+010.4f|\n\n", -42.42);
+
+	     printf("Origin 3:%+010.4f|\n", -42.42);
+	ft_printf("Mine pf3:%+010.4f|\n\n", -42.42);
+
+		 printf("Origin 4:% -010.4f|\n", 42.42);
+	ft_printf("Mine pf4:% -010.4f|\n\n", 42.42);
+}
+
 void	test_float()
 {
 	float	fnum = 3.14199265359;
 	float	flnum = 3.99999999999;
-	float	f42num = 4242.14199060359;
+	float	f42num = 4242.4242424242424242;
 	float	f32num = 4242.99999999999;
-//0/width/precidion
-//0/width/prec=0
-/*
-	printf("Number :4242.14199060359\n");
-	printf("Origin :%010.3f|\n", f42num);
-	ft_printf("Mine pf:%010.3f|\n\n", f42num);
 
-	printf("Origin :%010.f|\n", f42num);
-	ft_printf("Mine pf:%010.f|\n\n", f42num);
+	test_float_high_precition();
 
+//	printf("Origin :%010.f|\n", f42num);
+//	ft_printf("Mine pf:%010.f|\n\n", f42num);
 	
-	printf("Origin :%010.0f|\n", f42num);
-	ft_printf("Mine pf:%010.0f|\n\n", f42num);
-	
-	printf("Origin :%+02.1f|\n", 4);
-	ft_printf("Mine pf:%+02.1f|\n\n", 4);
+//	printf("Origin :%+02.1f|\n", (float)4);
+//	ft_printf("Mine pf:%+02.1f|\n\n", (float)4);
 
+//	printf("Number :3.14199265359\n");
+//	printf("Origin :%f|\n", fnum);
+//	ft_printf("Mine pf:%f|\n\n", fnum);
 
-
-	printf("Number :3.14199265359\n");
-	printf("Origin :%f|\n", fnum);
-	ft_printf("Mine pf:%f|\n\n", fnum);
-
-		printf("Number :3.99999999999\n");
-	printf("Origin :%.19f|\n", flnum);
-	ft_printf("Mine pf:%.19f|\n\n", flnum);*/
+//	printf("Number :3.99999999999\n");
+//	printf("Origin :%.19f|\n", flnum);
+//	ft_printf("Mine pf:%.19f|\n\n", flnum);
+//	test_float_flags();
+//	test_float_mult_flags();
 }
 
 void	test_int()
@@ -149,29 +202,12 @@ void	test_int()
 
 int		main()
 {
-	float	f42num = 4242.14199060359;
-//space width 
-//-+
+	test_float();
 //	printf("Number :4242.14199060359\n");
 //	printf("Origin :%10f|\n", (float)-0.0/0.0);
 //	printf("Origin :%-+10f|\n",  -0.0);
 //	ft_printf("Mine pf:%-+10.4d|\n", );
 
-		printf("Origin :%+10.4f|\n", 42.42);
-	ft_printf("Mine pf:%+10.4f|\n\n|", 42.42);
-	printf("\n");
-
-		printf("Origin :%+10.4f|\n", -42.42);
-	ft_printf("Mine pf:%+10.4f|\n", -42.42);
-
-		printf("Origin :%+10.4f|\n", -42.42);
-	ft_printf("Mine pf:%+10.4f|\n", -42.42);
-
-//		printf("Origin :% -10.4f|\n", 42.42);
-//	ft_printf("Mine pf:% -10.4f|\n", 42.42);
-
-		printf("Origin :% 010.4f|\n", 42.42);
-	ft_printf("Mine pf:% 010.4f|\n", 42.42);
 
 /*	printf("Origin :%+-10.4f|\n", -42.42);
 	ft_printf("Mine pf:%+-10.4f|\n", -42.42);

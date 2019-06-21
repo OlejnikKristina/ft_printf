@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 11:29:19 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 13:48:17 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,36 @@ char **float_str, unsigned precision)
 	f_rounding(float_str);
 	ft_strdel(exponent_str);
 }
+
+// void	ft_ftoa(long double num, char **float_str, unsigned precision)
+// {
+// 	unsigned long long	exponent;
+// 	long double			real_pres;
+// 	unsigned			i;
+// 	long double			value;
+// 	char				*exponent_str;
+
+// 	i = 0;
+// 	real_pres = 10;
+// 	value = (long long)num;
+// 	*float_str = itoa64(value);
+// 	(value < 0) ? value *= -1 : 1;
+// 	(num < 0) ? num *= -1 : 1;
+// 	if (precision)
+// 	{
+// 		while (i < precision)
+// 		{
+// 			real_pres *= 10;
+// 			i++;
+// 		}
+// 		exponent = (num - value) * real_pres;
+// 		exponent_str = itoa64u(exponent);
+// 		f_add_exponent(&exponent_str, float_str, precision);
+// 		(*float_str)[ft_strlen(*float_str) - 1] = '\0';
+// 	}
+// 	return ;
+// }
+
 
 void	ft_ftoa(long double num, char **float_str, unsigned precision)
 {
