@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/20 20:51:54 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 16:06:35 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ void	int_flag_minus(s_format_spec *spec, s_placeholder *result)
 	char	*set_width;
 
 	if (spec->precision <= spec->dig_amount)
-		width = spec->width - spec->dig_amount 
+		width = spec->width - spec->dig_amount
 		- ((spec->flag_plus && !spec->is_negative) || spec->flag_space);
 	else
-		width = spec->width - spec->precision 
+		width = spec->width - spec->precision
 		- ((spec->flag_plus && !spec->is_negative) || spec->flag_space);
 	if (!spec->flag_minus || width <= 0)
 		return ;

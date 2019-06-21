@@ -79,9 +79,10 @@ bool			check_length_filed(char **input, s_format_spec *format_specifier);
 bool			check_width_filed(char **input, s_format_spec *format_specifier);
 bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
-bool			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
+void			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
 void			int_flag(s_format_spec *spec, s_placeholder *spec_res);
-void			ft_ftoa(long double num, char **sfloat_str, unsigned precision);
+void			ft_ftoa(long double num, char **sfloat_str, unsigned precision, 
+long double multiply_me);
 void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
 void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);

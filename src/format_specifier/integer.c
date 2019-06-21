@@ -6,49 +6,48 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/20 20:45:05 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 16:11:03 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	int_width(s_format_spec *spec, s_placeholder *spec_res)
+void	int_width(s_format_spec *s, s_placeholder *result)
 {
 	size_t	len;
 	char	*temp;
 
-	if (!spec->width || spec->flag_minus ||
-	spec->width <= (spec->dig_amount + spec->precision))
+	if (!s->width || s->flag_minus ||
+	s->width <= (s->dig_amount + s->precision))
 		return ;
-	if (spec->flag_plus && !spec->is_negative
-	&& (!spec->flag_zero || spec->precision))
-		spec->width--;
-	(spec->flag_hash && ft_strchr("xX", spec->type)) ? (spec->width -= 2) : 1;
-	(spec->precision <= spec->dig_amount) ?
-	(len = spec->width - spec->dig_amount) :
-	(len = spec->width - spec->precision);
-	if (spec->flag_zero && !spec->precision && !spec->flag_minus)
+	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
+		s->width--;
+	(s->flag_hash && ft_strchr("xX", s->type)) ? (s->width -= 2) : 1;
+	(s->precision <= s->dig_amount) ?
+	(len = s->width - s->dig_amount) :
+	(len = s->width - s->precision);
+	if (s->flag_zero && !s->precision && !s->flag_minus)
 	{
-		spec_res->str = ft_strnew(len + spec->is_negative);
-		ft_memset((void *)spec_res->str, '0', len + spec->is_negative);
-		(spec->flag_plus) ? spec_res->str[0] = '+' : 1;
-		(spec->is_negative) ? spec_res->str[0] = '-' : 1;
-		(spec->flag_space) ? spec_res->str[0] = ' ' : 1;
+		result->str = ft_strnew(len + s->is_negative);
+		ft_memset((void *)result->str, '0', len + s->is_negative);
+		(s->flag_plus) ? result->str[0] = '+' : 1;
+		(s->is_negative) ? result->str[0] = '-' : 1;
+		(s->flag_space) ? result->str[0] = ' ' : 1;
 	}
 	else
 	{
-		spec_res->str = ft_strnew(len);
-		ft_memset((void *)spec_res->str, ' ', len);
+		result->str = ft_strnew(len);
+		ft_memset((void *)result->str, ' ', len);
 	}
 }
 
-void	int_precision(s_format_spec *spec, s_placeholder *spec_res)
+void	int_precision(s_format_spec *spec, s_placeholder *result)
 {
 	if (!spec->precision)
 		return ;
 	if (spec->is_negative)
 		spec->precision += 1;
-	add_zeros(spec->dig_amount, &spec_res->str, spec->precision);
+	add_zeros(spec->dig_amount, &result->str, spec->precision);
 }
 
 char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
@@ -93,7 +92,7 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		return (itoa64u(data));
 }
 
-bool	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
+void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 {
 	char	*type;
 
@@ -119,5 +118,4 @@ bool	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 	(result->str = ft_superjoin(&result->str, type));
 	int_flag_minus(s, result);
 	ft_strdel(&type);
-	return (true);
 }

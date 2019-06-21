@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 15:26:55 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 16:12:02 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	f_width(s_format_spec *spec, s_placeholder *result)
 	ft_strdel(&fill_width);
 }
 
-void	f_precision(s_format_spec *specifier, s_placeholder *result, char **fill_precision)
+void	f_precision(s_format_spec *specifier, s_placeholder *result,
+char **fill_precision)
 {
 	*fill_precision = NULL;
 	if (18 < specifier->precision)
@@ -87,21 +88,6 @@ void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
 		result->str = ft_strdup(holder);
 }
 
-void	f_check_exeption(s_format_spec *specifier, s_placeholder *result, long double *value)
-{
-	long double num;
-
-	if (*value == 0.0)
-	{
-		num = 1 / *value;
-		if (num < 0)
-		{
-			ft_strdel(&result->str);
-			result->str = ft_strdup("-0.0");
-		}
-	}
-}
-
 bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 {
 	long double	value;
@@ -118,18 +104,12 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 		value = (long double)va_arg(arg_ptr, double);
 	specifier->is_negative = value < 0;
 	f_precision(specifier, result, &fill_precision);
-	ft_ftoa(value, &holder, specifier->precision);
-//	f_check_exeption(specifier, result, &value);
+	ft_ftoa(value, &holder, specifier->precision, 10);
 	f_flags(specifier, result, holder);
 	if (specifier->flag_plus && !specifier->is_negative)
-	{
 		result->str = ft_strjoin("+", holder);
-	}
-//	result->str = ft_superjoin(&result->str, holder);
 	if (fill_precision)
 		result->str = ft_superjoin(&result->str, fill_precision);
-//	f_flags(specifier, result);
 	f_width(specifier, result);
-//	ft_strdel(&holder);
 	return (true);
 }

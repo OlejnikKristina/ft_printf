@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 15:40:41 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 15:51:01 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,17 @@ char **float_str, unsigned precision)
 	ft_strdel(exponent_str);
 }
 
-void	ft_ftoa(long double num, char **float_str, unsigned precision)
+void		ft_ftoa(long double num, char **float_str, unsigned precision,
+long double multiply_me)
 {
 	unsigned long long	exponent;
-	long double			real_pres;
 	unsigned			i;
 	long long			value;
 	char				*exponent_str;
 
 	i = 0;
-	real_pres = 10;
 	value = (long long)num;
-	if (num == 0.0 && (1 / num < 0)) 
+	if (num == 0.0 && (1 / num < 0))
 		*float_str = ft_strdup("-0");
 	else
 		*float_str = itoa64(value);
@@ -63,10 +62,10 @@ void	ft_ftoa(long double num, char **float_str, unsigned precision)
 	{
 		while (i < precision)
 		{
-			real_pres *= 10;
+			multiply_me *= 10;
 			i++;
 		}
-		exponent = (num - value) * real_pres;
+		exponent = (num - value) * multiply_me;
 		exponent_str = itoa64u(exponent);
 		f_add_exponent(&exponent_str, float_str, precision);
 		(*float_str)[ft_strlen(*float_str) - 1] = '\0';
