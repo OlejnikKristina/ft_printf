@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/05/28 14:31:26 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 18:52:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 }
 
 bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
- va_list arg_ptr)
+va_list arg_ptr)
 {
 	if (ft_strchr("diouxX", specifier->type))
 		integer(specifier, spec_res, arg_ptr);
@@ -33,8 +33,8 @@ bool	proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 		(specifier->type == 's' && type_s(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'p' && type_p(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'f' && type_f(specifier, spec_res, arg_ptr)) ||
-		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr))
-	);
+		(specifier->type == '%' && type_percent(specifier, spec_res, arg_ptr)) ||
+		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr)));
 }
 
 bool	read_input(char *input, va_list arg_ptr, s_output *out)
@@ -61,6 +61,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 		}
 	}
 	ft_putstr(out->str);
+	out->usage = ft_strlen(out->str);
 	if (spec_res.str)
 		ft_strdel(&spec_res.str);
 	return (FINISHED);
@@ -77,147 +78,7 @@ int		ft_printf(const char *format, ...)
 	output.size = 0;
 	output.str = ft_strnew(0);
 	if (read_input(input, arg_ptr, &output) == FINISHED)
-	{
 		ft_strdel(&output.str);
-	}
 	ft_strdel(&input);
-	return (0);
-}
-
-void	test_float_flags()
-{
-	ft_printf("Test  float flags\n");
-
-	  printf("Origin 1:%+10.4f|\n", 42.42);
-	ft_printf("Mine pf1:%+10.4f|\n\n", 42.42);
-
-      printf("Origin 5:% 10.4f|\n", 42.42);
- 	ft_printf("Mine pf5:% 10.4f|\n\n", 42.42);
-
-     printf("Origin 2:%+10.4f|\n", -42.42);
-	ft_printf("Mine pf2:%+10.4f|\n\n", -42.42);
-
-     printf("Origin 3:%+10.4f|\n", -42.42);
-	ft_printf("Mine pf3:%+10.4f|\n\n", -42.42);
-
-	 printf("Origin 4:% -10.4f|\n", 42.42);
-	ft_printf("Mine pf4:% -10.4f|\n\n", 42.42);
-}
-
-void	test_float_high_precition()
-{
-	float	f32num = 4242.99999999999;
-	float	f42num = 4242.123;
-	float	flnum = 3.99999999999;
-	float	fnum = 3.14199265359;
-
-	printf("Number :4242424242.123\n");
-	printf("Origin :%10.40f|\n", fnum);
-	ft_printf("Mine pf:%10.40f|\n\n", fnum);
-
-	printf("Origin :%20.10f|\n", f42num);
-	ft_printf("Mine pf:%20.10f|\n\n", f42num);
-
-	printf("Number :4242424242.10424\n");
-	printf("Origin :%10.16f|\n", f42num);
-	ft_printf("Mine pf:%10.16f|\n\n", f42num);
-}
-
-void	test_float_mult_flags()
-{
-	ft_printf("Test multiple float flags\n\n");
-
-		  printf("Origin 1:%+010.40f|\n", 42.42);
-	ft_printf("Mine pf1:%+010.40f|\n\n", 42.42);
-
-	      printf("Origin 5:% 010.4f|\n", 42.42);
-	 ft_printf("Mine pf5:% 010.4f|\n\n", 42.42);
-
-	     printf("Origin 2:%+010.4f|\n", -42.42);
-	ft_printf("Mine pf2:%+010.4f|\n\n", -42.42);
-
-	     printf("Origin 3:%+010.4f|\n", -42.42);
-	ft_printf("Mine pf3:%+010.4f|\n\n", -42.42);
-
-		 printf("Origin 4:% 010.4f|\n", 42.42);
-	ft_printf("Mine pf4:% 010.4f|\n\n", 42.42);
-}
-
-void	test_float()
-{
-	float	fnum = 3.14199265359;
-	float	flnum = 3.99999999999;
-	float	f42num = 4242.4242424242424242;
-	float	f32num = 4242.99999999999;
-
-//	test_float_flags();
-//	test_float_mult_flags();
-	test_float_high_precition();
-
-	printf("Origin :%15f.1|\n", -0.0);
-	ft_printf("Mine pf:%15f.1|\n\n", -0.0);
-
-//	printf("Origin :%15f.1|\n", 1.0);
-//	ft_printf("Mine pf:%15f.1|\n\n", 0.0);
-	
-//	printf("Origin :%+02.1f|\n", (float)4);
-//	ft_printf("Mine pf:%+02.1f|\n\n", (float)4);
-
-//	printf("Number :3.14199265359\n");
-//	printf("Origin :%f|\n", fnum);
-//	ft_printf("Mine pf:%f|\n\n", fnum);
-
-//	printf("Number :3.99999999999\n");
-//	printf("Origin :%.19f|\n", flnum);
-//	ft_printf("Mine pf:%.19f|\n\n", flnum);
-}
-
-void	test_int()
-{
-	printf("Orig pf:%015.1d|\n", -42);
-	ft_printf("Mine pf:%015.1d|\n\n", -42);
-
-	printf("Orig pf:%+015.1d|\n", 42);
-	ft_printf("Mine pf:%+015.1d|\n\n", 42);
-
-	printf("Orig pf:%+d|\n", 42);
-	ft_printf("Mine pf:%+d|\n\n", 42);
-
-	printf("Orig pf:%+15d|\n", -42);
-	ft_printf("Mine pf:%+15d|\n", -42);
-
-	printf("Orig pf:%+015d|\n", 42);
-	ft_printf("Mine pf:%+015d|\n\n", 42);
-
-	printf("Orig pf:%+015d|\n", -42);
-	ft_printf("Mine pf:%+015d|\n\n", -42);
-
-	printf("Orig pf:%015d|\n", 42);
-	ft_printf("Mine pf:%015d|\n", 42);
-
-	printf("Orig pf:%d|\n", 42);
-	ft_printf("Mine pf:%d|\n", 42);
-
-	printf("Orig pf:%d|\n", -42);
-	ft_printf("Mine pf:%d|\n",-42);
-}
-
-int		main()
-{
-	test_float();
-//	printf("Number :4242.14199060359\n");
-//	printf("Origin :%10f|\n", (float)-0.0/0.0);
-//	printf("Origin :%-+10f|\n",  -0.0);
-//	ft_printf("Mine pf:%-+10.4d|\n", );
-
-
-/*	printf("Origin :%+-10.40f|\n", -42.42);
-	ft_printf("Mine pf:%+-10.4f|\n", -42.42);
-
-
-	printf("Origin :%-10.4f|\n", -42.42);
-	ft_printf("Mine pf:%-10.4f|\n", -42.42);*/
-//	test_float();
-//	test_int();
-	return (0);
+	return (output.usage);
 }

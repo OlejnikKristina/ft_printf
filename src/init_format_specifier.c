@@ -6,12 +6,11 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/05/29 00:12:30 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 19:04:51 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
 
 bool	check_flags(char **input, s_format_spec *specifier)
 {
@@ -90,7 +89,7 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 
 bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
 {
-	if (ft_strchr("cspdiouxXf", **input))
+	if (ft_strchr("%cspdiouxXf", **input))
 	{
 		format_specifier->type = **input;
 		(*input)++;

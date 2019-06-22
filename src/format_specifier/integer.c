@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 16:11:03 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/21 20:22:07 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 		(s->type == 'i' && (type = int_sign_len(s, arg_ptr))) ||
 		(ft_strchr("uoxX", s->type) && (type = int_unsign_len(s, arg_ptr))))
 		;
-	if (ft_strchr("oxX", s->type))
+	if (ft_strchr("oxX", s->type))//73832
 	{
 		s->dig_amount = ft_strlen(type);
 		s->flag_space = 0;
