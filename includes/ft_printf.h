@@ -77,7 +77,7 @@ bool			check_flags(char **input, s_format_spec *format_specifier);
 void			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
 void			int_width(s_format_spec *s, s_placeholder *result);
 
-void			int_flag(s_format_spec *spec, s_placeholder *spec_res);
+void			int_flag(s_format_spec *spec, s_placeholder *spec_res, char *num);
 void			ft_ftoa(long double num, char **sfloat_str, unsigned precision, 
 				long double multiply_me);
 void			int_flag_minus(s_format_spec *spec, s_placeholder *result);

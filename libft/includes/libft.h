@@ -6,14 +6,14 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/01 17:36:16 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 12:49:30 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 15:50:24 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdint.h>
-#include <stdbool.h>
+# include <stdbool.h>
 # include <limits.h>
 # include <string.h>
 # include <stdlib.h>
@@ -95,7 +95,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 /*
 ** ************************ Private ******************************** **
 */
-char				*ft_superjoin(char **s1, const char *s2);//NEW
+char				*ft_superjoin(char **s1, const char *s2);
 int					space(char c);
 int					ft_count_digit(long num);
 int					findchr(const char *s, int c);
@@ -103,7 +103,7 @@ int					kr_count_words(char const *s, char c);
 int					ft_recursive_factorial(int nb);
 int					ft_sqrt(int nb);
 void				ft_foreach(int *tab, int length, void (*f)(int));
-char				*ft_strrev(char str_rev[]);//NEW
+char				*ft_strrev(char str_rev[]);
 int					*ft_range(int min, int max);
 /*
 ** *********************** Itoas ********************************** **

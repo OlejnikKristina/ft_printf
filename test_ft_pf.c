@@ -6,11 +6,95 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 20:25:55 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 21:22:22 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/ft_printf.h"
+
+/*
+
+int_width(specifier, result);
+	if (specifier->precision)
+		result->str = ft_strsub((char const *)line, 0, specifier->precision);
+	 else
+		result->str = ft_strdup(line);
+	// result->str = ft_superjoin(&result->str, line);
+	// if (specifier->precision)
+	// 	result->str[specifier->precision] = '\0';
+	// int_flag_minus(specifier, result);*/
+
+
+static void	test_o()
+{/*
+	printf("%10s Test width, presition\n", "=D");
+
+		printf("%10o\n", 0);
+	ft_printf("%10o\n\n", 0);
+
+		printf("%10o\n", -42);
+	ft_printf("%10o\n\n", -42);
+
+		printf("%.10o\n", 4242);
+	ft_printf("%.10o\n\n", 4242);
+
+		printf("%7.7o\n", 3101);
+	ft_printf("%7.7o\n\n", 3101);
+
+	printf("%10s Test flags\n", "=D");
+
+	printf("%-10o|\n", 0);
+	ft_printf("%-10o|\n\n", 0);
+
+	printf("%10o\n", -42);
+	ft_printf("%10o\n\n", -42);
+
+	printf("%0.10o\n", 4242);
+	ft_printf("%0.10o\n\n", 4242);
+
+	printf("%07.7o\n", 42);
+	ft_printf("%07.7o\n\n", 42);
+		printf("%llx|\n", LLONG_MAX);
+	ft_printf("%llx|\n\n", LLONG_MAX);
+
+	printf("%-10.10lx|\n", LONG_MIN);
+	ft_printf("%-10.10lx|\n\n", LONG_MIN);
+
+	printf("%-10.10lx|\n", -2147483647);
+	ft_printf("%-10.10lx|\n\n", -2147483647);
+
+	printf("%hx|\n", USHRT_MAX);
+	ft_printf("%hx|\n\n", USHRT_MAX);
+
+	printf("%-12.6hx|\n", UCHAR_MAX);
+	ft_printf("%-12.6hx|\n\n", UCHAR_MAX);*/
+
+}
+
+/*
+void	test_u()
+{
+	unsigned long		REG_UL = 10446744073709551610;
+	unsigned long long	MAX_UNSLL = 18446744073709551610;
+	unsigned char		value = 42;
+	unsigned short		short_value = 42;
+
+	printf("   printf:%8.42hhu type\n", value);
+	ft_printf("ft_printf:%8.42hhu type\n\n", value);
+
+		printf("   printf:%12.4hu type\n", short_value);
+	ft_printf("ft_printf:%12.4hu type\n\n", short_value);
+
+	printf("   printf:%-12d type\n", -42949672);	
+	ft_printf("ft_printf:%-12d type\n\n", -42949672);
+
+	printf("   printf:%8.4lu type\n", REG_UL);
+	ft_printf("ft_printf:%8.4lu type\n\n", REG_UL);
+
+	printf("   printf:%8.4llu type\n", MAX_UNSLL);		
+	ft_printf("ft_printf:%8.4llu type\n\n", MAX_UNSLL);
+	
+}*/
 
 void	test_float_flags()
 {
@@ -99,10 +183,33 @@ void	test_float()
 //	printf("Origin :%.19f|\n", flnum);
 //	ft_printf("Mine pf:%.19f|\n\n", flnum);
 }
+// if + -> ignore space
+// if + -> ignore multiple space (???)
+// if ++ -> possibility to handle multiple plus flags
+// if negative && flag zero mine ignore sign (-) 
+
+void		test_int_multiple_flags()
+{
+	ft_printf("% +d", 42);  
+  ft_printf("% +d", -42); 
+  ft_printf("%+ d", 42);  
+  ft_printf("%+ d", -42); 
+  ft_printf("%  +d", 42); 
+  ft_printf("%  +d", -42);
+  ft_printf("%+  d", 42); 
+  ft_printf("%+  d", -42);
+  ft_printf("% ++d", 42); 
+  ft_printf("% ++d", -42);
+  ft_printf("%++ d", 42); 
+  ft_printf("%++ d", -42);
+  ft_printf("%0d", -42);  
+  ft_printf("%00d", -42); 
+}
 
 void	test_int()
 {
-	printf("Orig pf:%015.1d|\n", -42);
+	test_int_multiple_flags();
+/*	printf("Orig pf:%015.1d|\n", -42);
 	ft_printf("Mine pf:%015.1d|\n\n", -42);
 
 	printf("Orig pf:%+015.1d|\n", 42);
@@ -127,14 +234,36 @@ void	test_int()
 	ft_printf("Mine pf:%d|\n", 42);
 
 	printf("Orig pf:%d|\n", -42);
-	ft_printf("Mine pf:%d|\n",-42);
+	ft_printf("Mine pf:%d|\n",-42);*/
 }
 
+void	test_str()
+{
+	printf("%.2c\n", NULL);
+	ft_printf("%.2c\n", NULL);
+	printf("Orig pf:@moulitest: %s|\n", NULL);
+	ft_printf("Orig pf:@moulitest: %s|\n", NULL);
+
+	printf("Orig pf:%.2c||\n", NULL);
+	ft_printf("Mine pf:%.2c||\n", NULL);
+
+	ft_printf("Orig pf:%s %s|\n", NULL, "string");
+	ft_printf("Mine pf:%s %s|\n", NULL, "string");
+
+	printf("Orig pf:@moulitest: %c|\n", 0);
+	ft_printf("Mine pf:@moulitest: %c|\n", 0);
+
+	printf("Orig pf:%2c|\n", 0);
+	ft_printf("Mine pf:%2c|\n", 0);
+
+  printf("Orig pf:null %c and text|\n", 0);
+	ft_printf("Mine pf:null %c and text", 0);
+}
 
 void		test_hexadecimal()
-{
-//		printf("%hx\n", (unsigned short)4294967296);
-//	ft_printf("%hx\n\n", (unsigned short)4294967296);
+{/*
+		printf("%hx\n", (unsigned short)4294967296);
+	ft_printf("%hx\n\n", (unsigned short)4294967296);
 
 		printf("%hx\n", (unsigned short)4295967295);
 	ft_printf("%hx\n\n", (unsigned short)4295967295);
@@ -142,32 +271,29 @@ void		test_hexadecimal()
 		printf("%hx\n", (unsigned short)4294967294);
 	ft_printf("%hx\n\n", (unsigned short)4294967294);
 
-	printf("%hx\n", (unsigned short)42);
-	ft_printf("%hx\n\n", (unsigned short)42);
 
-	printf("%hx\n", (unsigned short)0);
-	ft_printf("%hx\n\n", (unsigned short)0);
+	printf("Orig pf:%20.1s|\n", "Exetion");
+	ft_printf("Mine pf:%20.1s|\n\n", "Exetion");
+
+	printf("Orig pf:%-20.s|\n", "Exetion");
+	ft_printf("Mine pf:%-20.s|\n\n", "Exetion");
+
+	printf("Orig pf:%20.0s|\n", "Exetion");
+	ft_printf("Mine pf:%20.0s|\n\n", "Exetion");
+
+	printf("Orig pf:%020.2s\n", "Exetion");
+	ft_printf("Mine pf:%020.2s\n\n", "Exetion");
+
+	printf("Orig pf:%-20.5s|\n", "Exetion");
+	ft_printf("Mine pf:%-20.5s|\n", "Exetion");
+*/
 }
-//73832
-//65535
+
 int		main()
 {
-//	test_float();
-//	printf("Number :4242.14199060359\n");
-//	printf("Origin :%10f|\n", (float)-0.0/0.0);
-//	printf("Origin :%-+10f|\n",  -0.0);
-//	ft_printf("Mine pf:%-+10.4d|\n", );
+
 		test_hexadecimal();
-
-//	printf("res: %d\n", 	printf("%%\n"));
-//	printf("res: %d\n", 	ft_printf("%%\n"));
-
-/*	printf("Origin :%+-10.40f|\n", -42.42);
-	ft_printf("Mine pf:%+-10.4f|\n", -42.42);
-
-
-	printf("Origin :%-10.4f|\n", -42.42);
-	ft_printf("Mine pf:%-10.4f|\n", -42.42);*/
+		test_str();
 //	test_float();
 //	test_int();
 	return (0);

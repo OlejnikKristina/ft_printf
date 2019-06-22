@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 20:22:07 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 18:33:23 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ void	int_width(s_format_spec *s, s_placeholder *result)
 	char	*temp;
 
 	if (!s->width || s->flag_minus ||
-	s->width <= (s->dig_amount + s->precision))
+	s->width <= (s->dig_amount - s->precision))
 		return ;
 	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
 		s->width--;
-	(s->flag_hash && ft_strchr("xX", s->type)) ? (s->width -= 2) : 1;
 	(s->precision <= s->dig_amount) ?
 	(len = s->width - s->dig_amount) :
 	(len = s->width - s->precision);
@@ -63,6 +62,11 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 		;
 	else
 		data = 0;
+	if (spec->precision == -42)
+	{
+		spec->precision = 0;
+		return (ft_strnew(0));
+	}
 	spec->is_negative = data < 0;
 	spec->dig_amount = count_digit64(data);
 	return (itoa64(data));
@@ -82,6 +86,14 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 	else
 		data = 0;
 	spec->dig_amount = count_digit64u(data);
+	if (spec->precision == -42)
+	{
+		spec->precision = 0;
+		return (ft_strnew(0));
+	}
+	if (spec->flag_hash && ft_strchr("xX", spec->type)
+	&& (!spec->flag_zero || spec->flag_minus) )
+		(spec->width -= 2);
 	if (spec->type == 'o')
 		return (itoa_base64u(data, 8, 0));
 	if (spec->type == 'x')
@@ -103,7 +115,7 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 		(s->type == 'i' && (type = int_sign_len(s, arg_ptr))) ||
 		(ft_strchr("uoxX", s->type) && (type = int_unsign_len(s, arg_ptr))))
 		;
-	if (ft_strchr("oxX", s->type))//73832
+	if (ft_strchr("oxX", s->type))
 	{
 		s->dig_amount = ft_strlen(type);
 		s->flag_space = 0;
@@ -111,7 +123,7 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 	}
 	result->str = ft_strnew(0);
 	int_width(s, result);
-	int_flag(s, result);
+	int_flag(s, result, type);
 	int_precision(s, result);
 	(s->is_negative) ?
 	(result->str = ft_superjoin(&result->str, &type[1])) :

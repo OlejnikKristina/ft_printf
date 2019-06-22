@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 19:04:51 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 18:25:24 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
 	{
 		format_specifier->type = **input;
 		(*input)++;
-		if (feature && format_specifier->type == 's'
+		if (feature && ft_strchr("sidouxX", format_specifier->type)
 		&& format_specifier->precision == 0)
 			format_specifier->precision = -42;
 		if (!feature && format_specifier->type == 'f'

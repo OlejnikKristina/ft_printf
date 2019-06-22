@@ -6,11 +6,12 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 23:52:32 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 12:45:48 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 15:30:15 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdlib.h>
+#include <stdlib.h>
+#include "libft.h"
 
 char	*ft_strrev(char str_rev[])
 {

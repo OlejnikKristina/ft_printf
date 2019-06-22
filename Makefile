@@ -10,40 +10,39 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME		= libftprintf.a
-NAME_PF		= ft_printf
-COMPILER	= clang
+NAME		=	libftprintf.a
+NAME_PF		=	ft_printf
+COMPILER	=	clang
 CHECK_LEAK	= 
-LIBFT			= src/libft/*.c
+LIBFT		=	libft/favorite/*.c libft/mem/*.c \
+				libft/lst/*.c libft/other/*.c \
+				libft/put/*.c libft/str/*.c
 INCLUDES	=	includes/
 SRC			=	src/ft_printf.c \
 				src/init_format_specifier.c \
 				src/format_specifier/integer.c \
 				src/format_specifier/int_flag.c \
-				src/format_specifier/int_precision.c \
+				src/format_specifier/add_zeros.c \
 				src/format_specifier/type_c.c \
 				src/format_specifier/type_p.c \
 				src/format_specifier/type_f.c \
 				src/format_specifier/type_percent.c \
-				src/format_specifier/ft_ftoa.c \
 				src/format_specifier/type_s.c
 
 UTILITY		=	src/utility/copy_until.c \
-				src/utility/move_ptr.c \
-				src/utility/ft_superjoin.c \
-				src/utility/itoa64.c \
-				src/utility/ft_itoa_base.c
+				src/utility/move_ptr.c
+
 ALL_OBJECT_FILES = $(SRC:.c=.o) $(UTILITY:.c=.o)
+all: $(NAME)
 $(NAME):
 	$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
 	ar rc $(NAME) *.o
 	ranlib $(NAME)
+	rm -f $(ALL_OBJECT_FILES) *.o
 clean:
 	rm -f $(ALL_OBJECT_FILES) *.o
 fclean: clean
 	rm -f $(NAME) *.o
-
 home:
-	$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES) -g
-cheak_leaks:
-	$(COMPILER) -fsanitize=address -g -o $(NAME) $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
+	$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) libft/libft.a -I$(INCLUDES) -g
+re: fclean $(NAME) clean

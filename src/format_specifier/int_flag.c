@@ -6,39 +6,45 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 16:06:35 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 18:39:23 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	int_flag(s_format_spec *spec, s_placeholder *spec_res)
+void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 {
-	if (spec->is_negative && (!spec->flag_zero || spec->precision))
+	if (s->is_negative && (!s->flag_zero || s->precision))
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
-	if (spec->flag_plus && (!spec->flag_zero || spec->precision)
-	&& !spec->is_negative)
+	if (s->flag_plus && (!s->flag_zero || s->precision)
+	&& !s->is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, "+");
-	if (spec->flag_space && !spec->flag_zero)
+	if (s->flag_space && !s->flag_zero)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
-	if (spec->flag_hash && spec->type == 'x')
-		spec_res->str = ft_superjoin(&spec_res->str, "0x");
-	if (spec->flag_hash && spec->type == 'X')
-		spec_res->str = ft_superjoin(&spec_res->str, "0X");
+	if (s->flag_hash && ft_strchr("xX", s->type) && ft_strcmp(num, "0"))
+	{
+		if (!s->flag_zero || s->flag_minus || (s->width <= (ft_strlen(num) + 2)))
+			spec_res->str = ft_superjoin(&spec_res->str, "0x");
+		if (s->type == 'X')
+			spec_res->str[ft_strlen(spec_res->str) - 1] = 'X';
+	}
 }
 
-void	int_flag_minus(s_format_spec *spec, s_placeholder *result)
+void	int_flag_minus(s_format_spec *s, s_placeholder *result)
 {
 	int		width;
 	char	*set_width;
 
-	if (spec->precision <= spec->dig_amount)
-		width = spec->width - spec->dig_amount
-		- ((spec->flag_plus && !spec->is_negative) || spec->flag_space);
+	if (s->flag_hash && s->flag_zero
+	&& (s->dig_amount - s->precision) < s->width)
+		result->str[1] = s->type;
+	if (s->precision <= s->dig_amount)
+		width = s->width - s->dig_amount
+		- ((s->flag_plus && !s->is_negative) || s->flag_space);
 	else
-		width = spec->width - spec->precision
-		- ((spec->flag_plus && !spec->is_negative) || spec->flag_space);
-	if (!spec->flag_minus || width <= 0)
+		width = s->width - s->precision
+		- ((s->flag_plus && !s->is_negative) || s->flag_space);
+	if (!s->flag_minus || width <= 0)
 		return ;
 	set_width = ft_strnew(width + 1);
 	set_width = ft_memset((void *)set_width, ' ', width);

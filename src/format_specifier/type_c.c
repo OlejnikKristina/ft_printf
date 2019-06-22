@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/19 19:23:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 21:05:34 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ bool	type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 
 	ft_strclr(symbol);
 	symbol[0] = (char)va_arg(arg_ptr, int);
+	if ((void *)symbol == NULL)
+		return (true);
 	if (1 < specifier->width && !specifier->flag_minus)
 	{
 		result->str = ft_strnew(specifier->width);

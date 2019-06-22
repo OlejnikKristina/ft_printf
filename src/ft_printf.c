@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 18:52:08 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/22 20:57:36 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@ va_list arg_ptr)
 bool	read_input(char *input, va_list arg_ptr, s_output *out)
 {
 	s_format_spec	specifier;
-	s_placeholder	spec_res;
+	s_placeholder	result;
 	char			*holder;
 
-	spec_res.str = NULL;
+	result.str = NULL;
 	ft_bzero((void *)&specifier, sizeof(specifier));
 	while (copy_until(input, out, '%') != FINISHED)
 	{
@@ -56,14 +56,15 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 		}
 		else
 		{
-			proccesing_specifier(&specifier, &spec_res, arg_ptr);
-			out->str = ft_superjoin(&out->str, spec_res.str);
+			proccesing_specifier(&specifier, &result, arg_ptr);
+			out->str = ft_superjoin(&out->str, result.str);
 		}
 	}
 	ft_putstr(out->str);
-	out->usage = ft_strlen(out->str);
-	if (spec_res.str)
-		ft_strdel(&spec_res.str);
+	if (out->str)
+		out->usage = ft_strlen(out->str);
+	if (result.str)
+		ft_strdel(&result.str);
 	return (FINISHED);
 }
 
@@ -78,7 +79,8 @@ int		ft_printf(const char *format, ...)
 	output.size = 0;
 	output.str = ft_strnew(0);
 	if (read_input(input, arg_ptr, &output) == FINISHED)
-		ft_strdel(&output.str);
+		if (output.str)
+			ft_strdel(&output.str);
 	ft_strdel(&input);
 	return (output.usage);
 }
