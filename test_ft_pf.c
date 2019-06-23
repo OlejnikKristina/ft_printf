@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 16:24:51 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 18:31:05 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,14 +315,16 @@ int		main()
 
 	printf("Orig pf:%-05d|\n", -42);
 	ft_printf("Mine pf:%-05d|\n", -42);*/
-	// printf("len orgg: \"%d\" ", 	printf(" \"%5d\"|\n", -42));
-	// printf("len mine: \"%d\" ", 	ft_printf(" \"%5d\"|\n", -42));
+	// printf("len orgg: \"%d\" ", 	printf("Orig pf:% d|\n\n", 0));
+	// printf("len mine: \"%d\" ", 	ft_printf("Mine pf:% c|||\n\n", 0));
 	// 		printf("Orig pf:@moulitest: %#.x %#.0x|\n", 0, 0);
 	// ft_printf("Mine pf:@moulitest: %#.x %#.0x|\n", 0, 0);
 	//	printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 0));
 //		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 0));
-		ft_printf("Mine pf:% c|||\n\n", 0);
-	/*		printf("Orig pf:% d|\n\n", 0);
+
+		printf("len orgg: \"%d\" ", 	printf("Orig pf:% c|\n", 0));
+		printf("len mine: \"%d\" ", 	ft_printf("Mine pf:% c|\n", 0));
+	/*		
 			printf("Orig pf:% c|\n\n", 0);
 			printf("Orig pf:% c|\n\n", NULL);
 			printf("Orig pf:% s|\n\n", 0);

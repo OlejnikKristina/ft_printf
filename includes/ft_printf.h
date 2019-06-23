@@ -29,7 +29,6 @@ typedef struct	t_format_spec
 {
 	ssize_t		width;
 	ssize_t		precision;
-	ssize_t		usage;
 	unsigned	dig_amount;
 	bool		is_negative;
 	bool		flag_minus;
@@ -48,14 +47,12 @@ typedef struct	t_format_spec
 
 typedef	struct	t_placeholder
 {
-	ssize_t		len;
 	char		*str;
 }				s_placeholder;
 
 typedef	struct	t_output
 {
 	int			usage;
-	int			size;
 	char		*str;
 }				s_output;
 
@@ -84,7 +81,8 @@ void			ft_ftoa(long double num, char **sfloat_str, unsigned precision,
 void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
 void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
-bool			type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+int				type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+//bool			type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_s(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);

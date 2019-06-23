@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 16:42:12 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 18:35:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ return (
 		(specifier->type == '%' && type_percent(specifier, spec_res, arg_ptr)) ||
 		(specifier->type == 'c' && type_c(specifier, spec_res, arg_ptr)));*/
 
-bool		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
+int		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 va_list arg_ptr)
 {
 	if (ft_strchr("diouxX", specifier->type))
@@ -45,28 +45,35 @@ va_list arg_ptr)
 	if (specifier->type == '%')
 		type_percent(specifier, spec_res, arg_ptr);
 	if (specifier->type == 'c')
-		if (type_c(specifier, spec_res, arg_ptr) == 0)
-			return (0);
+		if (type_c(specifier, spec_res, arg_ptr) == -2)
+			return (-2);
 	return (1);
 }
 
-int		huj(s_format_spec *s)
+int		huj(s_format_spec *s, s_placeholder *result, s_output *out)
 {
 	char	fill_chr;
 
 	(s->flag_zero) ?
 	(fill_chr = '0') :
 	(fill_chr = ' ');
+	out->usage += ft_strlen(out->str);
+	out->usage += 1;
+	ft_putstr(out->str);
+	ft_strdel(&out->str);
+	out->str = ft_strnew(0);
 	while (1 < s->width && !s->flag_minus)
 	{
 		write(1, &fill_chr, 1);
 		s->width -= 1;
+		out->usage += 1;
 	}
 	write(1, "", 1);
 	while (1 < s->width && s->flag_minus)
 	{
 		write(1, &fill_chr, 1);
 		s->width -= 1;
+		out->usage += 1;
 	}
 	return (0);
 }
@@ -79,7 +86,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	int				i;
 
 	result.str = NULL;
-	specifier.usage = 0;
+	ft_bzero((void *)&specifier, sizeof(specifier));
 	while (copy_until(input, out, '%') != FINISHED)
 	{
 		input = ft_strchr(input, '%') + 1;
@@ -91,22 +98,18 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 		}
 		else
 		{
-			if (proccesing_specifier(&specifier, &result, arg_ptr) == false)
-			{
-				ft_putstr(out->str);
-				ft_strdel(&out->str);
-				huj(&specifier);
-				out->str = ft_strnew(0);
-			}
+			if (proccesing_specifier(&specifier, &result, arg_ptr) == -2)
+				huj(&specifier, &result, out);
 			else
 				out->str = ft_superjoin(&out->str, result.str);
 		}
-		
 	}
 	if (out->str)
+	{
 		ft_putstr(out->str);
-	if (out->str)
-		out->usage = ft_strlen(out->str) + specifier.usage;
+		out->usage += ft_strlen(out->str);
+		//ft_strdel(&out->str);
+	}
 	if (result.str)
 		ft_strdel(&result.str);
 	return (FINISHED);
@@ -128,33 +131,3 @@ int		ft_printf(const char *format, ...)
 	ft_strdel(&input);
 	return (out.usage);
 }
-/*
-	result.str = NULL;
-	ft_bzero((void *)&specifier, sizeof(specifier));
-	while (copy_until(input, out, '%') != FINISHED)
-	{
-		specifier.usage = 0;
-		input = ft_strchr(input, '%') + 1;
-		holder = input;
-		if (init_specifier(&input, &specifier, out) == false)
-		{
-			out->str = ft_superjoin(&out->str, "%");
-			out->usage += ft_strlen(out->str);
-			input = holder;
-		}
-		else
-		{
-			proccesing_specifier(&specifier, &result, arg_ptr);
-			out->usage += ft_strlen(out->str);
-			temp = out->str;
-			out->str = ft_strnew(out->usage + specifier.usage);
-			ft_memcpy((void *)out->str, temp, out->usage);
-			//ft_memcpy((void *)&out->str[out->usage], &result.str[0], specifier.usage);
-
-			ft_memcpy((void *)&out->str[out->usage], (void *)"\0\0", 1);
-			out->str[out->usage + 1] = '\0';
-			ft_strdel(&temp);
-			//out->str = ft_superjoin(&out->str, result.str);
-		}
-	}
-*/

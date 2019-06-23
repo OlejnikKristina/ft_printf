@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 13:42:42 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 18:31:31 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 	{
 		spec->precision = 0;
 		spec->flag_hash = 0;
-		//spec->usage += 1;
 		return (ft_strnew(0));
 	}
 	if (spec->flag_hash && ft_strchr("xX", spec->type)
