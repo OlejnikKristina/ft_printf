@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 18:39:23 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 13:06:42 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,19 @@ void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 {
 	if (s->is_negative && (!s->flag_zero || s->precision))
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
-	if (s->flag_plus && (!s->flag_zero || s->precision)
+	else if (s->flag_plus && (!s->flag_zero || s->precision)
 	&& !s->is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, "+");
-	if (s->flag_space && !s->flag_zero)
+	else if (s->flag_space && !s->flag_zero)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
 	if (s->flag_hash && ft_strchr("xX", s->type) && ft_strcmp(num, "0"))
 	{
 		if (!s->flag_zero || s->flag_minus || (s->width <= (ft_strlen(num) + 2)))
+		{
 			spec_res->str = ft_superjoin(&spec_res->str, "0x");
-		if (s->type == 'X')
-			spec_res->str[ft_strlen(spec_res->str) - 1] = 'X';
+			if (s->type == 'X')
+				spec_res->str[ft_strlen(spec_res->str) - 1] = 'X';
+		}
 	}
 }
 

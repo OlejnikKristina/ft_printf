@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 20:57:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 13:50:17 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 
 	result.str = NULL;
 	ft_bzero((void *)&specifier, sizeof(specifier));
+	specifier.usage = 0;
 	while (copy_until(input, out, '%') != FINISHED)
 	{
 		input = ft_strchr(input, '%') + 1;
@@ -62,7 +63,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	}
 	ft_putstr(out->str);
 	if (out->str)
-		out->usage = ft_strlen(out->str);
+		out->usage = ft_strlen(out->str) + specifier.usage;
 	if (result.str)
 		ft_strdel(&result.str);
 	return (FINISHED);
@@ -71,16 +72,16 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 int		ft_printf(const char *format, ...)
 {
 	va_list		arg_ptr;
-	s_output	output;
+	s_output	out;
 	char		*input;
 
 	va_start(arg_ptr, format);
 	input = ft_strdup(format);
-	output.size = 0;
-	output.str = ft_strnew(0);
-	if (read_input(input, arg_ptr, &output) == FINISHED)
-		if (output.str)
-			ft_strdel(&output.str);
+	out.usage = 0;
+	out.str = ft_strnew(0);
+	if (read_input(input, arg_ptr, &out) == FINISHED)
+		if (out.str)
+			ft_strdel(&out.str);
 	ft_strdel(&input);
-	return (output.usage);
+	return (out.usage);
 }

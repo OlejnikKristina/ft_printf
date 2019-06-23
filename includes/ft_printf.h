@@ -29,6 +29,7 @@ typedef struct	t_format_spec
 {
 	ssize_t		width;
 	ssize_t		precision;
+	ssize_t		usage;
 	unsigned	dig_amount;
 	bool		is_negative;
 	bool		flag_minus;

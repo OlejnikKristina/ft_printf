@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 21:05:34 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 14:42:55 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ bool	type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 
 	ft_strclr(symbol);
 	symbol[0] = (char)va_arg(arg_ptr, int);
-	if ((void *)symbol == NULL)
-		return (true);
+	if (symbol[0] == 0)
+	{
+	//	symbol[0] = '\0';
+		specifier->usage += 1;
+	}
 	if (1 < specifier->width && !specifier->flag_minus)
 	{
-		result->str = ft_strnew(specifier->width);
+		result->str = ft_strnew(specifier->width + 1);
 		specifier->width -= 1;
 		(specifier->flag_zero) ?
 		ft_memset((void *)result->str, '0', specifier->width) :
@@ -31,7 +34,12 @@ bool	type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 	}
 	else
 		result->str = ft_strnew(0);
-	result->str = ft_superjoin(&result->str, symbol);
+	if (symbol[0] == 0)
+	{
+		result->str[ft_strlen(result->str)] = '\0';
+	}
+	else
+		result->str = ft_superjoin(&result->str, symbol);
 	if (1 < specifier->width && specifier->flag_minus)
 	{
 		width_minus = ft_strnew(specifier->width - 1);

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 21:22:22 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 14:40:09 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,21 +189,36 @@ void	test_float()
 // if negative && flag zero mine ignore sign (-) 
 
 void		test_int_multiple_flags()
-{
-	ft_printf("% +d", 42);  
-  ft_printf("% +d", -42); 
-  ft_printf("%+ d", 42);  
-  ft_printf("%+ d", -42); 
-  ft_printf("%  +d", 42); 
-  ft_printf("%  +d", -42);
-  ft_printf("%+  d", 42); 
-  ft_printf("%+  d", -42);
-  ft_printf("% ++d", 42); 
-  ft_printf("% ++d", -42);
-  ft_printf("%++ d", 42); 
-  ft_printf("%++ d", -42);
-  ft_printf("%0d", -42);  
-  ft_printf("%00d", -42); 
+{/*
+	ft_printf("% +d|\n", 42);  
+  ft_printf("% +d|\n", -42); 
+  ft_printf("%+ d|\n", 42);  
+  ft_printf("%+ d|\n", -42); 
+  ft_printf("%  +d|\n", 42); 
+  ft_printf("%  +d|\n", -42);
+  ft_printf("%+  d|\n", 42); 
+  ft_printf("%+  d|\n", -42);
+  ft_printf("% ++d|\n", 42); 
+  ft_printf("% ++d|\n", -42);
+  ft_printf("%++ d|\n", 42); 
+  ft_printf("%++ d|\n", -42);
+  ft_printf("%0d|\n", -42);  
+  ft_printf("%00d|\n", -42);
+
+	printf("% +d|\n", 42);  
+  printf("% +d|\n", -42); 
+  printf("%+ d|\n", 42);  
+  printf("%+ d|\n", -42); 
+  printf("%  +d|\n", 42); 
+  printf("%  +d|\n", -42);
+  printf("%+  d|\n", 42); 
+  printf("%+  d|\n", -42);
+  printf("% ++d|\n", 42); 
+  printf("% ++d|\n", -42);
+  printf("%++ d|\n", 42); 
+  printf("%++ d|\n", -42);
+  printf("%0d|\n", -42);  
+  printf("%00d|\n", -42);*/
 }
 
 void	test_int()
@@ -238,7 +253,7 @@ void	test_int()
 }
 
 void	test_str()
-{
+{/*
 	printf("%.2c\n", NULL);
 	ft_printf("%.2c\n", NULL);
 	printf("Orig pf:@moulitest: %s|\n", NULL);
@@ -248,7 +263,7 @@ void	test_str()
 	ft_printf("Mine pf:%.2c||\n", NULL);
 
 	ft_printf("Orig pf:%s %s|\n", NULL, "string");
-	ft_printf("Mine pf:%s %s|\n", NULL, "string");
+	ft_printf("Mine pf:%s %s|\n", NULL, "string");*/
 
 	printf("Orig pf:@moulitest: %c|\n", 0);
 	ft_printf("Mine pf:@moulitest: %c|\n", 0);
@@ -291,10 +306,35 @@ void		test_hexadecimal()
 
 int		main()
 {
+	/*
+	printf("Orig pf:%.5c|\n", 0);
+	ft_printf("Mine pf:%.5c|\n", 0);
 
-		test_hexadecimal();
-		test_str();
+	printf("Orig pf:%.5c|\n", NULL);
+	ft_printf("Mine pf:%.5c|\n", 0);
+
+	printf("Orig pf:%-05d|\n", -42);
+	ft_printf("Mine pf:%-05d|\n", -42);*/
+	// printf("len orgg: \"%d\" ", 	printf(" \"%5d\"|\n", -42));
+	// printf("len mine: \"%d\" ", 	ft_printf(" \"%5d\"|\n", -42));
+	// 		printf("Orig pf:@moulitest: %#.x %#.0x|\n", 0, 0);
+	// ft_printf("Mine pf:@moulitest: %#.x %#.0x|\n", 0, 0);
+	//	printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 0));
+//		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 0));
+		ft_printf("Mine pf:% c|\n", 0);
+			printf("Orig pf:% c|\n\n\n", 0);
+
+/*		
+		printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 1));
+		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 1));
+		ft_printf("Mine pf:% c|\n", 1);
+			printf("Orig pf:% c|\n\n", 1);*/
+	// ft_printf("Mine pf:%5d|\n", -42);
+	// 	printf("Orig pf:%5d|\n", -42);
+//		test_hexadecimal();
+//		test_str();
 //	test_float();
 //	test_int();
+
 	return (0);
 }
