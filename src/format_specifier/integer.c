@@ -6,20 +6,19 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 18:31:31 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 21:47:50 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	int_width(s_format_spec *s, s_placeholder *result)
+bool	int_width(s_format_spec *s, s_placeholder *result)
 {
 	size_t	len;
-	char	*temp;
 
-	if (!s->width || s->flag_minus ||
+	if (!s->width || s->flag_minus || s->width <= s->precision ||
 	s->width <= (s->dig_amount - s->precision))
-		return ;
+		return (false);
 	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
 		s->width--;
 	(s->precision <= s->dig_amount) ?
@@ -38,15 +37,7 @@ void	int_width(s_format_spec *s, s_placeholder *result)
 		result->str = ft_strnew(len);
 		ft_memset((void *)result->str, ' ', len);
 	}
-}
-
-void	int_precision(s_format_spec *spec, s_placeholder *result)
-{
-	if (!spec->precision)
-		return ;
-	if (spec->is_negative)
-		spec->precision += 1;
-	add_zeros(spec->dig_amount, &result->str, spec->precision);
+	return (true);
 }
 
 char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
@@ -86,15 +77,17 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 	else
 		data = 0;
 	spec->dig_amount = count_digit64u(data);
-	if (spec->precision == -42)
+	if (spec->precision == -42 && (spec->type != 'o' || !spec->flag_hash))
 	{
 		spec->precision = 0;
 		spec->flag_hash = 0;
 		return (ft_strnew(0));
 	}
 	if (spec->flag_hash && ft_strchr("xX", spec->type)
-	&& (!spec->flag_zero || spec->flag_minus) )
+	&& (!spec->flag_zero || spec->flag_minus))
 		(spec->width -= 2);
+	if (spec->type == 'o' && spec->flag_hash)
+		spec->width -= 1;
 	if (spec->type == 'o')
 		return (itoa_base64u(data, 8, 0));
 	if (spec->type == 'x')
@@ -122,13 +115,14 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 		s->flag_space = 0;
 		s->flag_plus = 0;
 	}
-	result->str = ft_strnew(0);
-	int_width(s, result);
+	if (!int_width(s, result))
+		result->str = ft_strnew(0);
 	int_flag(s, result, type);
 	int_precision(s, result);
-	(s->is_negative) ?
-	(result->str = ft_superjoin(&result->str, &type[1])) :
-	(result->str = ft_superjoin(&result->str, type));
+	(!s->is_negative || (!s->width && s->flag_zero && s->is_negative)
+	|| (s->is_negative && s->flag_zero && s->flag_minus))
+	? (result->str = ft_superjoin(&result->str, type)) :
+	(result->str = ft_superjoin(&result->str, &type[1])) ;
 	int_flag_minus(s, result);
 	ft_strdel(&type);
 }

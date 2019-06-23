@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 13:06:42 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 21:28:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 				spec_res->str[ft_strlen(spec_res->str) - 1] = 'X';
 		}
 	}
+	if (s->type == 'o' && s->flag_hash && ft_strcmp(num, "0"))
+		spec_res->str = ft_superjoin(&spec_res->str, "0");
 }
 
 void	int_flag_minus(s_format_spec *s, s_placeholder *result)
@@ -37,7 +39,7 @@ void	int_flag_minus(s_format_spec *s, s_placeholder *result)
 	int		width;
 	char	*set_width;
 
-	if (s->flag_hash && s->flag_zero
+	if (s->flag_hash && s->flag_zero && ft_strchr("xX", s->type)
 	&& (s->dig_amount - s->precision) < s->width)
 		result->str[1] = s->type;
 	if (s->precision <= s->dig_amount)

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 18:31:05 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 21:45:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,45 +304,31 @@ void		test_hexadecimal()
 */
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int		main()
 {
-	/*
-	printf("Orig pf:%.5c|\n", 0);
-	ft_printf("Mine pf:%.5c|\n", 0);
 
-	printf("Orig pf:%.5c|\n", NULL);
-	ft_printf("Mine pf:%.5c|\n", 0);
+		printf("Orig pf: %.d %.0d|\n", 42, 43);
+	ft_printf("Mine pf: %.d %.0d|\n\n", 42, 43);
 
-	printf("Orig pf:%-05d|\n", -42);
-	ft_printf("Mine pf:%-05d|\n", -42);*/
-	// printf("len orgg: \"%d\" ", 	printf("Orig pf:% d|\n\n", 0));
-	// printf("len mine: \"%d\" ", 	ft_printf("Mine pf:% c|||\n\n", 0));
-	// 		printf("Orig pf:@moulitest: %#.x %#.0x|\n", 0, 0);
-	// ft_printf("Mine pf:@moulitest: %#.x %#.0x|\n", 0, 0);
-	//	printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 0));
-//		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 0));
-
-		printf("len orgg: \"%d\" ", 	printf("Orig pf:% c|\n", 0));
-		printf("len mine: \"%d\" ", 	ft_printf("Mine pf:% c|\n", 0));
-	/*		
-			printf("Orig pf:% c|\n\n", 0);
-			printf("Orig pf:% c|\n\n", NULL);
-			printf("Orig pf:% s|\n\n", 0);
-			printf("Orig pf:% s|\n\n", NULL);
-			printf("Orig pf:%#.x %#.0x|\n", 0, 0);*/
-	//		printf("Orig pf:% c|\n\n\n", 0);
-
-/*		
-		printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 1));
-		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 1));
-		ft_printf("Mine pf:% c|\n", 1);
-			printf("Orig pf:% c|\n\n", 1);*/
-	// ft_printf("Mine pf:%5d|\n", -42);
-	// 	printf("Orig pf:%5d|\n", -42);
-//		test_hexadecimal();
-//		test_str();
+		printf("Orig pf: %.d %.0d|\n", 0, 0);
+	ft_printf("Mine pf: %.d %.0d|\n\n", 0, 0);
 //	test_float();
 //	test_int();
-
 	return (0);
 }

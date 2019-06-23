@@ -24,6 +24,7 @@
 # define COMPLITED 1
 # define FINISHED 0
 # define STAR -1
+# define NO_DOT
 
 typedef struct	t_format_spec
 {
@@ -73,16 +74,17 @@ bool			check_precision(char **input, s_format_spec *format_specifier);
 bool			check_flags(char **input, s_format_spec *format_specifier);
 
 void			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
-void			int_width(s_format_spec *s, s_placeholder *result);
+bool			int_width(s_format_spec *s, s_placeholder *result);
 
 void			int_flag(s_format_spec *spec, s_placeholder *spec_res, char *num);
 void			ft_ftoa(long double num, char **sfloat_str, unsigned precision, 
 				long double multiply_me);
 void			int_flag_minus(s_format_spec *spec, s_placeholder *result);
+void			int_precision(s_format_spec *spec, s_placeholder *result);
 void			int_sign(s_format_spec *specifier, s_placeholder *spec_res);
 void			add_zeros(unsigned dig_amount, char **result, ssize_t width);
 int				type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
-//bool			type_c(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
+
 bool			type_s(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);

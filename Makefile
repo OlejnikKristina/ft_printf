@@ -22,6 +22,7 @@ SRC			=	src/ft_printf.c \
 				src/init_format_specifier.c \
 				src/format_specifier/integer.c \
 				src/format_specifier/int_flag.c \
+				src/format_specifier/int_precision.c \
 				src/format_specifier/add_zeros.c \
 				src/format_specifier/type_c.c \
 				src/format_specifier/type_p.c \
@@ -44,5 +45,6 @@ clean:
 fclean: clean
 	rm -f $(NAME) *.o
 home:
-	$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) libft/libft.a -I$(INCLUDES) -g
+	@$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) libft/libft.a -I$(INCLUDES) -g
+	@echo "\033[0;32mCompiling all files\033[0m"
 re: fclean $(NAME) clean
