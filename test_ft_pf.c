@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 14:40:09 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/23 16:24:51 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -321,8 +321,14 @@ int		main()
 	// ft_printf("Mine pf:@moulitest: %#.x %#.0x|\n", 0, 0);
 	//	printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 0));
 //		printf("Usage mine: %d\n\n", ft_printf("Mine pf:% c|\n", 0));
-		ft_printf("Mine pf:% c|\n", 0);
-			printf("Orig pf:% c|\n\n\n", 0);
+		ft_printf("Mine pf:% c|||\n\n", 0);
+	/*		printf("Orig pf:% d|\n\n", 0);
+			printf("Orig pf:% c|\n\n", 0);
+			printf("Orig pf:% c|\n\n", NULL);
+			printf("Orig pf:% s|\n\n", 0);
+			printf("Orig pf:% s|\n\n", NULL);
+			printf("Orig pf:%#.x %#.0x|\n", 0, 0);*/
+	//		printf("Orig pf:% c|\n\n\n", 0);
 
 /*		
 		printf("Usage orig: %d\n", printf("Orig pf:% c|\n", 1));
