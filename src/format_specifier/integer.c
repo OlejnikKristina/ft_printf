@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/24 12:54:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 22:36:27 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool	int_width(s_format_spec *s, s_placeholder *result)
 		return (false);
 	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
 		s->width--;
-	(s->precision <= s->dig_amount) ?
+	(s->precision < s->dig_amount) ?
 	(len = s->width - s->dig_amount) :
-	(len = s->width - s->precision);
+	(len = s->width - s->precision - s->is_negative);
 	if (s->flag_zero && !s->precision && !s->flag_minus)
 	{
 		result->str = ft_strnew(len + s->is_negative);
@@ -44,6 +44,18 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	int64_t		data;
 
+	if (spec->len_l)
+		data = va_arg(arg_ptr, long);
+	else if (spec->len_ll)
+		data = va_arg(arg_ptr, long long);
+	else if (spec->len_h)
+		data = (short)va_arg(arg_ptr, int);
+	else if (spec->len_hh)
+		data = (char)va_arg(arg_ptr, int);
+	else
+		data = va_arg(arg_ptr, int);
+
+/*
 	if (
 		(spec->len_ll && (data = va_arg(arg_ptr, long long))) ||
 		(spec->len_l && (data = va_arg(arg_ptr, long))) ||
@@ -52,32 +64,36 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 		(data = va_arg(arg_ptr, int)))
 		;
 	else
-		data = 0;
+		data = 0;*/
+//	if (spec->len_l)
+//		data = va_arg(arg_ptr, long);
 	if (spec->precision == DOT_ZERO && data == 0)
 	{
 		spec->precision = 0;
 		return (ft_strnew(0));
 	}
-	if (spec->flag_space && (spec->precision < spec->width))
-		spec->width -= 1;
 	spec->is_negative = data < 0;
 	spec->dig_amount = count_digit64(data);
+	if (spec->flag_space && (spec->precision < spec->width))
+		spec->width -= 1;
+//	if (spec->is_negative && (spec->precision < spec->width))
+	//	spec->width -= 1;
 	return (itoa64(data));
 }
 
 char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
-
-	if (
-		(spec->len_ll && (data = va_arg(arg_ptr, unsigned long long))) ||
-		(spec->len_l && (data = va_arg(arg_ptr, unsigned long))) ||
-		(spec->len_h && (data = (unsigned short)va_arg(arg_ptr, int))) ||
-		(spec->len_hh && (data = (unsigned char)va_arg(arg_ptr, int))) ||
-		(data = va_arg(arg_ptr, unsigned int)))
-		;
+	if (spec->len_l)
+		data = va_arg(arg_ptr, unsigned long);
+	else if (spec->len_ll)
+		data = va_arg(arg_ptr, unsigned long long);
+	else if (spec->len_h)
+		data = (unsigned short)va_arg(arg_ptr, int);
+	else if (spec->len_hh)
+		data = (unsigned char)va_arg(arg_ptr, int);
 	else
-		data = 0;
+		data = va_arg(arg_ptr, unsigned int);
 	spec->dig_amount = count_digit64u(data);
 	if (spec->precision == -42 && (spec->type != 'o' || !spec->flag_hash))
 	{
@@ -111,7 +127,7 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 		(s->type == 'i' && (type = int_sign_len(s, arg_ptr))) ||
 		(ft_strchr("uoxX", s->type) && (type = int_unsign_len(s, arg_ptr))))
 		;
-	if (ft_strchr("oxX", s->type))
+	if (ft_strchr("ouxX", s->type))
 	{
 		s->dig_amount = ft_strlen(type);
 		s->flag_space = 0;
