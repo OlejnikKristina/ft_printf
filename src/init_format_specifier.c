@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 21:57:53 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 12:08:33 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,16 +87,16 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 	return (true);
 }
 
-bool	check_type(char **input, s_format_spec *format_specifier, bool feature)
+bool	check_type(char **input, s_format_spec *format_specifier, bool no_dot)
 {
 	if (ft_strchr("%cspdiouxXf", **input))
 	{
 		format_specifier->type = **input;
 		(*input)++;
-		if (feature && ft_strchr("sidouxX", format_specifier->type)
+		if (no_dot && ft_strchr("sidouxX", format_specifier->type)
 		&& format_specifier->precision == 0)
-			format_specifier->precision = -42;
-		if (!feature && format_specifier->type == 'f'
+			format_specifier->precision = DOT_ZERO;
+		if (!no_dot && format_specifier->type == 'f'
 		&& format_specifier->precision == 0)
 			format_specifier->precision = 6;
 	}

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 21:58:22 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 12:08:22 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 {
-	bool	feature;
+	bool	dot_zero;
 
-	feature = 0;
+	dot_zero = 0;
 	check_flags(input, specifier);
 	check_width_filed(input, specifier);
-	feature = check_precision(input, specifier);
+	dot_zero = check_precision(input, specifier);
 	check_length_filed(input, specifier);
-	return (check_type(input, specifier, feature));
+	return (check_type(input, specifier, dot_zero));
 }
 /*
 return (

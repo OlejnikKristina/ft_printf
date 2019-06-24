@@ -24,7 +24,7 @@
 # define COMPLITED 1
 # define FINISHED 0
 # define STAR -1
-# define NO_DOT
+# define DOT_ZERO -42
 
 typedef struct	t_format_spec
 {

@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 21:47:50 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 12:54:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,13 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 		;
 	else
 		data = 0;
-	if (spec->precision == -42)
+	if (spec->precision == DOT_ZERO && data == 0)
 	{
 		spec->precision = 0;
 		return (ft_strnew(0));
 	}
+	if (spec->flag_space && (spec->precision < spec->width))
+		spec->width -= 1;
 	spec->is_negative = data < 0;
 	spec->dig_amount = count_digit64(data);
 	return (itoa64(data));
