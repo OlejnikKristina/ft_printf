@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/24 22:52:17 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 22:59:34 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ return (
 int		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 va_list arg_ptr)
 {
-	if (ft_strchr("diouxXp", specifier->type))
+	if (ft_strchr("diouxX", specifier->type))
 		integer(specifier, spec_res, arg_ptr);
 	if (specifier->type == 's')
 		type_s(specifier, spec_res, arg_ptr);

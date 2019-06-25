@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/24 22:36:27 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/24 22:59:23 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,6 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 		data = (char)va_arg(arg_ptr, int);
 	else
 		data = va_arg(arg_ptr, int);
-
-/*
-	if (
-		(spec->len_ll && (data = va_arg(arg_ptr, long long))) ||
-		(spec->len_l && (data = va_arg(arg_ptr, long))) ||
-		(spec->len_h && (data = (short)va_arg(arg_ptr, int))) ||
-		(spec->len_hh && (data = (char)va_arg(arg_ptr, int))) ||
-		(data = va_arg(arg_ptr, int)))
-		;
-	else
-		data = 0;*/
-//	if (spec->len_l)
-//		data = va_arg(arg_ptr, long);
 	if (spec->precision == DOT_ZERO && data == 0)
 	{
 		spec->precision = 0;
@@ -76,8 +63,6 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 	spec->dig_amount = count_digit64(data);
 	if (spec->flag_space && (spec->precision < spec->width))
 		spec->width -= 1;
-//	if (spec->is_negative && (spec->precision < spec->width))
-	//	spec->width -= 1;
 	return (itoa64(data));
 }
 
