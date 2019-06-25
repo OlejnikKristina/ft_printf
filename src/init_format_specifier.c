@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 12:42:50 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/25 20:42:35 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ bool	check_type(char **input, s_format_spec *format_specifier, bool no_dot)
 	{
 		format_specifier->type = **input;
 		(*input)++;
-		if (no_dot && ft_strchr("sidouxX", format_specifier->type)
+		if (no_dot && ft_strchr("sidouxXp", format_specifier->type)
 		&& format_specifier->precision == 0)
 			format_specifier->precision = DOT_ZERO;
 		if (!no_dot && format_specifier->type == 'f'

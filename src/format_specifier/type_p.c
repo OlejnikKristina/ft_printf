@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 19:46:19 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/25 22:50:33 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ static	void	p_width(s_format_spec *s, s_placeholder *result, char *address_str)
 		result->str = ft_strdup(address_str);
 }
 
+static	void	p_precision(s_format_spec *s, s_placeholder *result, char *address_str)
+{
+//	if (s->precision <= s->dig_amount)
+//		return ;
+	
+}
+
 bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 {
 	int64_t		address;
@@ -53,10 +60,15 @@ bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 
 	address = va_arg(arg_ptr, long long);
 	address_str = ft_strdup("0x");
-	address_str = ft_superjoin(&address_str, itoa_base64(address, 16, 0));
+	if (address == 0 && specifier->precision == -42)
+		specifier->precision = 0;
+	else
+		address_str = ft_superjoin(&address_str, itoa_base64(address, 16, 0));
 //	len = ft_strlen(address_str);
 	specifier->dig_amount = ft_strlen(address_str);
+//	p_precision(specifier, result, address_str);
 	p_width(specifier, result, address_str);
+	int_precision(specifier, result);
 /*	if (len < specifier->width)
 	{
 		len = specifier->width - len;

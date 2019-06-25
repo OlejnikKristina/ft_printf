@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/24 22:59:23 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/25 20:30:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ bool	int_width(s_format_spec *s, s_placeholder *result)
 	size_t	len;
 
 	if (!s->width || s->flag_minus || s->width <= s->precision ||
+	s->width <=s->dig_amount ||
 	s->width <= (s->dig_amount - s->precision))
 		return (false);
 	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
@@ -61,7 +62,7 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 	}
 	spec->is_negative = data < 0;
 	spec->dig_amount = count_digit64(data);
-	if (spec->flag_space && (spec->precision < spec->width))
+	if (spec->flag_space && (spec->precision < spec->width) && !spec->flag_zero)
 		spec->width -= 1;
 	return (itoa64(data));
 }

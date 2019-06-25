@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 21:28:44 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/25 20:17:37 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 {
 	if (s->is_negative && (!s->flag_zero || s->precision))
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
-	else if (s->flag_plus && (!s->flag_zero || s->precision)
-	&& !s->is_negative)
+	else if (s->flag_plus && (!s->flag_zero || s->precision ||
+	(s->flag_zero && s->width < s->dig_amount)) && !s->is_negative)
 		spec_res->str = ft_superjoin(&spec_res->str, "+");
 	else if (s->flag_space && !s->flag_zero)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
