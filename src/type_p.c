@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 12:25:31 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 16:50:50 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ static	void	p_width(s_format_spec *s, s_placeholder *result)
 	char		*add_space;
 	char		*holder;
 
-	(s->flag_zero) ?
-	(sign = '0') :
-	(sign = ' ');//35 - 22 = 13;
+	sign = s->flag_zero ? '0' : ' ';
 	len = s->width - s->dig_amount;
 	if (len <= 0)
 		return ;
@@ -108,7 +106,10 @@ bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 
 	address = va_arg(arg_ptr, long long);
 	if (address == 0 && specifier->precision == -42)
+	{
 		specifier->precision = 0;
+		address_str = ft_strnew(0);
+	}
 	else
 		address_str = itoa_base64(address, 16, 0);
 	specifier->dig_amount = ft_strlen(address_str);

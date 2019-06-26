@@ -6,20 +6,20 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 22:50:11 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 19:54:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
+bool	init_specifier(char **input, s_format_spec *specifier, s_output *out,
+va_list arg_ptr)
 {
 	bool	dot_zero;
 
-	dot_zero = 0;
 	check_flags(input, specifier);
-	check_width_filed(input, specifier);
-	dot_zero = check_precision(input, specifier);
+	check_width_filed(input, specifier, arg_ptr);
+	dot_zero = check_precision(input, specifier, arg_ptr);
 	check_length_filed(input, specifier);
 	return (check_type(input, specifier, dot_zero));
 }
@@ -27,6 +27,14 @@ bool	init_specifier(char **input, s_format_spec *specifier, s_output *out)
 int		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
 va_list arg_ptr)
 {
+	if (specifier->precision == STAR)
+	{
+		specifier->precision = (int)va_arg(arg_ptr, int);
+		if (specifier->precision == 0 && specifier->type == 's')
+			specifier->precision = DOT_ZERO;
+		else if (specifier->precision < 0)
+			specifier->precision = 0;
+	}
 	if (ft_strchr("diouxX", specifier->type))
 		integer(specifier, spec_res, arg_ptr);
 	if (specifier->type == 's')
@@ -47,9 +55,7 @@ int		huj(s_format_spec *s, s_placeholder *result, s_output *out)
 {
 	char	fill_chr;
 
-	(s->flag_zero) ?
-	(fill_chr = '0') :
-	(fill_chr = ' ');
+	fill_chr = s->flag_zero ? '0' : ' ';
 	out->usage += ft_strlen(out->str);
 	out->usage += 1;
 	ft_putstr(out->str);
@@ -79,19 +85,22 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	int				i;
 
 	result.str = NULL;
-	ft_bzero((void *)&specifier, sizeof(specifier));
 	while (copy_until(input, out, '%') != FINISHED)
 	{
+		ft_bzero((void *)&specifier, sizeof(specifier));
 		input = ft_strchr(input, '%') + 1;
 		holder = input;
-		if (init_specifier(&input, &specifier, out) == false)
+		if (init_specifier(&input, &specifier, out, arg_ptr) == false)
 			input = holder;
 		else
 		{
 			if (proccesing_specifier(&specifier, &result, arg_ptr) == -2)
 				huj(&specifier, &result, out);
 			else
+			{
 				out->str = ft_superjoin(&out->str, result.str);
+				ft_strdel(&result.str);
+			}
 		}
 	}
 	if (out->str)

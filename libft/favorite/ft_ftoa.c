@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 14:18:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:03:50 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
+static void		add_zeros(unsigned dig_amount, char **result, ssize_t width)
 {
 	int			extra_zeros;
 	char		*zeros_str;
@@ -27,37 +27,40 @@ static void	add_zeros(unsigned dig_amount, char **result, ssize_t width)
 	return ;
 }
 
-
-static void	f_rounding(char **float_str)
+static short	f_rounding(char **float_str, int len)
 {
-	int		len;
+	short	nine;
 
-	len = ft_strlen(*float_str) - 1;
-	if ('5' <= (*float_str)[len] && (*float_str)[len] != '0')
+	nine = 0;
+	if ((*float_str)[len] <= '5' || !len || (*float_str)[len] == '.')
 	{
-		if ((*float_str)[len - 1] == '9')
-		{
-			(*float_str)[len - 1] = '0';
-			if ((*float_str)[len - 2] != '9')
-				(*float_str)[len - 2] += 1;
-		}
-		else
-			(*float_str)[len - 1] += 1;
+		if ((*float_str)[len] == '.')
+			return ((*float_str)[len + 1] == '9');
+		if ((*float_str)[len] != '.')
+			(*float_str)[len] += 1;
+		return (0);
 	}
+	if ('5' < (*float_str)[len])
+		nine = f_rounding(float_str, len - 1);
+	if ('9' == (*float_str)[len] && !nine)
+		(*float_str)[len] = '0';
+	else if (!nine)
+		(*float_str)[len] = (*float_str)[len] + 1;
+	return (0);
 }
 
-static void	f_add_exponent(char **exponent_str,
+static void		f_add_exponent(char **exponent_str,
 char **float_str, unsigned precision)
 {
 	*float_str = ft_superjoin(float_str, ".");
 	if (*exponent_str[0] == '0')
 		add_zeros(0, exponent_str, precision);
 	*float_str = ft_superjoin(float_str, *exponent_str);
-	f_rounding(float_str);
+	f_rounding(float_str, ft_strlen(*float_str) - 1);
 	ft_strdel(exponent_str);
 }
 
-void		ft_ftoa(long double num, char **float_str, unsigned precision,
+void			ft_ftoa(long double num, char **float_str, unsigned precision,
 long double multiply_me)
 {
 	unsigned long long	exponent;

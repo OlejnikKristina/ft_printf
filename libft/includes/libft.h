@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/01 17:36:16 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 15:50:24 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:06:46 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,8 +112,8 @@ char				*itoa64u(uint64_t nbr);
 char				*itoa64(int64_t nbr);
 char				*itoa_base64u(uint64_t value, short base, bool uppercase);
 char				*itoa_base64(int64_t value, short base, bool uppercase);
-void				ft_ftoa(long double num, char **float_str, unsigned precision,
-					long double multiply_me);
+void				ft_ftoa(long double num, char **float_str,
+					unsigned precision, long double multiply_me);
 char				*pf_itoa_ll(long long nbr);
 unsigned			count_digit64u(uint64_t nbr);
 unsigned			count_digit64(int64_t nbr);

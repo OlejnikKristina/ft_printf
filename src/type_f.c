@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/21 16:12:02 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 18:20:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ char **fill_precision)
 void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
 {
 	if (spec->flag_plus && !spec->is_negative)
-	{
 		result->str = ft_strjoin("+", holder);
-	}
 	else if (spec->flag_space && (!spec->flag_zero || spec->flag_minus))
 		result->str = ft_strjoin(" ", holder);
 	else if (!result->str)
@@ -94,10 +92,10 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 	char		*holder;
 	char		*fill_precision;
 
-	if (specifier->width == STAR)
-		specifier->width = va_arg(arg_ptr, long);
-	if (specifier->precision == STAR)
-		specifier->precision = va_arg(arg_ptr, long);
+	// if (specifier->width == STAR)
+	// 	specifier->width = va_arg(arg_ptr, long);
+	// if (specifier->precision == STAR)
+	// 	specifier->precision = va_arg(arg_ptr, long);
 	if (specifier->len_L)
 		value = (long double)va_arg(arg_ptr, long double);
 	else

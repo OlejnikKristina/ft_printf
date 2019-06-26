@@ -20,18 +20,18 @@ LIBFT		=	libft/favorite/*.c libft/mem/*.c \
 INCLUDES	=	includes/
 SRC			=	src/ft_printf.c \
 				src/init_format_specifier.c \
-				src/format_specifier/integer.c \
-				src/format_specifier/int_flag.c \
-				src/format_specifier/int_precision.c \
-				src/format_specifier/add_zeros.c \
-				src/format_specifier/type_c.c \
-				src/format_specifier/type_p.c \
-				src/format_specifier/type_f.c \
-				src/format_specifier/type_percent.c \
-				src/format_specifier/type_s.c
+				src/integer.c \
+				src/int_flag.c \
+				src/int_precision.c \
+				src/add_zeros.c \
+				src/type_c.c \
+				src/type_p.c \
+				src/type_f.c \
+				src/type_percent.c \
+				src/type_s.c
 
-UTILITY		=	src/utility/copy_until.c \
-				src/utility/move_ptr.c
+UTILITY		=	src/copy_until.c \
+				src/move_ptr.c
 
 ALL_OBJECT_FILES = $(SRC:.c=.o) $(UTILITY:.c=.o)
 all: $(NAME)

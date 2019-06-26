@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 20:30:10 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 18:47:21 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,15 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
-	if (spec->len_l)
-		data = va_arg(arg_ptr, unsigned long);
-	else if (spec->len_ll)
+
+	if (spec->len_ll)
 		data = va_arg(arg_ptr, unsigned long long);
+	else if (spec->len_l)
+		data = va_arg(arg_ptr, unsigned long);
 	else if (spec->len_h)
-		data = (unsigned short)va_arg(arg_ptr, int);
+		data = (unsigned short)va_arg(arg_ptr, unsigned int);
 	else if (spec->len_hh)
-		data = (unsigned char)va_arg(arg_ptr, int);
+		data = (unsigned char)va_arg(arg_ptr, unsigned int);
 	else
 		data = va_arg(arg_ptr, unsigned int);
 	spec->dig_amount = count_digit64u(data);
@@ -87,6 +88,9 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		spec->flag_hash = 0;
 		return (ft_strnew(0));
 	}
+	if (spec->type == 'o' && spec->flag_hash 
+	&& (spec->dig_amount < spec->precision))
+		spec->flag_hash = 0;
 	if (spec->flag_hash && ft_strchr("xX", spec->type)
 	&& (!spec->flag_zero || spec->flag_minus))
 		(spec->width -= 2);
@@ -106,13 +110,10 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 {
 	char	*type;
 
-	if (
-		(s->width == STAR && (s->width = va_arg(arg_ptr, long))) ||
-		(s->precision == STAR && (s->precision = va_arg(arg_ptr, long))) ||
-		(s->type == 'd' && (type = int_sign_len(s, arg_ptr))) ||
-		(s->type == 'i' && (type = int_sign_len(s, arg_ptr))) ||
-		(ft_strchr("uoxX", s->type) && (type = int_unsign_len(s, arg_ptr))))
-		;
+	if (s->type == 'd' || s->type == 'i')
+		type = int_sign_len(s, arg_ptr);
+	if (ft_strchr("uoxX", s->type))
+		type = int_unsign_len(s, arg_ptr);
 	if (ft_strchr("ouxX", s->type))
 	{
 		s->dig_amount = ft_strlen(type);

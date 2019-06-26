@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 20:42:35 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 19:55:28 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,32 +31,37 @@ bool	check_flags(char **input, s_format_spec *specifier)
 	return (true);
 }
 
-bool	check_precision(char **input, s_format_spec *format_specifier)
+bool	check_precision(char **input, s_format_spec *specifier, va_list arg_ptr)
 {
-	format_specifier->precision = 0;
+	specifier->precision = 0;
 	if ((*input)[0] == '.')
 		(*input)++;
 	else
 		return (false);
 	if (**input == '*')
 	{
-		format_specifier->precision = -1;
+		specifier->precision = -4242;
 		(*input)++;
 	}
 	else if (ft_isdigit(**input))
 	{
-		format_specifier->precision = ft_atoi(*input);
-		(*input) += ft_count_digit(format_specifier->precision);
+		specifier->precision = ft_atoi(*input);
+		(*input) += ft_count_digit(specifier->precision);
 	}
 	return (true);
 }
 
-bool	check_width_filed(char **input, s_format_spec *format_specifier)
+bool	check_width_filed(char **input, s_format_spec *format_specifier, va_list arg_ptr)
 {
 	format_specifier->width = 0;
 	if (**input == '*')
 	{
-		format_specifier->width = -1;
+		format_specifier->width = (int)va_arg(arg_ptr, int);
+		if (format_specifier->width < 0)
+		{
+			format_specifier->width *= -1;
+			format_specifier->flag_minus = true;
+		}
 		(*input)++;
 	}
 	else if (ft_isdigit(**input))
@@ -87,18 +92,17 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 	return (true);
 }
 
-bool	check_type(char **input, s_format_spec *format_specifier, bool no_dot)
+bool	check_type(char **input, s_format_spec *specifier, bool no_dot)
 {
 	if (ft_strchr("%cspdiouxXf", **input))
 	{
-		format_specifier->type = **input;
+		specifier->type = **input;
 		(*input)++;
-		if (no_dot && ft_strchr("sidouxXp", format_specifier->type)
-		&& format_specifier->precision == 0)
-			format_specifier->precision = DOT_ZERO;
-		if (!no_dot && format_specifier->type == 'f'
-		&& format_specifier->precision == 0)
-			format_specifier->precision = 6;
+		if (no_dot && ft_strchr("sidouxXp", specifier->type)
+		&& specifier->precision == 0)
+			specifier->precision = DOT_ZERO;
+		if (!no_dot && specifier->type == 'f' && specifier->precision == 0)
+			specifier->precision = 6;
 	}
 	else
 		return (false);

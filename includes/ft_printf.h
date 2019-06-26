@@ -23,13 +23,13 @@
 
 # define COMPLITED 1
 # define FINISHED 0
-# define STAR -1
+# define STAR -4242
 # define DOT_ZERO -42
 
 typedef struct	t_format_spec
 {
-	ssize_t		width;
-	ssize_t		precision;
+	long		width;
+	long		precision;
 	unsigned	dig_amount;
 	bool		is_negative;
 	bool		flag_minus;
@@ -67,10 +67,11 @@ int				ft_printf(const char *format, ...);
 char			*ft_superjoin(char **s1, const char *s2);
 bool			copy_until(char *src, s_output *out, char percent);
 void			move_ptr(char **input, char move_to, s_output *out);
+
 bool			check_type(char **input, s_format_spec *format_specifier, bool feature);
 bool			check_length_filed(char **input, s_format_spec *format_specifier);
-bool			check_width_filed(char **input, s_format_spec *format_specifier);
-bool			check_precision(char **input, s_format_spec *format_specifier);
+bool			check_width_filed(char **input, s_format_spec *format_specifier, va_list arg_ptr);
+bool			check_precision(char **input, s_format_spec *format_specifier, va_list arg_ptr);
 bool			check_flags(char **input, s_format_spec *format_specifier);
 
 void			integer(s_format_spec *specifier, s_placeholder *spec_res, va_list arg_ptr);
