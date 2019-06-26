@@ -25,6 +25,7 @@
 # define FINISHED 0
 # define STAR -4242
 # define DOT_ZERO -42
+# define UNPR_NULL -2
 
 typedef struct	t_format_spec
 {

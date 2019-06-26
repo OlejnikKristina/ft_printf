@@ -6,18 +6,18 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 18:47:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 22:00:41 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	int_width(s_format_spec *s, s_placeholder *result)
+bool			int_width(s_format_spec *s, s_placeholder *result)
 {
 	size_t	len;
 
 	if (!s->width || s->flag_minus || s->width <= s->precision ||
-	s->width <=s->dig_amount ||
+	s->width <= s->dig_amount ||
 	s->width <= (s->dig_amount - s->precision))
 		return (false);
 	if (s->flag_plus && !s->is_negative && (!s->flag_zero || s->precision))
@@ -41,7 +41,7 @@ bool	int_width(s_format_spec *s, s_placeholder *result)
 	return (true);
 }
 
-char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
+char			*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	int64_t		data;
 
@@ -67,20 +67,26 @@ char	*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 	return (itoa64(data));
 }
 
-char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
+static uint64_t	uint_set_value(s_format_spec *format_specifier,
+va_list arg_ptr)
+{
+	if (format_specifier->len_ll)
+		return (va_arg(arg_ptr, unsigned long long));
+	else if (format_specifier->len_l)
+		return (va_arg(arg_ptr, unsigned long));
+	else if (format_specifier->len_h)
+		return ((unsigned short)va_arg(arg_ptr, unsigned int));
+	else if (format_specifier->len_hh)
+		return ((unsigned char)va_arg(arg_ptr, unsigned int));
+	else
+		return (va_arg(arg_ptr, unsigned int));
+}
+
+char			*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
 
-	if (spec->len_ll)
-		data = va_arg(arg_ptr, unsigned long long);
-	else if (spec->len_l)
-		data = va_arg(arg_ptr, unsigned long);
-	else if (spec->len_h)
-		data = (unsigned short)va_arg(arg_ptr, unsigned int);
-	else if (spec->len_hh)
-		data = (unsigned char)va_arg(arg_ptr, unsigned int);
-	else
-		data = va_arg(arg_ptr, unsigned int);
+	data = uint_set_value(spec, arg_ptr);
 	spec->dig_amount = count_digit64u(data);
 	if (spec->precision == -42 && (spec->type != 'o' || !spec->flag_hash))
 	{
@@ -88,7 +94,7 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		spec->flag_hash = 0;
 		return (ft_strnew(0));
 	}
-	if (spec->type == 'o' && spec->flag_hash 
+	if (spec->type == 'o' && spec->flag_hash
 	&& (spec->dig_amount < spec->precision))
 		spec->flag_hash = 0;
 	if (spec->flag_hash && ft_strchr("xX", spec->type)
@@ -106,7 +112,8 @@ char	*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		return (itoa64u(data));
 }
 
-void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
+void			integer(s_format_spec *s, s_placeholder *result,
+va_list arg_ptr)
 {
 	char	*type;
 
@@ -127,7 +134,7 @@ void	integer(s_format_spec *s, s_placeholder *result, va_list arg_ptr)
 	(!s->is_negative || (!s->width && s->flag_zero && s->is_negative)
 	|| (s->is_negative && s->flag_zero && s->flag_minus))
 	? (result->str = ft_superjoin(&result->str, type)) :
-	(result->str = ft_superjoin(&result->str, &type[1])) ;
+	(result->str = ft_superjoin(&result->str, &type[1]));
 	int_flag_minus(s, result);
 	ft_strdel(&type);
 }

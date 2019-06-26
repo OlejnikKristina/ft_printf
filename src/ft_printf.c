@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 19:54:53 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:40:21 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ va_list arg_ptr)
 	if (specifier->type == '%')
 		type_percent(specifier, spec_res, arg_ptr);
 	if (specifier->type == 'c')
-		if (type_c(specifier, spec_res, arg_ptr) == -2)
-			return (-2);
+		if (type_c(specifier, spec_res, arg_ptr) == UNPR_NULL)
+			return (UNPR_NULL);
 	return (1);
 }
 
-int		huj(s_format_spec *s, s_placeholder *result, s_output *out)
+int		unprintable_chr(s_format_spec *s, s_placeholder *result, s_output *out)
 {
 	char	fill_chr;
 
@@ -82,7 +82,6 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 	s_format_spec	specifier;
 	s_placeholder	result;
 	char			*holder;
-	int				i;
 
 	result.str = NULL;
 	while (copy_until(input, out, '%') != FINISHED)
@@ -94,8 +93,8 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			input = holder;
 		else
 		{
-			if (proccesing_specifier(&specifier, &result, arg_ptr) == -2)
-				huj(&specifier, &result, out);
+			if (proccesing_specifier(&specifier, &result, arg_ptr) == UNPR_NULL)
+				unprintable_chr(&specifier, &result, out);
 			else
 			{
 				out->str = ft_superjoin(&out->str, result.str);
@@ -103,14 +102,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			}
 		}
 	}
-	if (out->str)
-	{
-		ft_putstr(out->str);
-		out->usage += ft_strlen(out->str);
-		//ft_strdel(&out->str);
-	}
-	if (result.str)
-		ft_strdel(&result.str);
+	(result.str) ? ft_strdel(&result.str) : 1;
 	return (FINISHED);
 }
 
@@ -126,7 +118,11 @@ int		ft_printf(const char *format, ...)
 	out.str = ft_strnew(0);
 	if (read_input(input, arg_ptr, &out) == FINISHED)
 		if (out.str)
+		{
+			ft_putstr(out.str);
+			out.usage += ft_strlen(out.str);
 			ft_strdel(&out.str);
+		}
 	ft_strdel(&input);
 	return (out.usage);
 }

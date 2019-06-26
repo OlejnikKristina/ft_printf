@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/25 20:17:37 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:33:26 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 		spec_res->str = ft_superjoin(&spec_res->str, " ");
 	if (s->flag_hash && ft_strchr("xX", s->type) && ft_strcmp(num, "0"))
 	{
-		if (!s->flag_zero || s->flag_minus || (s->width <= (ft_strlen(num) + 2)))
+		if (!s->flag_zero || s->flag_minus ||
+		(s->width <= (ft_strlen(num) + 2)))
 		{
 			spec_res->str = ft_superjoin(&spec_res->str, "0x");
 			if (s->type == 'X')
@@ -53,4 +54,5 @@ void	int_flag_minus(s_format_spec *s, s_placeholder *result)
 	set_width = ft_strnew(width + 1);
 	set_width = ft_memset((void *)set_width, ' ', width);
 	result->str = ft_superjoin(&result->str, set_width);
+	ft_strdel(&set_width);
 }

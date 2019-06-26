@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 19:55:28 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:10:01 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ bool	check_precision(char **input, s_format_spec *specifier, va_list arg_ptr)
 	return (true);
 }
 
-bool	check_width_filed(char **input, s_format_spec *format_specifier, va_list arg_ptr)
+bool	check_width_filed(char **input, s_format_spec *format_specifier,
+va_list arg_ptr)
 {
 	format_specifier->width = 0;
 	if (**input == '*')

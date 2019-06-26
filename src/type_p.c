@@ -6,50 +6,26 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 16:50:50 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 21:58:04 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-/*
-static	void	p_width(s_format_spec *s, s_placeholder *result, char *address_str)
-{
-	int			len;
-	char		sign;
-	char		*minus_flag;
 
-	(s->flag_zero) ?
-	(sign = '0') :
-	(sign = ' ');
-	len = s->width - s->dig_amount;
-	if (0 < len && !s->flag_minus)
-	{
-		result->str = ft_strnew(len);
-		ft_memset((void *)result->str, sign, len);
-		result->str = ft_superjoin(&result->str, address_str);
-		if (s->flag_zero)
-		{
-			result->str[1] = 'x';
-			result->str[len + 1] = '0';
-		}
-	}
-	else if (0 < len && s->flag_minus)
-	{
-		result->str = ft_strdup(address_str);
-		minus_flag = ft_strnew(len);
-		ft_memset((void *)minus_flag, sign, len);
-		result->str = ft_superjoin(&result->str, minus_flag);
-		ft_strdel(&minus_flag);
-	}
-	else
-		result->str = ft_strdup(address_str);
-}*/
+static	void	p_flag_minus(s_placeholder *result, char sign, int len)
+{
+	char		*add_space;
+
+	add_space = ft_strnew(len);
+	ft_memset((void *)add_space, sign, len);
+	result->str = ft_superjoin(&result->str, add_space);
+	ft_strdel(&add_space);
+}
 
 static	void	p_width(s_format_spec *s, s_placeholder *result)
 {
 	int			len;
 	char		sign;
-	char		*minus_flag;
 	char		*add_space;
 	char		*holder;
 
@@ -71,15 +47,11 @@ static	void	p_width(s_format_spec *s, s_placeholder *result)
 		}
 	}
 	else if (s->flag_minus)
-	{
-		add_space = ft_strnew(len);
-		ft_memset((void *)add_space, sign, len);
-		result->str = ft_superjoin(&result->str, add_space);
-		ft_strdel(&add_space);
-	}
+		p_flag_minus(result, sign, len);
 }
 
-static	void	p_precision(s_format_spec *s, s_placeholder *result, char *address_str)
+static	void	p_precision(s_format_spec *s, s_placeholder *result,
+char *address_str)
 {
 	char	*fill_precis;
 	int		prec_size;
@@ -99,7 +71,8 @@ static	void	p_precision(s_format_spec *s, s_placeholder *result, char *address_s
 	s->dig_amount = ft_strlen(result->str);
 }
 
-bool	type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+bool			type_p(s_format_spec *specifier, s_placeholder *result,
+va_list arg_ptr)
 {
 	int64_t		address;
 	char		*address_str;

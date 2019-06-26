@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 18:20:08 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/26 20:41:12 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,6 @@ bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
 	char		*holder;
 	char		*fill_precision;
 
-	// if (specifier->width == STAR)
-	// 	specifier->width = va_arg(arg_ptr, long);
-	// if (specifier->precision == STAR)
-	// 	specifier->precision = va_arg(arg_ptr, long);
 	if (specifier->len_L)
 		value = (long double)va_arg(arg_ptr, long double);
 	else
