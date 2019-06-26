@@ -10,11 +10,14 @@ int		main()
 //	printf("orgn 0:{%15.5p}\n", 0);
 //	ft_printf("mine 0:{%15.5p}\n", 0);
 
-	printf("orgn 0:{%35.20p}\n", &p);
-	ft_printf("mine 0:{%35.20p}\n", &p);
+	printf("orgn 0:{%05p}\n", 4);
+	ft_printf("mine 0:{%05p}\n", 4);
 
-	printf("orgn 0:{%-15.5p}\n", &p);
-//	ft_printf("mine 0:{%-15.5p}\n", 4);
+	printf("orgn 0:{%05p}\n", 0);
+	ft_printf("mine 0:{%05p}\n", 0);
+
+	printf("orgn 0:{%5p}\n", 0);
+	ft_printf("mine 0:{%5p}\n", 0);
 
 
 	return (0);
