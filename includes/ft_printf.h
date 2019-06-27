@@ -30,7 +30,6 @@
 
 typedef struct	t_format_spec
 {
-	char		*color;
 	long		width;
 	long		precision;
 	unsigned	dig_amount;
@@ -93,4 +92,5 @@ bool			type_s(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_p(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr);
 bool			type_percent(s_format_spec *s, s_placeholder *result, va_list arg_ptr);
+bool			set_color(s_format_spec *specifier, s_placeholder *result, char **input);
 # endif

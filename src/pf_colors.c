@@ -6,12 +6,11 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 18:48:06 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 18:51:53 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 
 void	fill_palette_reg_colors(char *palette[][2])
 {
@@ -59,6 +58,7 @@ void	fill_palette_bold_colors(char *palette[][2])
 	palette[7][1] = GRAY_B;
 
 }
+
 bool	set_color(s_format_spec *specifier, s_placeholder *result, char **input)
 {
 	char	*palette[19][2];

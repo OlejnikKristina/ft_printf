@@ -28,6 +28,7 @@ SRC			=	src/ft_printf.c \
 				src/type_p.c \
 				src/type_f.c \
 				src/type_percent.c \
+				src/pf_colors.c \
 				src/type_s.c
 
 UTILITY		=	src/copy_until.c \

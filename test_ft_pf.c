@@ -35,10 +35,10 @@ int		main()
 //	printf("Return value origin pf:%d ", printf("Orgn pf:{%-15p}\n", 0));
 //	printf("Return  value  mine pf:%d\n", ft_printf("Mine pf:{%-15p}\n", 0));
 
-	pf_test_colors();
+//	pf_test_colors();
 
-//	printf("orgn printf:{%C}\n", 0, "42");
-//	 ft_printf("mine printf:{%.*s}\n\n", 0, "42");
+	printf("orgn printf:{%c}\n", 42);
+	ft_printf("mine printf:{%c}\n\n", 42);
 
 //	printf("\033[0;31m orgn printf:{%.0s\033[0m}\n", "42");
 //	ft_printf("mine printf:{%.0s}\n\n","42");

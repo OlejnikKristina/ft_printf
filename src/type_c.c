@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 21:55:25 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 19:47:06 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ va_list arg_ptr)
 {
 	char	symbol[5];
 
-	ft_strclr(symbol);
+	ft_bzero(symbol, 5);
 	symbol[0] = (char)va_arg(arg_ptr, int);
 	if (symbol[0] == 0)
-		return (UNPR_NULL);
+		return (-2);
 	if (1 < specifier->width && !specifier->flag_minus)
 	{
 		result->str = ft_strnew(specifier->width + 1);
