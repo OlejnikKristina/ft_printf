@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/04/01 17:36:16 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/22 15:33:19 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:54:58 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 /*
 ** ************************ Private ******************************** **
 */
-char				*ft_superjoin(char **s1, const char *s2);//NEW
+char				*ft_superjoin(char **s1, const char *s2);
 int					space(char c);
 int					ft_count_digit(long num);
 int					findchr(const char *s, int c);
@@ -103,7 +103,7 @@ int					kr_count_words(char const *s, char c);
 int					ft_recursive_factorial(int nb);
 int					ft_sqrt(int nb);
 void				ft_foreach(int *tab, int length, void (*f)(int));
-char				*ft_strrev(char str_rev[]);//NEW
+char				*ft_strrev(char str_rev[]);
 int					*ft_range(int min, int max);
 /*
 ** *********************** Itoas ********************************** **
@@ -112,8 +112,8 @@ char				*itoa64u(uint64_t nbr);
 char				*itoa64(int64_t nbr);
 char				*itoa_base64u(uint64_t value, short base, bool uppercase);
 char				*itoa_base64(int64_t value, short base, bool uppercase);
-void				ft_ftoa(long double num, char **float_str, unsigned precision,
-					long double multiply_me);
+void				ft_ftoa(long double num, char **float_str,
+					unsigned precision, long double multiply_me);
 char				*pf_itoa_ll(long long nbr);
 unsigned			count_digit64u(uint64_t nbr);
 unsigned			count_digit64(int64_t nbr);

@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 19:19:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 21:05:39 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	init_specifier(char **input, s_format_spec *specifier, s_output *out,
+bool	init_specifr(char **input, t_format_spec *specifier, t_output *out,
 va_list arg_ptr)
 {
 	bool	dot_zero;
@@ -24,7 +24,7 @@ va_list arg_ptr)
 	return (check_type(input, specifier, dot_zero));
 }
 
-int		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
+int		proccesing_specifier(t_format_spec *specifier, t_placeholder *spec_res,
 va_list arg_ptr, char **input)
 {
 	if (specifier->precision == STAR)
@@ -53,7 +53,7 @@ va_list arg_ptr, char **input)
 	return (1);
 }
 
-int		unprintable_chr(s_format_spec *s, s_placeholder *result, s_output *out)
+int		unprintable_chr(t_format_spec *s, t_placeholder *result, t_output *out)
 {
 	char	fill_chr;
 
@@ -79,10 +79,10 @@ int		unprintable_chr(s_format_spec *s, s_placeholder *result, s_output *out)
 	return (0);
 }
 
-bool	read_input(char *input, va_list arg_ptr, s_output *out)
+bool	read_input(char *input, va_list arg_ptr, t_output *out)
 {
-	s_format_spec	specifier;
-	s_placeholder	result;
+	t_format_spec	specifier;
+	t_placeholder	result;
 	char			*holder;
 
 	result.str = NULL;
@@ -95,8 +95,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			input = holder;
 		else
 		{
-			if (proccesing_specifier(&specifier, &result, arg_ptr,
-			&input) == -2)
+			if (proccesing_specifr(&specifier, &result, arg_ptr, &input) == -2)
 				unprintable_chr(&specifier, &result, out);
 			else
 			{
@@ -112,7 +111,7 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 int		ft_printf(const char *format, ...)
 {
 	va_list		arg_ptr;
-	s_output	out;
+	t_output	out;
 	char		*input;
 
 	va_start(arg_ptr, format);

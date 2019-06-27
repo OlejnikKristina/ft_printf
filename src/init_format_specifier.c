@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 19:16:16 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:51:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	check_flags(char **input, s_format_spec *specifier)
+bool	check_flags(char **input, t_format_spec *specifier)
 {
 	while (ft_strchr("-+ 0#", **input))
 	{
@@ -31,7 +31,7 @@ bool	check_flags(char **input, s_format_spec *specifier)
 	return (true);
 }
 
-bool	check_precision(char **input, s_format_spec *specifier, va_list arg_ptr)
+bool	check_precision(char **input, t_format_spec *specifier, va_list arg_ptr)
 {
 	specifier->precision = 0;
 	if ((*input)[0] == '.')
@@ -51,7 +51,7 @@ bool	check_precision(char **input, s_format_spec *specifier, va_list arg_ptr)
 	return (true);
 }
 
-bool	check_width_filed(char **input, s_format_spec *format_specifier,
+bool	check_width_filed(char **input, t_format_spec *format_specifier,
 va_list arg_ptr)
 {
 	format_specifier->width = 0;
@@ -73,7 +73,7 @@ va_list arg_ptr)
 	return (format_specifier->width);
 }
 
-bool	check_length_filed(char **input, s_format_spec *format_specifier)
+bool	check_length_filed(char **input, t_format_spec *format_specifier)
 {
 	if (**input == 'h' && (*input)[1] == 'h')
 		format_specifier->len_hh = true;
@@ -84,7 +84,7 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 	else if (**input == 'l')
 		format_specifier->len_l = true;
 	else if (**input == 'L')
-		format_specifier->len_L = true;
+		format_specifier->len_lupper = true;
 	else
 		return (false);
 	if (format_specifier->len_hh || format_specifier->len_ll)
@@ -93,7 +93,7 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 	return (true);
 }
 
-bool	check_type(char **input, s_format_spec *specifier, bool no_dot)
+bool	check_type(char **input, t_format_spec *specifier, bool no_dot)
 {
 	if (ft_strchr("%cspdiouxXfCS{", **input))
 	{

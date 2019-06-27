@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/07 23:29:00 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 20:33:26 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:47:10 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
+void	int_flag(t_format_spec *s, t_placeholder *spec_res, char *num)
 {
 	if (s->is_negative && (!s->flag_zero || s->precision))
 		spec_res->str = ft_superjoin(&spec_res->str, "-");
@@ -35,7 +35,7 @@ void	int_flag(s_format_spec *s, s_placeholder *spec_res, char *num)
 		spec_res->str = ft_superjoin(&spec_res->str, "0");
 }
 
-void	int_flag_minus(s_format_spec *s, s_placeholder *result)
+void	int_flag_minus(t_format_spec *s, t_placeholder *result)
 {
 	int		width;
 	char	*set_width;

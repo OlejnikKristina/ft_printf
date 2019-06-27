@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 21:58:04 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:45:48 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static	void	p_flag_minus(s_placeholder *result, char sign, int len)
+static	void	p_flag_minus(t_placeholder *result, char sign, int len)
 {
 	char		*add_space;
 
@@ -22,7 +22,7 @@ static	void	p_flag_minus(s_placeholder *result, char sign, int len)
 	ft_strdel(&add_space);
 }
 
-static	void	p_width(s_format_spec *s, s_placeholder *result)
+static	void	p_width(t_format_spec *s, t_placeholder *result)
 {
 	int			len;
 	char		sign;
@@ -50,7 +50,7 @@ static	void	p_width(s_format_spec *s, s_placeholder *result)
 		p_flag_minus(result, sign, len);
 }
 
-static	void	p_precision(s_format_spec *s, s_placeholder *result,
+static	void	p_precision(t_format_spec *s, t_placeholder *result,
 char *address_str)
 {
 	char	*fill_precis;
@@ -71,7 +71,7 @@ char *address_str)
 	s->dig_amount = ft_strlen(result->str);
 }
 
-bool			type_p(s_format_spec *specifier, s_placeholder *result,
+bool			type_p(t_format_spec *specifier, t_placeholder *result,
 va_list arg_ptr)
 {
 	int64_t		address;

@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 19:47:06 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:47:58 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	type_c_width(s_format_spec *specifier, s_placeholder *result)
+static void	type_c_width(t_format_spec *specifier, t_placeholder *result)
 {
 	char	*width_minus;
 
@@ -25,7 +25,7 @@ static void	type_c_width(s_format_spec *specifier, s_placeholder *result)
 	}
 }
 
-int			type_c(s_format_spec *specifier, s_placeholder *result,
+int			type_c(t_format_spec *specifier, t_placeholder *result,
 va_list arg_ptr)
 {
 	char	symbol[5];

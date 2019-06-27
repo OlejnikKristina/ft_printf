@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/06/02 12:36:11 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 22:00:41 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 21:07:31 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool			int_width(s_format_spec *s, s_placeholder *result)
+bool			int_width(t_format_spec *s, t_placeholder *result)
 {
 	size_t	len;
 
@@ -41,7 +41,7 @@ bool			int_width(s_format_spec *s, s_placeholder *result)
 	return (true);
 }
 
-char			*int_sign_len(s_format_spec *spec, va_list arg_ptr)
+char			*int_sign_len(t_format_spec *spec, va_list arg_ptr)
 {
 	int64_t		data;
 
@@ -67,7 +67,7 @@ char			*int_sign_len(s_format_spec *spec, va_list arg_ptr)
 	return (itoa64(data));
 }
 
-static uint64_t	uint_set_value(s_format_spec *format_specifier,
+static uint64_t	uint_set_value(t_format_spec *format_specifier,
 va_list arg_ptr)
 {
 	if (format_specifier->len_ll)
@@ -82,7 +82,7 @@ va_list arg_ptr)
 		return (va_arg(arg_ptr, unsigned int));
 }
 
-char			*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
+char			*int_unsign_len(t_format_spec *spec, va_list arg_ptr)
 {
 	uint64_t		data;
 
@@ -100,8 +100,7 @@ char			*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 	if (spec->flag_hash && ft_strchr("xX", spec->type)
 	&& (!spec->flag_zero || spec->flag_minus))
 		(spec->width -= 2);
-	if (spec->type == 'o' && spec->flag_hash)
-		spec->width -= 1;
+	(spec->type == 'o' && spec->flag_hash) ? (spec->width -= 1) : 1;
 	if (spec->type == 'o')
 		return (itoa_base64u(data, 8, 0));
 	if (spec->type == 'x')
@@ -112,7 +111,7 @@ char			*int_unsign_len(s_format_spec *spec, va_list arg_ptr)
 		return (itoa64u(data));
 }
 
-void			integer(s_format_spec *s, s_placeholder *result,
+void			integer(t_format_spec *s, t_placeholder *result,
 va_list arg_ptr)
 {
 	char	*type;

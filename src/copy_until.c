@@ -6,13 +6,13 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 23:52:32 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/23 17:49:36 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:46:39 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-bool	copy_until(char *src, s_output *out, char percent)
+bool	copy_until(char *src, t_output *out, char percent)
 {
 	int		copy_to;
 	char	*temp;

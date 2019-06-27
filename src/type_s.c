@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 20:42:24 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:48:44 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	add_space(unsigned dig_amount, char **result, ssize_t width)
 	return ;
 }
 
-void	str_width(s_format_spec *s, s_placeholder *result, char *cut_str)
+void	str_width(t_format_spec *s, t_placeholder *result, char *cut_str)
 {
 	int		len;
 
@@ -56,7 +56,7 @@ void	str_width(s_format_spec *s, s_placeholder *result, char *cut_str)
 	}
 }
 
-bool	type_s(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+bool	type_s(t_format_spec *specifier, t_placeholder *result, va_list arg_ptr)
 {
 	char	*line;
 	char	*holder;

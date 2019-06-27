@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/27 18:51:53 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:58:17 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,9 @@ void	fill_palette_bold_colors(char *palette[][2])
 	palette[6][1] = WHITE_B;
 	palette[7][0] = "GRAY_B}";
 	palette[7][1] = GRAY_B;
-
 }
 
-bool	set_color(s_format_spec *specifier, s_placeholder *result, char **input)
+bool	set_color(t_format_spec *specifier, t_placeholder *result, char **input)
 {
 	char	*palette[19][2];
 	char	*color;

@@ -6,14 +6,14 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 20:41:12 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 20:51:08 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	f_flag_zero(s_format_spec *spec,
-s_placeholder *result, unsigned len)
+void	f_flag_zero(t_format_spec *spec,
+t_placeholder *result, unsigned len)
 {
 	char		*zero_str;
 	char		*holder;
@@ -37,7 +37,7 @@ s_placeholder *result, unsigned len)
 	ft_strdel(&holder);
 }
 
-void	f_width(s_format_spec *spec, s_placeholder *result)
+void	f_width(t_format_spec *spec, t_placeholder *result)
 {
 	char	*holder;
 	char	*fill_width;
@@ -64,7 +64,7 @@ void	f_width(s_format_spec *spec, s_placeholder *result)
 	ft_strdel(&fill_width);
 }
 
-void	f_precision(s_format_spec *specifier, s_placeholder *result,
+void	f_precision(t_format_spec *specifier, t_placeholder *result,
 char **fill_precision)
 {
 	*fill_precision = NULL;
@@ -76,7 +76,7 @@ char **fill_precision)
 	}
 }
 
-void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
+void	f_flags(t_format_spec *spec, t_placeholder *result, char *holder)
 {
 	if (spec->flag_plus && !spec->is_negative)
 		result->str = ft_strjoin("+", holder);
@@ -86,13 +86,13 @@ void	f_flags(s_format_spec *spec, s_placeholder *result, char *holder)
 		result->str = ft_strdup(holder);
 }
 
-bool	type_f(s_format_spec *specifier, s_placeholder *result, va_list arg_ptr)
+bool	type_f(t_format_spec *specifier, t_placeholder *result, va_list arg_ptr)
 {
 	long double	value;
 	char		*holder;
 	char		*fill_precision;
 
-	if (specifier->len_L)
+	if (specifier->len_lupper)
 		value = (long double)va_arg(arg_ptr, long double);
 	else
 		value = (long double)va_arg(arg_ptr, double);
