@@ -1,32 +1,47 @@
 
 #include "includes/ft_printf.h"
 
+void	pf_test_colors()
+{
+	ft_printf("mine printf:\n\
+%{RED}I am red str\n\
+%{YELLOW}I am yellow str\n\
+%{PINK}I am pink str\n\
+%{GREEN}I am GREEN str\n\
+%{DARKBLUE}I am DARKLUE str\n\
+%{BLUE}I am BLUE str\n\
+%{WHITE}I am WHITE str\n\
+%{GRAY}I am GRAY str%{RESET}\n\
+%{RESET}I am regular str\n\
+%{PINK}I am PINK str\n\
+\
+%{RED_B}I am bold red str\n\
+%{YELLOW_B}I am bold yellow str\n\
+%{PINK_B}I am bold pink str\n\
+%{GREEN_B}I am bold GREEN str\n\
+%{RESET}I am regular str\n\
+%{DARK_BLUE_B}I am bold DARK_BLUE str\n\
+%{BLUE_B}I am bold BLUE str\n\
+%{WHITE_B}I am bold WHITE str\n\
+%{GRAY_B}I am bold GRAY str\n\
+%{PINK_B}I am bold PINK str\n\
+%{ORANGE_B}I am bold ORANGE str%{RESET}\n\
+", 42);
+}
+
 int		main()
 {
 	int p;
 //	printf("Return value origin pf:%d ", printf("Orgn pf:{%-15p}\n", 0));
 //	printf("Return  value  mine pf:%d\n", ft_printf("Mine pf:{%-15p}\n", 0));
 
-	printf("orgn printf:{%*3d}\n", -5, 42);
-	ft_printf("mine printf:{%*3d}\n\n", -5, 42);
+	pf_test_colors();
 
-	printf("orgn printf:{%.*s}\n", 0, "42");
-	ft_printf("mine printf:{%.*s}\n\n", 0, "42");
+//	printf("orgn printf:{%C}\n", 0, "42");
+//	 ft_printf("mine printf:{%.*s}\n\n", 0, "42");
 
-	printf("orgn printf:{%.0s}\n", "42");
-	ft_printf("mine printf:{%.0s}\n\n","42");
-/*
-	printf("orgn printf:{%f}{%lf}\n", 1.42, (double)1.42);
-	ft_printf("mine printf:{%f}{%lf}\n\n", 1.42, (double)1.42);
-
-	printf("orgn printf:{%f}{%lf}\n", 3.72, (double)3.123);
-	ft_printf("mine printf:{%f}{%lf}\n\n", 3.72, (double)3.123);
-
-
-	printf("orgn printf:{%f}{%lf}\n", 2.32, (double)2.3l);
-	ft_printf("mine printf:{%f}{%lf}\n", 2.32, (double)2.3l);
-*/
-
+//	printf("\033[0;31m orgn printf:{%.0s\033[0m}\n", "42");
+//	ft_printf("mine printf:{%.0s}\n\n","42");
 
 	return (0);
 }

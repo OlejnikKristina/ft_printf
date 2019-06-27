@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/28 14:31:26 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 20:40:21 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 18:49:37 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ va_list arg_ptr)
 }
 
 int		proccesing_specifier(s_format_spec *specifier, s_placeholder *spec_res,
-va_list arg_ptr)
+va_list arg_ptr, char **input)
 {
+	if (specifier->color)
+		spec_res->str = ft_strdup(specifier->color);
 	if (specifier->precision == STAR)
 	{
 		specifier->precision = (int)va_arg(arg_ptr, int);
@@ -45,6 +47,8 @@ va_list arg_ptr)
 		type_f(specifier, spec_res, arg_ptr);
 	if (specifier->type == '%')
 		type_percent(specifier, spec_res, arg_ptr);
+	if (specifier->type == '{')
+		set_color(specifier, spec_res, input);
 	if (specifier->type == 'c')
 		if (type_c(specifier, spec_res, arg_ptr) == UNPR_NULL)
 			return (UNPR_NULL);
@@ -93,7 +97,8 @@ bool	read_input(char *input, va_list arg_ptr, s_output *out)
 			input = holder;
 		else
 		{
-			if (proccesing_specifier(&specifier, &result, arg_ptr) == UNPR_NULL)
+			if (proccesing_specifier(&specifier, &result, arg_ptr,
+			&input) == UNPR_NULL)
 				unprintable_chr(&specifier, &result, out);
 			else
 			{

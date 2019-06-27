@@ -12,6 +12,7 @@
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+# include "ftpf_colors.h"
 # include <stdint.h>
 # include <stdbool.h>
 # include <stdarg.h>
@@ -29,6 +30,7 @@
 
 typedef struct	t_format_spec
 {
+	char		*color;
 	long		width;
 	long		precision;
 	unsigned	dig_amount;

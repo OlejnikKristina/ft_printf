@@ -6,7 +6,7 @@
 /*   By: krioliin <krioliin@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/29 00:12:30 by krioliin       #+#    #+#                */
-/*   Updated: 2019/06/26 20:10:01 by krioliin      ########   odam.nl         */
+/*   Updated: 2019/06/27 18:49:32 by krioliin      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ va_list arg_ptr)
 		format_specifier->width = ft_atoi(*input);
 		(*input) += ft_count_digit(format_specifier->width);
 	}
+	else if(!ft_strcmp(*input, "RED"))
+	{
+		format_specifier->color = ft_strdup("\033[1;31m");
+		(*input) += 3;
+	}
 	return (format_specifier->width);
 }
 
@@ -95,15 +100,19 @@ bool	check_length_filed(char **input, s_format_spec *format_specifier)
 
 bool	check_type(char **input, s_format_spec *specifier, bool no_dot)
 {
-	if (ft_strchr("%cspdiouxXf", **input))
+	if (ft_strchr("%cspdiouxXf{", **input))
 	{
 		specifier->type = **input;
 		(*input)++;
-		if (no_dot && ft_strchr("sidouxXp", specifier->type)
+		if (no_dot && ft_strchr("sidouxXpCS", specifier->type)
 		&& specifier->precision == 0)
 			specifier->precision = DOT_ZERO;
 		if (!no_dot && specifier->type == 'f' && specifier->precision == 0)
 			specifier->precision = 6;
+		if (specifier->type == 'C')
+			specifier->type = 'c';
+		if (specifier->type == 'S')
+			specifier->type = 'c';
 	}
 	else
 		return (false);
