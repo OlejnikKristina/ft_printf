@@ -35,17 +35,21 @@ UTILITY		=	src/copy_until.c \
 				src/move_ptr.c
 
 ALL_OBJECT_FILES = $(SRC:.c=.o) $(UTILITY:.c=.o)
+
 all: $(NAME)
+
 $(NAME):
-	$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
+	@$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
+	@echo "\033[0;32mLinking objects files \033[0m"
 	ar rc $(NAME) *.o
 	ranlib $(NAME)
-	rm -f $(ALL_OBJECT_FILES) *.o
 clean:
-	rm -f $(ALL_OBJECT_FILES) *.o
+	@rm -f $(ALL_OBJECT_FILES) *.o
+	@echo "\033[0;33mRemove objects files from ft_printf\033[0m"
+	@make -C libft/ clean
 fclean: clean
-	rm -f $(NAME) *.o
+	rm -f $(NAME) *.o && make -C libft/ fclean
 home:
 	@$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) libft/libft.a -I$(INCLUDES) -g
 	@echo "\033[0;32mCompiling all files\033[0m"
-re: fclean $(NAME) clean
+re: fclean all
