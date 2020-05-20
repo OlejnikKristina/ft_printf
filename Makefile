@@ -12,7 +12,7 @@
 
 NAME		=	libftprintf.a
 NAME_PF		=	ft_printf
-COMPILER	=	clang
+COMPILER	=	gcc
 CHECK_LEAK	= 
 LIBFT		=	libft/favorite/*.c libft/mem/*.c \
 				libft/lst/*.c libft/other/*.c \
@@ -40,15 +40,15 @@ all: $(NAME)
 
 $(NAME):
 	@$(COMPILER) -c $(SRC) $(UTILITY) $(LIBFT) -I$(INCLUDES)
-	@echo "\033[0;32mLinking objects files \033[0m"
-	ar rc $(NAME) *.o
-	ranlib $(NAME)
+	@echo "\033[0;32mLinking objects files for ft_printf and libft \033[0m"
+	@ar rc $(NAME) *.o
+	@ranlib $(NAME)
 clean:
 	@rm -f $(ALL_OBJECT_FILES) *.o
 	@echo "\033[0;33mRemove objects files from ft_printf\033[0m"
 	@make -C libft/ clean
 fclean: clean
-	rm -f $(NAME) *.o && make -C libft/ fclean
+	@rm -f $(NAME) *.o && make -C libft/ fclean
 home:
 	@$(COMPILER) -o ft_printf test_ft_pf.c $(SRC) $(UTILITY) libft/libft.a -I$(INCLUDES) -g
 	@echo "\033[0;32mCompiling all files\033[0m"

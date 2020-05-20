@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-bool	init_specifr(char **input, t_format_spec *specifier, t_output *out,
+bool	init_specifier(char **input, t_format_spec *specifier, t_output *out,
 va_list arg_ptr)
 {
 	bool	dot_zero;
@@ -95,7 +95,7 @@ bool	read_input(char *input, va_list arg_ptr, t_output *out)
 			input = holder;
 		else
 		{
-			if (proccesing_specifr(&specifier, &result, arg_ptr, &input) == -2)
+			if (proccesing_specifier(&specifier, &result, arg_ptr, &input) == -2)
 				unprintable_chr(&specifier, &result, out);
 			else
 			{
